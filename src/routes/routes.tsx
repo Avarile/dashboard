@@ -32,6 +32,7 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
   }
   return children
 }
+
 type CutonFallBackT = boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null
 type ChildT = React.LazyExoticComponent<() => JSX.Element> | React.FC
 // 加载异步组件的loading
@@ -64,15 +65,15 @@ const SuspenseWrapperEX = (Child: any, cutonFallBack?: CutonFallBackT) => {
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: SuspenseWrapperEX(Login),
+    element: SuspenseWrapper(Login),
   },
   {
     path: "/login",
-    element: SuspenseWrapperEX(Login),
+    element: SuspenseWrapper(Login),
   },
   {
     path: "/mainentrance",
-    element: SuspenseWrapperEX(() => {
+    element: SuspenseWrapper(() => {
       // a functional component is required here instead of a JSX tag
 
       return (
@@ -85,15 +86,15 @@ export const routes: RouteObject[] = [
       {
         index: true,
         path: "/mainentrance/dashboardmain",
-        element: SuspenseWrapperEX(DashboardMain),
+        element: SuspenseWrapper(DashboardMain),
       },
       {
         path: "/mainentrance/ordermanagment",
-        element: SuspenseWrapperEX(OrderManagment),
+        element: SuspenseWrapper(OrderManagment),
       },
       {
         path: "/mainentrance/warehousing",
-        element: SuspenseWrapperEX(WareHousing),
+        element: SuspenseWrapper(WareHousing),
       },
       {
         path: "*",

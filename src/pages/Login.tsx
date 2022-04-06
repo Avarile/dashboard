@@ -1,19 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
 import "antd/dist/antd.css"
 import { Form, Input, Button, Checkbox } from "antd"
 import Storage from "@SRC/data/session.controller"
 import Notification from "@SRC/components/Notification"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 
 const Login = () => {
   const navigate = useNavigate()
+  const [loginSuspense, setLoginSuspense] = useState(false)
 
   const fakeLoginApi = (values: { username: string; password: string }) => {
     setTimeout(() => {
       if (values.username === "Avarile" && values.password === "Avarile19840123") {
         Storage.setCacheData("USER", values)
         Notification({ type: "success", message: "Login Success!" })
-        navigate("./mainEntrance")
+        navigate("/mainentrance")
       } else {
         Notification({ type: "error", message: "Wrong username or password!" })
       }
@@ -86,7 +87,15 @@ const Login = () => {
             offset: 8,
             span: 16,
           }}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={loginSuspense}
+            onClick={() => {
+              setTimeout(() => {
+                setLoginSuspense(true)
+              }, 2000)
+            }}>
             Submit
           </Button>
         </Form.Item>
