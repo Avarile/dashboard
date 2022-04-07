@@ -65,7 +65,7 @@ const MainEntrance = () => {
         <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<CrownOutlined />}>
             <Link
-              to="/mainentrance/orderManagment"
+              to="/mainentrance/ordermanagment"
               style={{ textDecoration: "none" }}
             >
               订单管理

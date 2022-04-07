@@ -45,7 +45,8 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
   if (Storage.isVoid(user)) {
     return <Navigate to="/login" state={{ from: location }} replace />; // redirect the user to the /login page, but save the current location the user were. this allows us to send the user back to the page them after they login, which is nicer user experience than drop them off on home page
   }
-  return children;
+  // return children;
+  return <Navigate to="/mainentrance/ordermanagment" />;
 };
 
 type CutonFallBackT =
@@ -111,7 +112,7 @@ export const routes: RouteObject[] = [
     }, FallbackLoading),
     children: [
       {
-        index: true,
+        // index: true,
         path: "/mainentrance/ordermanagment",
         element: SuspenseWrapper(OrderManagment, FallbackLoading),
       },
