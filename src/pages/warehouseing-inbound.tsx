@@ -1,6 +1,6 @@
-import React, { useRef } from "react"
-import "antd/dist/antd.css"
-import { Form, Input, InputNumber, Button, FormInstance } from "antd"
+import React, { useRef } from "react";
+import "antd/dist/antd.css";
+import { Form, Input, InputNumber, Button, FormInstance } from "antd";
 const layout = {
   labelCol: {
     span: 4,
@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: {
     span: 16,
   },
-}
+};
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
@@ -20,17 +20,17 @@ const validateMessages = {
   number: {
     range: "${label} must be between ${min} and ${max}",
   },
-}
+};
 /* eslint-enable no-template-curly-in-string */
 
 const WarehousingInbound = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
-  const ref = useRef<FormInstance<any> | null>()
+  const ref = useRef<FormInstance<any> | null>();
 
   const onFinish = (values: any) => {
-    console.log(values)
-  }
+    console.log(values);
+  };
 
   return (
     <Form
@@ -41,26 +41,32 @@ const WarehousingInbound = () => {
       style={{ width: "100%" }}
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
-        ref.current = formInstance
-      }}>
+        ref.current = formInstance;
+      }}
+    >
       <Form.Item
         name={["user", "name"]}
-        label="Name"
+        label="Product Name"
         rules={[
           {
             required: true,
+            message: "Please input product name",
           },
-        ]}>
+        ]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
-        name={["user", "email"]}
-        label="Email"
+        name={["Product code"]}
+        label="Product Code"
         rules={[
           {
-            type: "email",
+            required: true,
+            message:
+              "must provide how many products has been deposite into the warehouse",
           },
-        ]}>
+        ]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -72,7 +78,8 @@ const WarehousingInbound = () => {
             min: 0,
             max: 99,
           },
-        ]}>
+        ]}
+      >
         <InputNumber />
       </Form.Item>
       <Form.Item name={["user", "website"]} label="Website">
@@ -87,12 +94,13 @@ const WarehousingInbound = () => {
         </Button>
         <Button
           onClick={() => {
-            ref.current?.resetFields()
-          }}>
+            ref.current?.resetFields();
+          }}
+        >
           Reset Form
         </Button>
       </Form.Item>
     </Form>
-  )
-}
-export default WarehousingInbound
+  );
+};
+export default WarehousingInbound;
