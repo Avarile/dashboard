@@ -14,7 +14,7 @@ const Login = () => {
       if (values.username === "Avarile" && values.password === "Avarile19840123") {
         Storage.setCacheData("USER", values)
         Notification({ type: "success", message: "Login Success!" })
-        navigate("/mainentrance")
+        navigate("/mainentrance/ordermanagment")
       } else {
         Notification({ type: "error", message: "Wrong username or password!" })
       }
