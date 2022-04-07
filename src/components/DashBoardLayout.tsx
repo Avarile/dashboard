@@ -1,7 +1,7 @@
 import React from "react"
 import { Content } from "antd/lib/layout/layout"
 
-const DashBoardMain = () => {
+const DashBoardLayout = () => {
   return (
     <Content
       className="site-layout-background"
@@ -13,4 +13,4 @@ const DashBoardMain = () => {
   )
 }
 
-export default DashBoardMain
+export default DashBoardLayout

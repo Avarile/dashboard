@@ -91,10 +91,12 @@ const Login = () => {
             type="primary"
             htmlType="submit"
             disabled={loginSuspense}
+            loading={loginSuspense}
             onClick={() => {
+              setLoginSuspense(true)
               setTimeout(() => {
-                setLoginSuspense(true)
-              }, 2000)
+                setLoginSuspense(false)
+              }, 3000)
             }}>
             Submit
           </Button>

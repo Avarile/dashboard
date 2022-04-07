@@ -3,8 +3,9 @@ import "antd/dist/antd.css"
 import { Layout, Menu, Button, Input } from "antd"
 import { MenuUnfoldOutlined, TabletOutlined, PoweroffOutlined, CrownOutlined, MenuFoldOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
+import Header from "@SRC/components/Header"
 
-const { Header, Sider, Content } = Layout
+const { Sider, Content } = Layout
 const { SubMenu } = Menu
 
 // Content
@@ -29,7 +30,18 @@ const MainEntrance = () => {
 
   const logout = () => {
     window.sessionStorage.clear()
-    navigate("/login")
+    setUiController({
+      ...uiController,
+      loading: true,
+    })
+    setTimeout(() => {
+      setUiController({
+        ...uiController,
+        loading: false,
+      })
+
+      navigate("/login")
+    }, 3000)
   }
 
   const toggle = () => {
@@ -89,43 +101,14 @@ const MainEntrance = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(uiController.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: "trigger",
-            onClick: toggle,
-          })}
-
-          <Button
-            onClick={() => {
-              setTimeout(() => {
-                console.log("logout")
-                logout()
-              }, 3000)
-            }}>
-            Logout
-          </Button>
-        </Header>
+        <Header logout={logout} toggle={toggle} uiController={uiController} setUiController={setUiController} />
         <Content
           className="site-layout-background"
           style={{
             margin: "24px 16px",
             padding: 24,
             minHeight: 280,
-          }}>
-          <Input placeholder="请输入搜索内容..." style={{ marginBottom: "15px", maxWidth: "40rem" }} />{" "}
-          <Button
-            type="primary"
-            icon={<PoweroffOutlined />}
-            loading={uiController.loading}
-            onClick={() => {
-              setUiController({
-                ...uiController,
-                loading: !uiController.loading,
-              })
-            }}>
-            搜索库存
-          </Button>
-        </Content>
+          }}></Content>
       </Layout>
     </Layout>
   )

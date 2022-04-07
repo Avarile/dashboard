@@ -36,9 +36,9 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 type CutonFallBackT = boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null
 type ChildT = React.LazyExoticComponent<() => JSX.Element> | React.FC
 // 加载异步组件的loading
-const SuspenseWrapper = (Child: ChildT, cutomFallBack?: CutonFallBackT) => {
+const SuspenseWrapper = (Child: ChildT, customFallBack?: FallbackComponentType) => {
   return (
-    <React.Suspense fallback={cutomFallBack || <>...</>}>
+    <React.Suspense fallback={customFallBack || <>...</>}>
       <Child />
     </React.Suspense>
   )
@@ -65,11 +65,11 @@ const SuspenseWrapperEX = (Child: any, cutonFallBack?: CutonFallBackT) => {
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: SuspenseWrapper(Login),
+    element: SuspenseWrapper(Login, FallbackLoading),
   },
   {
     path: "/login",
-    element: SuspenseWrapper(Login),
+    element: SuspenseWrapper(Login, FallbackLoading),
   },
   {
     path: "/mainentrance",
@@ -81,20 +81,20 @@ export const routes: RouteObject[] = [
           <MainEntrance />
         </RequireAuth>
       )
-    }),
+    }, FallbackLoading),
     children: [
       {
         index: true,
         path: "/mainentrance/dashboardmain",
-        element: SuspenseWrapper(DashboardMain),
+        element: SuspenseWrapper(DashboardMain, FallbackLoading),
       },
       {
         path: "/mainentrance/ordermanagment",
-        element: SuspenseWrapper(OrderManagment),
+        element: SuspenseWrapper(OrderManagment, FallbackLoading),
       },
       {
         path: "/mainentrance/warehousing",
-        element: SuspenseWrapper(WareHousing),
+        element: SuspenseWrapper(WareHousing, FallbackLoading),
       },
       {
         path: "*",
