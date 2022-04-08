@@ -37,7 +37,7 @@ const CreateNewItem = () => {
       name="nest-messages"
       onFinish={onFinish}
       // validateMessages={validateMessages}
-      style={{ minWidth: "80rem" }}
+      style={{ flex:1 }}
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
         ref.current = formInstance;

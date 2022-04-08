@@ -8,9 +8,11 @@ import { useNavigate } from "react-router"
 const Login = () => {
   const navigate = useNavigate()
   const [loginSuspense, setLoginSuspense] = useState(false)
-
+  debugger
   const fakeLoginApi = (values: { username: string; password: string }) => {
+    debugger
     setTimeout(() => {
+      debugger
       if (values.username === "Avarile" && values.password === "Avarile19840123") {
         Storage.setCacheData("USER", values)
         Notification({ type: "success", message: "Login Success!" })
@@ -96,12 +98,13 @@ const Login = () => {
             htmlType="submit"
             disabled={loginSuspense}
             loading={loginSuspense}
-            onClick={() => {
-              setLoginSuspense(true)
-              setTimeout(() => {
-                setLoginSuspense(false)
-              }, 3000)
-            }}>
+            // onClick={() => {
+            //   setLoginSuspense(true)
+            //   setTimeout(() => {
+            //     setLoginSuspense(false)
+            //   }, 3000)
+            // }}
+            >
             Submit
           </Button>
         </Form.Item>
