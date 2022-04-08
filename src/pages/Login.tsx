@@ -25,7 +25,7 @@ const Login = () => {
   }
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo)
+    Notification({ type: "error", message: "Wrong username or password!" })
   }
 
   return (
@@ -68,6 +68,10 @@ const Login = () => {
               required: true,
               message: "Please input your password!",
             },
+            // {
+            //   min: 8,
+            //   message: "password must be at least 8 digit.",
+            // },
           ]}>
           <Input.Password />
         </Form.Item>

@@ -75,7 +75,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "concurrently \" node scripts/start.js\" \"json-server --watch ./mockDatabase/db.json --port 3001 \"" ,
+    "start": "concurrently \" node scripts/start.js\" \"json-server --watch ./mockDatabase/db.json --port 3001 \"",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },

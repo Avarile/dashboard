@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import "antd/dist/antd.css";
-import { Form, Input, InputNumber, Button, FormInstance } from "antd";
+import React, { useRef } from "react"
+import "antd/dist/antd.css"
+import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
 const layout = {
   labelCol: {
     span: 4,
@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: {
     span: 20,
   },
-};
+}
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
@@ -20,17 +20,17 @@ const validateMessages = {
   number: {
     range: "${label} must be between ${min} and ${max}",
   },
-};
+}
 /* eslint-enable no-template-curly-in-string */
 
 const WarehousingDepositeForm = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
-  const ref = useRef<FormInstance<any> | null>();
+  const ref = useRef<FormInstance<any> | null>()
 
   const onFinish = (values: any) => {
-    console.log(values);
-  };
+    console.log(values)
+  }
 
   return (
     <Form
@@ -41,20 +41,15 @@ const WarehousingDepositeForm = () => {
       style={{ minWidth: "80rem" }}
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
-        ref.current = formInstance;
-      }}
-    >
-      <Form.Item
-        name={["product", "productName"]}
-        label="Product Name"
-        rules={[
-          {
-            required: true,
-            message: "Please input product name",
-          },
-        ]}
-      >
-        <Input />
+        ref.current = formInstance
+      }}>
+      <Form.Item label="Product Name" style={{ display: "flex" }}>
+        <Form.Item name={["product", "productName"]} rules={[{ required: true }]} style={{ width: "50%" }}>
+          <Input />
+        </Form.Item>
+        <Form.Item style={{ width: "50%" }}>
+          <Select></Select>
+        </Form.Item>
       </Form.Item>
       <Form.Item
         name={["product", "productSKU"]}
@@ -64,8 +59,7 @@ const WarehousingDepositeForm = () => {
             required: true,
             message: "must provide products SKU",
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -76,8 +70,7 @@ const WarehousingDepositeForm = () => {
             type: "number",
             message: "Quantity has to be number",
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item
@@ -89,32 +82,25 @@ const WarehousingDepositeForm = () => {
             min: 0,
             max: 99999,
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item name={["product", "productDescription"]} label="Description">
         <Input.TextArea style={{ minHeight: "20rem", maxHeight: "25rem" }} />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button
-          type="primary"
-          htmlType="submit"
-          block
-          style={{ marginBottom: "1rem" }}
-        >
+        <Button type="primary" htmlType="submit" block style={{ marginBottom: "1rem" }}>
           Submit
         </Button>
         <Button
           onClick={() => {
-            ref.current?.resetFields();
+            ref.current?.resetFields()
           }}
-          block
-        >
+          block>
           Reset Form
         </Button>
       </Form.Item>
     </Form>
-  );
-};
-export default WarehousingDepositeForm;
+  )
+}
+export default WarehousingDepositeForm

@@ -130,13 +130,10 @@ const MainEntrance = () => {
         <Content
           className="site-layout-background"
           style={{
-            margin: "24px 16px",
-            padding: "24px",
+            margin: "24px 16px 24px 10px",
+            padding: "24px 24px 24px 60px",
             minHeight: 280,
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            
           }}>
           <Outlet />
         </Content>
