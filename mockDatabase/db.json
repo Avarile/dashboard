@@ -1,1 +1,60 @@
-{}
+{
+  "api": [],
+  "products": [
+    {
+      "id": 1,
+      "name": "Avarile",
+      "sku": "AVA-01",
+      "size": "172",
+      "price": 1,
+      "powdercoatingprice": 1,
+      "installationprice": 2,
+      "desc": "asdfasdfasdfasdf",
+      "spec": "asdfasdfasdfhalkjh"
+    },
+    {
+      "id": 2,
+      "name": "Qiangli",
+      "sku": "AVA-01",
+      "size": "172",
+      "price": 1,
+      "powdercoatingprice": 1,
+      "installationprice": 2,
+      "desc": "asdfasdfasdfasdf",
+      "spec": "asdfasdfasdfhalkjh"
+    },
+    {
+      "id": 3,
+      "name": "xiaobai",
+      "sku": "AVA-01",
+      "size": "172",
+      "price": 1,
+      "powdercoatingprice": 1,
+      "installationprice": 2,
+      "desc": "asdfasdfasdfasdf",
+      "spec": "asdfasdfasdfhalkjh"
+    },
+    {
+      "id": 4,
+      "name": "niandaixiong",
+      "sku": "AVA-01",
+      "size": "172",
+      "price": 1,
+      "powdercoatingprice": 1,
+      "installationprice": 2,
+      "desc": "asdfasdfasdfasdf",
+      "spec": "asdfasdfasdfhalkjh"
+    },
+    {
+      "id": 5,
+      "name": "kafei",
+      "sku": "AVA-01",
+      "size": "172",
+      "price": 1,
+      "powdercoatingprice": 1,
+      "installationprice": 2,
+      "desc": "asdfasdfasdfasdf",
+      "spec": "asdfasdfasdfhalkjh"
+    }
+  ]
+}

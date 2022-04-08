@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import "antd/dist/antd.css";
-import { Form, Input, InputNumber, Button, FormInstance } from "antd";
+import React, { useRef } from "react"
+import "antd/dist/antd.css"
+import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
 const layout = {
   labelCol: {
     span: 4,
@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: {
     span: 20,
   },
-};
+}
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
@@ -19,17 +19,17 @@ const validateMessages = {
   number: {
     range: "${label} must be between ${min} and ${max}",
   },
-};
+}
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewItem = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
-  const ref = useRef<FormInstance<any> | null>();
+  const ref = useRef<FormInstance<any> | null>()
 
   const onFinish = (values: any) => {
-    console.log(values);
-  };
+    console.log(values)
+  }
 
   return (
     <Form
@@ -37,22 +37,18 @@ const CreateNewItem = () => {
       name="nest-messages"
       onFinish={onFinish}
       // validateMessages={validateMessages}
-      style={{ flex:1 }}
+      style={{ flex: 1 }}
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
-        ref.current = formInstance;
-      }}
-    >
-      <Form.Item
-        name={["product", "productName"]}
-        label="Product Name"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input />
+        ref.current = formInstance
+      }}>
+      <Form.Item label="Product Name" style={{ marginBottom: 0 }}>
+        <Form.Item name={["product", "productName"]} rules={[{ required: true }]} style={{ display: "inline-block", width: "calc(50% - 8px)", paddingRight: "5px" }}>
+          <Input />
+        </Form.Item>
+        <Form.Item style={{ display: "inline-block", width: "calc(50% - 8px)" }}>
+          <Select></Select>
+        </Form.Item>
       </Form.Item>
       <Form.Item
         name={["product", "productSKU"]}
@@ -61,8 +57,7 @@ const CreateNewItem = () => {
           {
             required: true,
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -72,8 +67,7 @@ const CreateNewItem = () => {
           {
             required: true,
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -83,8 +77,7 @@ const CreateNewItem = () => {
           {
             type: "number",
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item
@@ -94,8 +87,7 @@ const CreateNewItem = () => {
           {
             type: "number",
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item
@@ -105,17 +97,13 @@ const CreateNewItem = () => {
           {
             type: "number",
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item name={["product", "productDescription"]} label="Description">
         <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
       </Form.Item>
-      <Form.Item
-        name={["product", "productSpecification"]}
-        label="Specification"
-      >
+      <Form.Item name={["product", "productSpecification"]} label="Specification">
         <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
@@ -124,14 +112,13 @@ const CreateNewItem = () => {
         </Button>
         <Button
           onClick={() => {
-            ref.current?.resetFields();
+            ref.current?.resetFields()
           }}
-          block
-        >
+          block>
           Reset Form
         </Button>
       </Form.Item>
     </Form>
-  );
-};
-export default CreateNewItem;
+  )
+}
+export default CreateNewItem
