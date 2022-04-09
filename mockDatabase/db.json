@@ -1,60 +1,180 @@
 {
-  "api": [],
-  "products": [
+  "users": [
     {
       "id": 1,
       "name": "Avarile",
-      "sku": "AVA-01",
-      "size": "172",
-      "price": 1,
-      "powdercoatingprice": 1,
-      "installationprice": 2,
-      "desc": "asdfasdfasdfasdf",
-      "spec": "asdfasdfasdfhalkjh"
+      "auth": "root"
     },
     {
       "id": 2,
-      "name": "Qiangli",
-      "sku": "AVA-01",
-      "size": "172",
-      "price": 1,
-      "powdercoatingprice": 1,
-      "installationprice": 2,
-      "desc": "asdfasdfasdfasdf",
-      "spec": "asdfasdfasdfhalkjh"
+      "name": "Tony",
+      "auth": "admin"
+    },
+    {
+      "id": 1,
+      "name": "Lee",
+      "auth": "Operator"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "WindowTint",
+      "sku": "WT001",
+      "size": null,
+      "price": 4000,
+      "powdercoatingprice": null,
+      "installationprice": 500,
+      "desc": "Window Tint for univarsal purproses.",
+      "spec": "4000mm * 2500mm Heavy duty.",
+      "currentInStock": 200
+    },
+    {
+      "id": 2,
+      "name": "tray04",
+      "sku": "Tray18-02",
+      "size": "1800l * 1780w * 50h",
+      "price": 3700,
+      "powdercoatingprice": 600,
+      "installationprice": 450,
+      "desc": "Deluxe Tray with trundle drawer, and a pair of under Tray boxes.",
+      "spec": "1800l * 1780w * 50h Heavy duty tray",
+
+      "currentInStock": 50
     },
     {
       "id": 3,
-      "name": "xiaobai",
-      "sku": "AVA-01",
-      "size": "172",
-      "price": 1,
-      "powdercoatingprice": 1,
-      "installationprice": 2,
-      "desc": "asdfasdfasdfasdf",
-      "spec": "asdfasdfasdfhalkjh"
+      "name": "tray06",
+      "sku": "Tray16-03",
+      "size": "1600l * 1780w * 50h",
+      "price": 3250,
+      "powdercoatingprice": 540,
+      "installationprice": 450,
+      "desc": "Duluxe Tray with trundle drawer, with a pair of under tray boxes.",
+      "spec": "1600l * 1780w * 50h Heavy duty tray",
+
+      "currentInStock": 100
     },
     {
       "id": 4,
-      "name": "niandaixiong",
-      "sku": "AVA-01",
-      "size": "172",
-      "price": 1,
-      "powdercoatingprice": 1,
-      "installationprice": 2,
-      "desc": "asdfasdfasdfasdf",
-      "spec": "asdfasdfasdfhalkjh"
+      "name": "Canopy02",
+      "sku": "CNP18-17320",
+      "size": "1700l * 1800w * 850h",
+      "price": 2800,
+      "powdercoatingprice": 470,
+      "installationprice": 300,
+      "desc": "Fine tuned Canopy with a 2500mm canopy",
+      "spec": "1700l * 1800w * 850h Heavy duty Canopy.",
+
+      "currentInStock": 9
     },
     {
       "id": 5,
-      "name": "kafei",
-      "sku": "AVA-01",
-      "size": "172",
-      "price": 1,
-      "powdercoatingprice": 1,
-      "installationprice": 2,
-      "desc": "asdfasdfasdfasdf",
-      "spec": "asdfasdfasdfhalkjh"
+      "name": "drawer01",
+      "sku": "DR001",
+      "size": "850l * 600w * 300h",
+      "price": 600,
+      "powdercoatingprice": null,
+      "installationprice": 100,
+      "desc": "Heavy duty drawer",
+      "spec": "850l * 600w * 300h Heavy duty drawer.",
+      "currentInStock": 25
+    }
+  ],
+  "order": [
+    {
+      "id": 1,
+      "initTime": "4/April/2022",
+      "totalAmount": 11750,
+      "offset": 400,
+      "deposite": 5000,
+      "item1": 2,
+      "item1Powder": false,
+      "item2": 1,
+      "item2Powder": false,
+      "item3": 4,
+      "item3Powder": false,
+      "client": 3,
+      "salesMan": 1,
+      "fabricationOrder": 3
+    },
+    {
+      "id": 2,
+      "initTime": "2/April/2022",
+      "totalAmount": 4150,
+      "offset": 0,
+      "deposite": 4150,
+      "item1": 2,
+      "item1Powder": false,
+      "item2": null,
+      "item2Powder": false,
+      "item3": null,
+      "item3Powder": false,
+      "client": 2,
+      "salesMan": 2,
+      "fabricationOrder": 2
+    },
+    {
+      "id": 3,
+      "initTime": "26/Match/2022",
+      "totalAmount": 7950,
+      "offset": 400,
+      "deposite": 5000,
+      "item1": 2,
+      "item1Powder": false,
+      "item2": 4,
+      "item2Powder": false,
+      "item3": 5,
+      "item3Powder": false,
+      "client": 1,
+      "salesMan": 3,
+      "fabricationOrder": 1
+    }
+  ],
+  "clients": [
+    {
+      "id": 1,
+      "name": "Billy",
+      "email": "billy@gamail.com",
+      "mobile": 40000000,
+      "vip": false
+    },
+    {
+      "id": 2,
+      "name": "Han",
+      "email": "han@gamail.com",
+      "mobile": 50000000,
+      "vip": false
+    },
+    {
+      "id": 3,
+      "name": "Luke Skywalker",
+      "email": "LukeSkywalker@gamail.com",
+      "mobile": 60000000,
+      "vip": true
+    }
+  ],
+  "fabrications": [
+    {
+      "id": 1,
+      "startTime": "4/Apirl/2022",
+      "prepTime": 4,
+      "powderCoatingTime": 0,
+      "estimateFinishOn": "8/April/2022"
+    },
+    {
+      "id": 2,
+      "startTime": "9/Apirl/2022",
+      "prepTime": 2,
+      "powderCoatingTime": 0,
+      "estimateFinishOn": "11/April/2022"
+    },
+    {
+      "id": 3,
+      "startTime": "17/Match/2022",
+      "prepTime": 8,
+      "powderCoatingTime": 0,
+      "estimateFinishOn": "25/Match/2022"
     }
   ]
 }

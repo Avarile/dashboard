@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react"
 import "antd/dist/antd.css"
 import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
 import Request from "@DATA/api.controller"
-import axios from "axios"
+import qs from "query-string"
+import { refineQueryString, isVoid, QueryStringType } from "@SRC/utils/utilFuncs"
+import useDebounce from "@SRC/Hooks/useDebounce"
+import { formatStrategyValues } from "rc-tree-select/lib/utils/strategyUtil"
 
 const layout = {
   labelCol: {
@@ -35,8 +38,28 @@ const WarehousingDepositeForm = () => {
     console.log(values)
     console.log(ref.current?.getFieldValue("product"))
   }
+  const [products, setProducts] = useState<any>([])
+  const [searchParams, setSearchParams] = useState<QueryStringType>({
+    name: "",
+    sku: "",
+  })
 
-  const [products, setProducts] = useState([])
+  const debouncedSearchParams = useDebounce(searchParams, 3000)
+  console.log(products)
+
+  useEffect(() => {
+    Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(debouncedSearchParams))}`)
+      .then((response: any) => {
+        debugger
+        setProducts(response)
+        console.log(response)
+      })
+
+      .catch((error: any) => {
+        throw new Error(error)
+      })
+      .finally(() => {})
+  }, [setSearchParams, searchParams])
 
   return (
     <Form
@@ -53,25 +76,38 @@ const WarehousingDepositeForm = () => {
       <Form.Item label="Product Name" style={{ marginBottom: 0 }}>
         <Form.Item name={["product", "productName"]} rules={[{ required: true }]} style={{ display: "inline-block", width: "calc(50% - 8px)", paddingRight: "5px" }}>
           <Input
-            onChange={() => {
-              console.log(ref.current?.getFieldValue("product")?.productName)
-              Request.get(`http://localhost:3001/products?name=${ref.current?.getFieldValue("product")?.productName}`)
-                .then((response: any) => {
-                  setProducts(response)
-                  console.log(response)
-                })
-                .catch((error: any) => {
-                  throw new Error(error)
-                })
-            }}
+          // onChange={(event) => {
+          //   setSearchParams({
+          //     ...searchParams,
+          //     name: event.target.value,
+          //   })
+          // }}
           />
         </Form.Item>
-        <Form.Item name={["product", "productName"]} style={{ display: "inline-block", width: "calc(50% - 8px)" }}>
-          <Select placeholder="Select Product">
+
+        <Form.Item name={["product", "productSku"]} style={{ display: "inline-block", width: "calc(50% - 8px)" }}>
+          <Select
+            placeholder="Select Product"
+            onChange={() => {
+              let currentFormValue = ref.current?.getFieldValue("product")
+              ref.current?.setFieldsValue({
+                product: {
+                  ...currentFormValue,
+                  productName: products[0]?.name,
+                  productQuantityInstock: products[0]?.currentInStock,
+                },
+              })
+
+              setSearchParams({
+                ...searchParams,
+                sku: ref.current?.getFieldValue("product").productSku,
+              })
+            }}>
             {products.map((product: any) => {
+              debugger
               return (
-                <Select.Option value={product} key={product}>
-                  {product}
+                <Select.Option value={product.sku} key={product.id}>
+                  {product.sku}
                 </Select.Option>
               )
             })}
@@ -122,6 +158,10 @@ const WarehousingDepositeForm = () => {
         <Button
           onClick={() => {
             ref.current?.resetFields()
+            setSearchParams({
+              name: "",
+              sku: "",
+            })
           }}
           block>
           Reset Form
