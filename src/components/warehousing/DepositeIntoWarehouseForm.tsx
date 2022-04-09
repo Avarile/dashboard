@@ -45,22 +45,22 @@ const WarehousingDepositeForm = () => {
   })
 
   const debouncedSearchParams = useDebounce(searchParams, 3000)
-  console.log(products)
 
-  useEffect(() => {
-    Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(debouncedSearchParams))}`)
+  const getProductData = () => {
+    Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(searchParams))}`)
       .then((response: any) => {
-        debugger
         setProducts(response)
         console.log(response)
       })
-
       .catch((error: any) => {
         throw new Error(error)
       })
-      .finally(() => {})
-  }, [setSearchParams, searchParams])
+  }
 
+  useEffect(() => {
+    getProductData()
+  }, [setSearchParams, searchParams])
+  
   return (
     <Form
       initialValues={{}}
@@ -76,12 +76,17 @@ const WarehousingDepositeForm = () => {
       <Form.Item label="Product Name" style={{ marginBottom: 0 }}>
         <Form.Item name={["product", "productName"]} rules={[{ required: true }]} style={{ display: "inline-block", width: "calc(50% - 8px)", paddingRight: "5px" }}>
           <Input
-          // onChange={(event) => {
-          //   setSearchParams({
-          //     ...searchParams,
-          //     name: event.target.value,
-          //   })
-          // }}
+            // onChange={(event) => {
+            //   setSearchParams({
+            //     ...searchParams,
+            //     name: event.target.value,
+            //   })
+            // }}
+
+            onChange={() => {
+              debugger
+              console.log(ref.current?.getFieldValue("product").productName)
+            }}
           />
         </Form.Item>
 
@@ -89,19 +94,26 @@ const WarehousingDepositeForm = () => {
           <Select
             placeholder="Select Product"
             onChange={() => {
-              let currentFormValue = ref.current?.getFieldValue("product")
-              ref.current?.setFieldsValue({
-                product: {
-                  ...currentFormValue,
-                  productName: products[0]?.name,
-                  productQuantityInstock: products[0]?.currentInStock,
-                },
-              })
-
-              setSearchParams({
-                ...searchParams,
-                sku: ref.current?.getFieldValue("product").productSku,
-              })
+              Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(searchParams))}`)
+                .then((response: any) => {
+                  console.log(response)
+                  debugger
+                  let currentFormValue = ref.current?.getFieldValue("product")
+                  ref.current?.setFieldsValue({
+                    product: {
+                      ...currentFormValue,
+                      productName: response[0]?.name,
+                      productQuantityInstock: response[0]?.currentInStock,
+                    },
+                  })
+                  setSearchParams({
+                    ...searchParams,
+                    sku: ref.current?.getFieldValue("product").productSku,
+                  })
+                })
+                .catch((error: any) => {
+                  throw new Error(error)
+                })
             }}>
             {products.map((product: any) => {
               debugger
