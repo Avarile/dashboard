@@ -27,8 +27,8 @@
       "installationprice": 500,
       "desc": "Window Tint for univarsal purproses.",
       "spec": "4000mm * 2500mm Heavy duty.",
-      "currentInStock": 262,
-      "updateLog": "10-April:\nArrived 10."
+      "currentInStock": 279,
+      "updateLog": "init with 40 units\nadd 1 unit"
     },
     {
       "id": 2,
@@ -66,8 +66,8 @@
       "installationprice": 300,
       "desc": "Fine tuned Canopy with a 2500mm canopy",
       "spec": "1700l * 1800w * 850h Heavy duty Canopy.",
-      "currentInStock": 9,
-      "updateLog": ""
+      "currentInStock": 13,
+      "updateLog": "10/Apr/2022:\nReceived 4 units"
     },
     {
       "id": 5,
@@ -91,7 +91,7 @@
       "installationprice": 450,
       "desc": "Duluxe Tray with trundle drawer, with a pair of under tray boxes.",
       "spec": "1600l * 1780w * 50h Heavy duty tray",
-      "currentInStock": 40,
+      "currentInStock": 43,
       "updateLog": "init with 40 units",
       "id": 6
     }

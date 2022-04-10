@@ -4,6 +4,7 @@ import { Button } from "antd"
 import WarehousingDepositeForm from "@SRC/components/warehousing/DepositeIntoWarehouseForm"
 import CreateNewItem from "@SRC/components/warehousing/CreateNewProducts"
 import WarehousingAbolishForm from "@SRC/components/warehousing/AbolishProducts"
+import { stringify } from "querystring"
 
 /* eslint-disable no-template-curly-in-string */
 
@@ -11,10 +12,10 @@ import WarehousingAbolishForm from "@SRC/components/warehousing/AbolishProducts"
 
 const WarehousingInbound = () => {
   //selector init with default selection
-  const [selector, setSelector] = useState("Deposite")
+  const [selector, setSelector] = useState<{ select: string; activate: undefined | "primary" }>({ select: "Deposite", activate: undefined })
 
-  const formSelection = (selector: string) => {
-    switch (selector) {
+  const formSelection = (selector: { select: string; activate: any }) => {
+    switch (selector.select) {
       case "Deposite":
         return <WarehousingDepositeForm />
         break
@@ -33,22 +34,25 @@ const WarehousingInbound = () => {
         <div style={{ display: "flex", flexDirection: "column", gap: " 2rem" }}>
           <h3>Please click to select operation </h3>
           <Button
+            type={selector.select === "Deposite" ? "primary" : undefined}
             onClick={() => {
-              setSelector("Deposite")
+              setSelector({ ...selector, select: "Deposite" })
             }}>
             Deposite into the WareHouse
           </Button>
           <Button
+            type={selector.select === "Create" ? "primary" : undefined}
             onClick={() => {
-              setSelector("Create")
+              setSelector({ ...selector, select: "Create" })
             }}>
             Create New Product
           </Button>
           <Button
+            type={selector.select === "Abolish" ? "primary" : undefined}
             onClick={() => {
-              setSelector("Abolish")
+              setSelector({ ...selector, select: "Abolish" })
             }}>
-            Abolish Product
+            Abolish / Edit Product Info
           </Button>
         </div>
         {formSelection(selector)}

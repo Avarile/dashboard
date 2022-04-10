@@ -32,6 +32,7 @@ const WarehousingDepositeForm = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
+  const currentProductRef = useRef({}) // store the specific product when selected product is back from server
 
   const onFinish = (values: any) => {}
 
@@ -43,8 +44,8 @@ const WarehousingDepositeForm = () => {
 
   const debouncedSearchParams = useDebounce(searchParams, 3000)
 
-  const getProductData = (queryData: { name?: string; sku?: string } = {}) => {
-    return Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(queryData))}`)
+  const getProductData = async (queryData: { name?: string; sku?: string } = {}) => {
+    return await Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(queryData))}`)
   }
 
   const putProductData = (url: string, payload: object) => {
@@ -54,7 +55,6 @@ const WarehousingDepositeForm = () => {
   useEffect(() => {
     getProductData().then((response) => {
       setProducts(response)
-      console.log(response)
     })
   }, [])
 
@@ -87,6 +87,7 @@ const WarehousingDepositeForm = () => {
               }
               getProductData(queryData).then((response: any) => {
                 const { currentInStock, sku, updateLog } = response?.[0] || {}
+                currentProductRef.current = response?.[0] // store the currentProduct in the ref
                 // set FormFields
                 ref.current?.setFieldsValue({
                   product: {
@@ -114,7 +115,7 @@ const WarehousingDepositeForm = () => {
               // 根据选择项的数据，进行请求
               getProductData(queryData)
                 .then((response: any) => {
-                  console.log(response)
+                  currentProductRef.current = response?.[0] // store the currentProduct in the ref
                   const { name, currentInStock, sku, updateLog } = response?.[0] || {}
                   // 设置表单数据
                   // setFieldsValue是底层包装了state，确保了表单刷新
@@ -160,8 +161,8 @@ const WarehousingDepositeForm = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        name={["product", "productQuantityEffected"]}
-        label="Quantity Effected"
+        name={["product", "productQuantityAdd"]}
+        label="Quantity Addition"
         rules={[
           {
             type: "number",
@@ -193,17 +194,20 @@ const WarehousingDepositeForm = () => {
           style={{ marginBottom: "1rem" }}
           onClick={() => {
             let { productQuantityAdd, productDescription } = ref.current?.getFieldValue("product")
-            const currentProduct = products[0]
+
+            const currentProduct = currentProductRef.current as any
             const targetId = currentProduct.id
             const payloadProduct = {
               ...currentProduct,
               currentInStock: currentProduct.currentInStock + productQuantityAdd,
               updateLog: productDescription,
             }
-            putProductData(targetId, payloadProduct).then((response) => {
-              console.log(response)
+            putProductData(targetId, payloadProduct).then((response: any) => {
+              if (response.id) { 
+
+              }
             })
-            console.log(targetId, payloadProduct)
+          
           }}>
           Submit
         </Button>

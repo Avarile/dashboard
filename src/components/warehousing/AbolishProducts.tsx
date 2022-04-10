@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import "antd/dist/antd.css"
-import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
+import { Form, Input, InputNumber, Button, FormInstance, Select, Typography } from "antd"
 import Request from "@DATA/api.controller"
 import qs from "query-string"
 import { refineQueryString, QueryStringType } from "@SRC/utils/utilFuncs"
@@ -46,8 +46,8 @@ const WarehousingAbolishForm = () => {
     return await Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(queryData))}`)
   }
 
-  const putProductData = (url: string, payload: object) => {
-    return Request.put(`http://localhost:3001/products/${url}`, payload)
+  const putProductData = async (url: string, payload: object) => {
+    return await Request.put(`http://localhost:3001/products/${url}`, payload)
   }
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {
@@ -69,7 +69,7 @@ const WarehousingAbolishForm = () => {
       ref={(formInstance: FormInstance<any> | null) => {
         ref.current = formInstance
       }}>
-      <Form.Item label="Product Name" style={{ marginBottom: 0 }}>
+      <Form.Item label="Search for the Product" style={{ marginBottom: 0 }}>
         <Form.Item
           name={["product", "productName"]}
           rules={[{ required: true }]}
@@ -79,21 +79,28 @@ const WarehousingAbolishForm = () => {
             paddingRight: "5px",
           }}>
           <Input
+            placeholder="Please Input the product name"
             onChange={() => {
               let currentFormValue = ref.current?.getFieldValue("product")
               let queryData = {
                 name: currentFormValue.productName,
               }
               getProductData(queryData).then((response: any) => {
-                const { currentInStock, sku, updateLog } = response?.[0] || {}
+                const { size, price, powdercoatingprice, currentInStock, sku, updateLog, spec, desc, installationprice } = response?.[0] || {}
                 // set FormFields
                 ref.current?.setFieldsValue({
                   product: {
                     ...currentFormValue,
                     productSku: sku,
-                    productDescription: updateLog,
+                    productUpdateLog: updateLog,
                     productQuantityAdd: 0,
                     productQuantityInstock: currentInStock,
+                    productSpecification: spec,
+                    productDescription: desc,
+                    productInstallationPrice: installationprice,
+                    productPowderCoatingPrice: powdercoatingprice,
+                    productPrice: price,
+                    productSize: size,
                   },
                 })
               })
@@ -103,7 +110,7 @@ const WarehousingAbolishForm = () => {
 
         <Form.Item name={["product", "productSku"]} style={{ display: "inline-block", width: "calc(50% - 8px)" }}>
           <Select
-            placeholder="Select Product"
+            placeholder="Select Product from list"
             onChange={() => {
               // 当select数据变化时，获得form表单的product的数据
               let currentFormValue = ref.current?.getFieldValue("product")
@@ -114,7 +121,7 @@ const WarehousingAbolishForm = () => {
               getProductData(queryData)
                 .then((response: any) => {
                   console.log(response)
-                  const { name, currentInStock, sku, updateLog } = response?.[0] || {}
+                  const { name, size, price, powdercoatingprice, currentInStock, updateLog, spec, desc, installationprice } = response?.[0] || {}
                   // 设置表单数据
                   // setFieldsValue是底层包装了state，确保了表单刷新
                   // 但是，setFieldsValue并不会引发当前组件的刷新
@@ -127,9 +134,15 @@ const WarehousingAbolishForm = () => {
                     product: {
                       ...currentFormValue,
                       productName: name,
-                      productQuantityInstock: currentInStock,
-                      productDescription: updateLog,
+                      productUpdateLog: updateLog,
                       productQuantityAdd: 0,
+                      productQuantityInstock: currentInStock,
+                      productSpecification: spec,
+                      productDescription: desc,
+                      productInstallationPrice: installationprice,
+                      productPowderCoatingPrice: powdercoatingprice,
+                      productPrice: price,
+                      productSize: size,
                     },
                   })
                 })
@@ -159,8 +172,8 @@ const WarehousingAbolishForm = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        name={["product", "productQuantityAdd"]}
-        label="Quantity Addition"
+        name={["product", "productQuantityEff"]}
+        label="Quantity Effected"
         rules={[
           {
             type: "number",
@@ -181,9 +194,62 @@ const WarehousingAbolishForm = () => {
         ]}>
         <InputNumber disabled={true} />
       </Form.Item>
-      <Form.Item name={["product", "productDescription"]} label="Description">
-        <Input.TextArea style={{ minHeight: "20rem", maxHeight: "25rem" }} />
+      <Form.Item
+        name={["product", "productPrice"]}
+        label="Product Price"
+        rules={[
+          {
+            type: "number",
+            min: 0,
+            max: 99999,
+          },
+        ]}>
+        <InputNumber />
       </Form.Item>
+      <Form.Item
+        name={["product", "productPowderCoatingPrice"]}
+        label="Powder Coating Price"
+        rules={[
+          {
+            type: "number",
+            min: 0,
+            max: 99999,
+          },
+        ]}>
+        <InputNumber />
+      </Form.Item>
+      <Form.Item
+        name={["product", "productInstallationPrice"]}
+        label="Installation Price"
+        rules={[
+          {
+            type: "number",
+            min: 0,
+            max: 99999,
+          },
+        ]}>
+        <InputNumber />
+      </Form.Item>
+      <Form.Item
+        name={["product", "productSize"]}
+        label="Size"
+        rules={[
+          {
+            required: false,
+          },
+        ]}>
+        <Input />
+      </Form.Item>
+      <Form.Item name={["product", "productDescription"]} label="Description">
+        <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
+      </Form.Item>
+      <Form.Item name={["product", "productSpecification"]} label="Specification">
+        <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
+      </Form.Item>
+      <Form.Item name={["product", "productUpdateLog"]} label="Update Log">
+        <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
+      </Form.Item>
+
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button
           type="primary"
