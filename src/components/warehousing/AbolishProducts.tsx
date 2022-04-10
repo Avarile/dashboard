@@ -19,7 +19,6 @@ const layout = {
 const validateMessages = {
   required: "${label} is required!",
   types: {
-    email: "${label} is not a valid email!",
     number: "${label} is not a valid number!",
   },
   number: {
@@ -28,7 +27,7 @@ const validateMessages = {
 }
 /* eslint-enable no-template-curly-in-string */
 
-const WarehousingDepositeForm = () => {
+const WarehousingAbolishForm = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
@@ -43,8 +42,8 @@ const WarehousingDepositeForm = () => {
 
   const debouncedSearchParams = useDebounce(searchParams, 3000)
 
-  const getProductData = (queryData: { name?: string; sku?: string } = {}) => {
-    return Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(queryData))}`)
+  const getProductData = async (queryData: { name?: string; sku?: string } = {}) => {
+    return await Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(queryData))}`)
   }
 
   const putProductData = (url: string, payload: object) => {
@@ -160,8 +159,8 @@ const WarehousingDepositeForm = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        name={["product", "productQuantityEffected"]}
-        label="Quantity Effected"
+        name={["product", "productQuantityAdd"]}
+        label="Quantity Addition"
         rules={[
           {
             type: "number",
@@ -218,4 +217,4 @@ const WarehousingDepositeForm = () => {
     </Form>
   )
 }
-export default WarehousingDepositeForm
+export default WarehousingAbolishForm

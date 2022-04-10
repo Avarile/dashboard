@@ -27,8 +27,8 @@
       "installationprice": 500,
       "desc": "Window Tint for univarsal purproses.",
       "spec": "4000mm * 2500mm Heavy duty.",
-      "currentInStock": 212,
-      "updateLog": "4/April:\nInit with 100 and 12 addition"
+      "currentInStock": 262,
+      "updateLog": "10-April:\nArrived 10."
     },
     {
       "id": 2,
@@ -81,6 +81,19 @@
       "spec": "850l * 600w * 300h Heavy duty drawer.",
       "currentInStock": 25,
       "updateLog": ""
+    },
+    {
+      "name": "tray07",
+      "sku": "Tray18-04",
+      "size": "1800l * 1780w * 50h",
+      "price": 3700,
+      "powdercoatingprice": 600,
+      "installationprice": 450,
+      "desc": "Duluxe Tray with trundle drawer, with a pair of under tray boxes.",
+      "spec": "1600l * 1780w * 50h Heavy duty tray",
+      "currentInStock": 40,
+      "updateLog": "init with 40 units",
+      "id": 6
     }
   ],
   "order": [
