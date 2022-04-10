@@ -47,7 +47,7 @@ const WarehousingAbolishForm = () => {
   }
 
   const putProductData = async (url: string, payload: object) => {
-    return await Request.put(`http://localhost:3001/products/${url}`, payload)
+      return await Request.put(`http://localhost:3001/products/${url}`, payload, "Product")
   }
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {

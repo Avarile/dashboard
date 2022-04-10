@@ -3,14 +3,16 @@
 import { configureStore } from "@reduxjs/toolkit"
 
 // import all slices
-import authRuducer from "../dataSlices/auth.slice"
-import productsRuducer from "../dataSlices/products.slice"
+import authReducer from "../dataSlices/auth.slice"
+import productsReducer from "../dataSlices/products.slice"
+import isloadingReducer from "../dataSlices/isloading.slice"
 
 // end of slices
 
 export const store = configureStore({
   reducer: {
-    auth: authRuducer,
-    products: productsRuducer,
+    auth: authReducer,
+    products: productsReducer,
+    isloading: isloadingReducer,
   },
 })

@@ -3,6 +3,9 @@
 
 import axios from "axios"
 import Storage from "@SRC/data/session.controller"
+import { setIsloading, setError, isloadingStore } from "@DATA/dataSlices/isloading.slice"
+import Notification from "@SRC/components/Notification"
+
 // about the @SRC
 // first in webpack.config.js
 // find resolve/alias add "@SRC": path.resolve("src"),
@@ -15,7 +18,6 @@ class Request {
 
   constructor() {
     // initilize a singleton axios instance to perform all the api actions
-    //
     this.axiosInstance = axios.create({
       timeout: 10000,
       baseURL: "",
@@ -26,6 +28,14 @@ class Request {
     })
     this.interceptRequest() // intercept all request and response
     this.interceptResponse()
+  }
+
+  private setIsloading(status: boolean): void {
+    isloadingStore.dispatch(setIsloading(status))
+  }
+
+  private setError(error: any): void {
+    isloadingStore.dispatch(setError(error))
   }
 
   private interceptRequest() {
@@ -74,6 +84,7 @@ class Request {
    */
   public get(url: string, params = {}) {
     return new Promise((resolve, reject) => {
+      this.setIsloading(true)
       this.axiosInstance
         .get(url, {
           params: params,
@@ -82,8 +93,11 @@ class Request {
           resolve(response.data)
         })
         .catch((error: any) => {
+          this.setError(error)
+          Notification({ type: "warning", message: "Unable to acquire data, please check internet connection", messageTarget: "" })
           reject(error)
         })
+        .finally(this.setIsloading(false))
     })
   }
 
@@ -93,8 +107,9 @@ class Request {
    * @param params
    * @returns {Promise}
    */
-  public post(url: string, params = {}, config: { [key: string]: any } = {}) {
+  public post(url: string, params = {}, config: { [key: string]: any } = {}, notification: string) {
     return new Promise((resolve, reject) => {
+      this.setIsloading(true)
       if (typeof params === "object") {
         if (params.constructor.name === "FormData") {
           config["Content-Type"] = "multipart/form-data"
@@ -104,10 +119,14 @@ class Request {
         .post(url, params, config)
         .then((response: any) => {
           resolve(response.data)
+          Notification({ type: "success", messageTarget: `${notification} is successfully created` })
         })
         .catch((error: any) => {
+          this.setError(error)
+          Notification({ type: "warning", messageTarget: `${notification} creation failed, please try again later!` })
           reject(error)
         })
+        .finally(this.setIsloading(false))
     })
   }
 
@@ -117,16 +136,21 @@ class Request {
    * @param params
    * @returns {Promise}
    */
-  public patch(url: string, params: {}) {
+  public patch(url: string, params: {}, notification: string) {
     return new Promise((resolve, reject) => {
+      this.setIsloading(true)
       this.axiosInstance
         .patch(url, params)
         .then((response: any) => {
           resolve(response.data)
+          Notification({ type: "success", messageTarget: `$notification successfully updated` })
         })
         .catch((error: any) => {
+          this.setError(error)
+          Notification({ type: "warning", messageTarget: `${notification} update failed, please try again later` })
           reject(error)
         })
+        .finally(this.setIsloading(false))
     })
   }
 
@@ -136,16 +160,20 @@ class Request {
    * @param params
    * @returns {Promise}
    */
-  public put(url: string, params: {}) {
+  public put(url: string, params: {}, notification: string) {
     return new Promise((resolve, reject) => {
+      this.setIsloading(true)
       this.axiosInstance
         .put(url, params)
         .then((response: any) => {
           resolve(response.data)
+          Notification({ type: "success", messageTarget: `${notification} is succefully updated` })
         })
         .catch((error: any) => {
+          Notification({ type: "warning", messageTarget: `${notification} update failed, please try again later` })
           reject(error)
         })
+        .finally(this.setIsloading(false))
     })
   }
 }

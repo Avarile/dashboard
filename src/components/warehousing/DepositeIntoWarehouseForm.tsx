@@ -48,8 +48,8 @@ const WarehousingDepositeForm = () => {
     return await Request.get(`http://localhost:3001/products?${qs.stringify(refineQueryString(queryData))}`)
   }
 
-  const putProductData = (url: string, payload: object) => {
-    return Request.put(`http://localhost:3001/products/${url}`, payload)
+  const putProductData = (url: string, payload: object, messageTarget: string) => {
+    return Request.put(`http://localhost:3001/products/${url}`, payload, messageTarget)
   }
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {
@@ -202,12 +202,10 @@ const WarehousingDepositeForm = () => {
               currentInStock: currentProduct.currentInStock + productQuantityAdd,
               updateLog: productDescription,
             }
-            putProductData(targetId, payloadProduct).then((response: any) => {
-              if (response.id) { 
-
+            putProductData(targetId, payloadProduct, "Product").then((response: any) => {
+              if (response.id) {
               }
             })
-          
           }}>
           Submit
         </Button>

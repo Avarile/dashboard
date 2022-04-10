@@ -30,6 +30,12 @@
 
 5. Implement a project scale global state to controll the loading state.
    - combine the reduxslice(isLoadingSlice) in the Request and make the change accordingly upon every apiCall.
+   - Problems: 
+      1. through exporting a store to the Request singleton, now the dispatch is accessable to it.
+      2. Then the problem is where shall I implement the Notification? or HOW???, I am thinking about abstract another layer to deal with this problem the design should look like this.
+```
 
+
+```
 - Problems:
   1.

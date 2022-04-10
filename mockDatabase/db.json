@@ -40,8 +40,8 @@
       "installationprice": 450,
       "desc": "Deluxe Tray with trundle drawer, and a pair of under Tray boxes.",
       "spec": "1800l * 1780w * 50h Heavy duty tray",
-      "currentInStock": 50,
-      "updateLog": ""
+      "currentInStock": 53,
+      "updateLog": "10/April/2022:\n3 added"
     },
     {
       "id": 3,
@@ -66,8 +66,8 @@
       "installationprice": 300,
       "desc": "Fine tuned Canopy with a 2500mm canopy",
       "spec": "1700l * 1800w * 850h Heavy duty Canopy.",
-      "currentInStock": 13,
-      "updateLog": "10/Apr/2022:\nReceived 4 units"
+      "currentInStock": 10,
+      "updateLog": "10/Apr/2022:\nReceived 1 units\n"
     },
     {
       "id": 5,
@@ -94,6 +94,45 @@
       "currentInStock": 43,
       "updateLog": "init with 40 units",
       "id": 6
+    },
+    {
+      "name": "Canopy03",
+      "sku": "CNP18-1810",
+      "size": "1800l * 1780w * 850h",
+      "price": 3500,
+      "powdercoatingprice": 600,
+      "installationprice": 250,
+      "desc": "Heavy duty:  1800l * 1780w * 850h",
+      "spec": "Heavy duty:  1800l * 1780w * 850h",
+      "currentInStock": 0,
+      "updateLog": "",
+      "id": 7
+    },
+    {
+      "name": "Canopy04",
+      "sku": "CNP18-1810H",
+      "size": "1800l * 1780w * 850h",
+      "price": 3800,
+      "powdercoatingprice": 500,
+      "installationprice": 270,
+      "desc": "Heavy Duty 1800l * 1780w * 850h canopy.",
+      "spec": "Heavy Duty 1800l * 1780w * 850h canopy.",
+      "currentInStock": 0,
+      "updateLog": "",
+      "id": 8
+    },
+    {
+      "name": "tray11",
+      "sku": "Tray16-06",
+      "size": "1600l * 1780w * 50h",
+      "price": 2800,
+      "powdercoatingprice": 450,
+      "installationprice": 150,
+      "desc": "asdfasdf",
+      "spec": "asdfasdasdf",
+      "currentInStock": 0,
+      "updateLog": "",
+      "id": 9
     }
   ],
   "order": [

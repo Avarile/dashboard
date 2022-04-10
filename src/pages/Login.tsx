@@ -15,10 +15,10 @@ const Login = () => {
       debugger
       if (values.username === "Avarile" && values.password === "Avarile19840123") {
         Storage.setCacheData("USER", values)
-        Notification({ type: "success", message: "Login Success!" })
+        Notification({ type: "success", message: "Login Success!", messageTarget: "" })
         navigate("/mainentrance/ordermanagment")
       } else {
-        Notification({ type: "error", message: "Wrong username or password!" })
+        Notification({ type: "error", message: "Wrong username or password!", messageTarget: "" })
       }
     }, 3000)
   }
@@ -27,7 +27,7 @@ const Login = () => {
   }
 
   const onFinishFailed = (errorInfo: any) => {
-    Notification({ type: "error", message: "Wrong username or password!" })
+    Notification({ type: "error", message: "Wrong username or password!",messageTarget:"" })
   }
 
   return (
@@ -104,7 +104,7 @@ const Login = () => {
             //     setLoginSuspense(false)
             //   }, 3000)
             // }}
-            >
+          >
             Submit
           </Button>
         </Form.Item>

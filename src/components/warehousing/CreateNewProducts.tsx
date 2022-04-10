@@ -1,7 +1,8 @@
 import React, { useRef } from "react"
 import "antd/dist/antd.css"
-import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
+import { Form, Input, InputNumber, Button, FormInstance, Select, notification } from "antd"
 import Request from "@DATA/api.controller"
+import { useDispatch, useSelector } from "react-redux"
 
 const layout = {
   labelCol: {
@@ -28,11 +29,13 @@ const CreateNewItem = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
+  const [loadingStatus, setLoadingStatus] = React.useState(false)
+  const dispatch = useDispatch()
 
   const onFinish = (values: any) => {}
 
   const createNewProduct = (payload: object) => {
-    return Request.post("http://localhost:3001/products", payload)
+    return Request.post("http://localhost:3001/products", payload, {}, "Product")
   }
 
   return (
@@ -121,22 +124,26 @@ const CreateNewItem = () => {
           // htmlType="submit"
           block
           style={{ marginBottom: "1rem" }}
+          loading={loadingStatus}
           onClick={() => {
-            const currentFormValues = ref.current?.getFieldValue("product")
-            console.log(currentFormValues)
-            const productPayload = {
-              name: currentFormValues.productName,
-              sku: currentFormValues.productSku,
-              size: currentFormValues.productSize,
-              price: currentFormValues.productPrice,
-              powdercoatingprice: currentFormValues.productPowderCoatingPrice,
-              installationprice: currentFormValues.productPowderInstallationPrice,
-              desc: currentFormValues.productDescription,
-              spec: currentFormValues.productSpecification,
-              currentInStock: 0,
-              updateLog: "",
-            }
-            createNewProduct(productPayload)
+            setLoadingStatus(true)
+            setTimeout(() => {
+              const currentFormValues = ref.current?.getFieldValue("product")
+              const productPayload = {
+                name: currentFormValues.productName,
+                sku: currentFormValues.productSku,
+                size: currentFormValues.productSize,
+                price: currentFormValues.productPrice,
+                powdercoatingprice: currentFormValues.productPowderCoatingPrice,
+                installationprice: currentFormValues.productPowderInstallationPrice,
+                desc: currentFormValues.productDescription,
+                spec: currentFormValues.productSpecification,
+                currentInStock: 0,
+                updateLog: "",
+              }
+              createNewProduct(productPayload)
+              setLoadingStatus(false)
+            }, 1000)
           }}>
           Submit
         </Button>
