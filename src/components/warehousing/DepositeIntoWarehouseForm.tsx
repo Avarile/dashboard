@@ -33,6 +33,7 @@ const WarehousingDepositeForm = () => {
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
   const currentProductRef = useRef({}) // store the specific product when selected product is back from server
+  const [isloading, setIsloading] = React.useState(false)
 
   const onFinish = (values: any) => {}
 
@@ -188,24 +189,30 @@ const WarehousingDepositeForm = () => {
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button
+          loading={isloading}
           type="primary"
           // htmlType="submit"
           block
           style={{ marginBottom: "1rem" }}
           onClick={() => {
-            let { productQuantityAdd, productDescription } = ref.current?.getFieldValue("product")
+            setIsloading(true)
+            setTimeout(() => {
+              let { productQuantityAdd, productDescription } = ref.current?.getFieldValue("product")
 
-            const currentProduct = currentProductRef.current as any
-            const targetId = currentProduct.id
-            const payloadProduct = {
-              ...currentProduct,
-              currentInStock: currentProduct.currentInStock + productQuantityAdd,
-              updateLog: productDescription,
-            }
-            putProductData(targetId, payloadProduct, "Product").then((response: any) => {
-              if (response.id) {
+              const currentProduct = currentProductRef.current as any
+              const targetId = currentProduct.id
+              const payloadProduct = {
+                ...currentProduct,
+                currentInStock: currentProduct.currentInStock + productQuantityAdd,
+                updateLog: productDescription,
               }
-            })
+              putProductData(targetId, payloadProduct, "Product").then((response: any) => {
+                if (response.id) {
+                }
+              })
+              setIsloading(false)
+              ref.current?.resetFields()
+            }, 2000)
           }}>
           Submit
         </Button>

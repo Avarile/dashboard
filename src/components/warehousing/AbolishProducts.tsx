@@ -34,6 +34,7 @@ const WarehousingAbolishForm = () => {
 
   const onFinish = (values: any) => {}
 
+  const [isloading, setIsloading] = useState(false)
   const [products, setProducts] = useState<any>([])
   const [searchParams, setSearchParams] = useState<QueryStringType>({
     name: "",
@@ -47,7 +48,7 @@ const WarehousingAbolishForm = () => {
   }
 
   const putProductData = async (url: string, payload: object) => {
-      return await Request.put(`http://localhost:3001/products/${url}`, payload, "Product")
+    return await Request.put(`http://localhost:3001/products/${url}`, payload, "Product")
   }
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {
@@ -257,18 +258,23 @@ const WarehousingAbolishForm = () => {
           block
           style={{ marginBottom: "1rem" }}
           onClick={() => {
-            let { productQuantityAdd, productDescription } = ref.current?.getFieldValue("product")
-            const currentProduct = products[0]
-            const targetId = currentProduct.id
-            const payloadProduct = {
-              ...currentProduct,
-              currentInStock: currentProduct.currentInStock + productQuantityAdd,
-              updateLog: productDescription,
-            }
-            putProductData(targetId, payloadProduct).then((response) => {
-              console.log(response)
-            })
-            console.log(targetId, payloadProduct)
+            setIsloading(true)
+            setTimeout(() => {
+              let { productQuantityAdd, productDescription } = ref.current?.getFieldValue("product")
+              const currentProduct = products[0]
+              const targetId = currentProduct.id
+              const payloadProduct = {
+                ...currentProduct,
+                currentInStock: currentProduct.currentInStock + productQuantityAdd,
+                updateLog: productDescription,
+              }
+              putProductData(targetId, payloadProduct).then((response) => {
+                console.log(`product ${response} is create.`)
+              })
+
+              setIsloading(false)
+              ref.current?.resetFields()
+            }, 2000)
           }}>
           Submit
         </Button>

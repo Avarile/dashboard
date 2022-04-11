@@ -91,8 +91,8 @@
       "installationprice": 450,
       "desc": "Duluxe Tray with trundle drawer, with a pair of under tray boxes.",
       "spec": "1600l * 1780w * 50h Heavy duty tray",
-      "currentInStock": 43,
-      "updateLog": "init with 40 units",
+      "currentInStock": 46,
+      "updateLog": "11/April/2022\n3 added\n\n\n10/April/2022\ninit with 40 units",
       "id": 6
     },
     {
@@ -133,6 +133,32 @@
       "currentInStock": 0,
       "updateLog": "",
       "id": 9
+    },
+    {
+      "name": "800 x 450 x 350mm Aluminium Top open Tool box",
+      "sku": "VPC-2",
+      "size": "800l x 450w 350h",
+      "price": 250,
+      "powdercoatingprice": 80,
+      "installationprice": 0,
+      "desc": "asdfasdas",
+      "spec": "asdfasdf",
+      "currentInStock": 0,
+      "updateLog": "",
+      "id": 10
+    },
+    {
+      "name": "Aluminium Full Roof Rack 2.7m x 1.4m with wind deflector",
+      "sku": "FRR-2714WD",
+      "size": "2700L 1400W 120H ",
+      "price": 850,
+      "powdercoatingprice": 275,
+      "installationprice": 0,
+      "desc": "asdfasdas",
+      "spec": "asdfasdf",
+      "currentInStock": 0,
+      "updateLog": "",
+      "id": 11
     }
   ],
   "order": [

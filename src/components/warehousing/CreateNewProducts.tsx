@@ -30,7 +30,6 @@ const CreateNewItem = () => {
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
   const [loadingStatus, setLoadingStatus] = React.useState(false)
-  const dispatch = useDispatch()
 
   const onFinish = (values: any) => {}
 
@@ -143,7 +142,8 @@ const CreateNewItem = () => {
               }
               createNewProduct(productPayload)
               setLoadingStatus(false)
-            }, 1000)
+              ref.current?.resetFields()
+            }, 2000)
           }}>
           Submit
         </Button>

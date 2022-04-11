@@ -3,8 +3,9 @@
 
 import axios from "axios"
 import Storage from "@SRC/data/session.controller"
-import { setIsloading, setError, isloadingStore } from "@DATA/dataSlices/isloading.slice"
+import { setIsloading, setError } from "@DATA/dataSlices/isloading.slice"
 import Notification from "@SRC/components/Notification"
+import { store } from "./dataStore/store.redux"
 
 // about the @SRC
 // first in webpack.config.js
@@ -31,11 +32,11 @@ class Request {
   }
 
   private setIsloading(status: boolean): void {
-    isloadingStore.dispatch(setIsloading(status))
+    store.dispatch(setIsloading(status))
   }
 
   private setError(error: any): void {
-    isloadingStore.dispatch(setError(error))
+    store.dispatch(setError(error))
   }
 
   private interceptRequest() {
@@ -85,6 +86,7 @@ class Request {
   public get(url: string, params = {}) {
     return new Promise((resolve, reject) => {
       this.setIsloading(true)
+      debugger
       this.axiosInstance
         .get(url, {
           params: params,
