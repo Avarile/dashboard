@@ -5,7 +5,7 @@ import {
   MainEntrance,
   WareHousingInbound,
   OrderManagment,
-  WareHousing,
+  WareHousingMel,
   FallbackLoading,
 } from "@PAGE/index";
 
@@ -121,11 +121,11 @@ export const routes: RouteObject[] = [
       },
       {
         path: "/mainentrance/warehousing/melstock",
-        element: SuspenseWrapper(WareHousing, FallbackLoading),
+        element: SuspenseWrapper(WareHousingMel, FallbackLoading),
       },
       {
         path: "/mainentrance/warehousing/bristock",
-        element: SuspenseWrapper(WareHousing, FallbackLoading),
+        element: SuspenseWrapper(WareHousingMel, FallbackLoading),
       },
       {
         path: "*",
