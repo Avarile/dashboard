@@ -2,6 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import { Table, Badge, Menu, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { stockIndicator } from "@SRC/utils/utilFuncs";
 
 /**
  *the menu at the end of the action as well as anywhere else.
@@ -20,23 +21,25 @@ function WareHousingMel() {
    *
    */
   const expandedRowRender = () => {
+    // create Ref
+    // const tableRef = React.useRef();
     const columns = [
       // inner row columns
       { title: "SKU", dataIndex: "sku", key: "sku" },
       { title: "Name", dataIndex: "name", key: "name" },
+      { title: "Price", dataIndex: "price", key: "price" },
       {
         title: "In Stock",
         key: "inStock",
-        dataIndex: "inStocck",
+        dataIndex: "inStock",
         render: () => (
           <span>
-            {" "}
             <Badge status="success" />
             123
           </span>
         ),
       },
-      { title: "Upgrade Status", dataIndex: "upgradeNum", key: "upgradeNum" },
+      { title: "last Update", dataIndex: "lastUpdate", key: "lastUpdate" },
       {
         title: "Action",
         dataIndex: "operation",
@@ -56,12 +59,16 @@ function WareHousingMel() {
     ];
 
     const data = [];
-    for (let i = 0; i < 3; ++i) {
+    for (let i = 0; i < 6; ++i) {
       data.push({
         key: i,
-        date: "2014-12-24 23:12:00",
-        name: "This is production name",
-        upgradeNum: "Upgraded: 56",
+        sku: `TB0${i}-${i}s`,
+        name: `ProductName${i}`,
+        price: 2300,
+        inStocck: () => {
+          return Math.floor(Math.random() * 10);
+        },
+        lastUpdate: Date.now() / 1000,
       });
     }
     return <Table columns={columns} dataSource={data} pagination={false} />;
@@ -97,6 +104,9 @@ function WareHousingMel() {
         <p>SearchBar placeHolder underConstruction</p>
       </div>
       <Table
+        // tableRef={(tableInstance: any) => {
+        //   tableRef.current = tableInstance;
+        // }}
         className="components-table-demo-nested"
         columns={columns} // this is pretty straight forward this is cloumns
         expandable={{ expandedRowRender }} // and this is the expanderable Row
