@@ -1,37 +1,62 @@
-import React, { useState } from "react"
-import "antd/dist/antd.css"
-import { Form, Input, Button, Checkbox } from "antd"
-import Storage from "@SRC/data/session.controller"
-import Notification from "@SRC/components/Notification"
-import { useNavigate } from "react-router"
+import React, { useState } from "react";
+import "antd/dist/antd.css";
+import { Form, Input, Button, Checkbox } from "antd";
+import Storage from "@SRC/data/session.controller";
+import Notification from "@SRC/components/Notification";
+import { useNavigate } from "react-router";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [loginSuspense, setLoginSuspense] = useState(false)
-  debugger
+  const navigate = useNavigate();
+  const [loginSuspense, setLoginSuspense] = useState(false);
+  debugger;
   const fakeLoginApi = (values: { username: string; password: string }) => {
-    debugger
+    setLoginSuspense(true);
     setTimeout(() => {
-      debugger
-      if (values.username === "Avarile" && values.password === "Avarile19840123") {
-        Storage.setCacheData("USER", values)
-        Notification({ type: "success", message: "Login Success!", messageTarget: "" })
-        navigate("/mainentrance/ordermanagment")
+      debugger;
+      if (
+        values.username === "Avarile" &&
+        values.password === "Avarile19840123"
+      ) {
+        Storage.setCacheData("USER", values);
+        Notification({
+          type: "success",
+          message: "Login Success!",
+          messageTarget: "",
+        });
+        navigate("/mainentrance/ordermanagment");
+        setLoginSuspense(false);
       } else {
-        Notification({ type: "error", message: "Wrong username or password!", messageTarget: "" })
+        setLoginSuspense(false);
+        Notification({
+          type: "error",
+          message: "Wrong username or password!",
+          messageTarget: "",
+        });
       }
-    }, 3000)
-  }
+    }, 3000);
+  };
   const onFinish = (values: any) => {
-    fakeLoginApi(values)
-  }
+    fakeLoginApi(values);
+  };
 
   const onFinishFailed = (errorInfo: any) => {
-    Notification({ type: "error", message: "Wrong username or password!",messageTarget:"" })
-  }
+    Notification({
+      type: "error",
+      message: "Wrong username or password!",
+      messageTarget: "",
+    });
+  };
 
   return (
-    <div style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#ccccc" }}>
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ccccc",
+      }}
+    >
       <Form
         name="login"
         labelCol={{
@@ -49,7 +74,8 @@ const Login = () => {
         style={{
           minWidth: "20rem",
           maxWidth: "60rem",
-        }}>
+        }}
+      >
         <Form.Item
           label="Username"
           name="username"
@@ -58,7 +84,8 @@ const Login = () => {
               required: true,
               message: "Please input your username!",
             },
-          ]}>
+          ]}
+        >
           <Input />
         </Form.Item>
 
@@ -74,7 +101,8 @@ const Login = () => {
             //   min: 8,
             //   message: "password must be at least 8 digit.",
             // },
-          ]}>
+          ]}
+        >
           <Input.Password />
         </Form.Item>
 
@@ -84,7 +112,8 @@ const Login = () => {
           wrapperCol={{
             offset: 8,
             span: 16,
-          }}>
+          }}
+        >
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
@@ -92,7 +121,8 @@ const Login = () => {
           wrapperCol={{
             offset: 8,
             span: 16,
-          }}>
+          }}
+        >
           <Button
             type="primary"
             htmlType="submit"
@@ -110,7 +140,7 @@ const Login = () => {
         </Form.Item>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

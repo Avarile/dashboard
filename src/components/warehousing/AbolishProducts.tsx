@@ -13,7 +13,7 @@ import Request from "@DATA/api.controller";
 import qs from "query-string";
 import { refineQueryString, QueryStringType } from "@SRC/utils/utilFuncs";
 import useDebounce from "@SRC/Hooks/useDebounce";
-import ENVCONFIG from "@SRC/utils/ENVCONFIG";
+import envSwtich from "@SRC/utils/ENVCONFIG";
 
 const layout = {
   labelCol: {
@@ -37,9 +37,9 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const WarehousingAbolishForm = () => {
-  // loading the constant files
-  const dbUri = ENVCONFIG.deployment.dbUri;
-  //
+  // ev config loading
+  const env = envSwtich("dev");
+
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>();
@@ -59,12 +59,16 @@ const WarehousingAbolishForm = () => {
     queryData: { name?: string; sku?: string } = {}
   ) => {
     return await Request.get(
-      `${dbUri}/products?${qs.stringify(refineQueryString(queryData))}`
+      `${env.dbUri}/products?${qs.stringify(refineQueryString(queryData))}`
     );
   };
 
   const putProductData = async (url: string, payload: object) => {
-    return await Request.put(`${dbUri}/products/${url}`, payload, "Product");
+    return await Request.put(
+      `${env.dbUri}/products/${url}`,
+      payload,
+      "Product"
+    );
   };
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {

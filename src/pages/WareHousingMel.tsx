@@ -1,178 +1,110 @@
-import React, { useState } from "react";
+import React from "react";
 import "antd/dist/antd.css";
-import { Table, Input, InputNumber, Popconfirm, Form, Typography } from "antd";
+import { Table, Badge, Menu, Dropdown, Space } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
-const originData: any = [];
+/**
+ *the menu at the end of the action as well as anywhere else.
+ * @return {MenuItem}
+ */
+const menu = (
+  <Menu>
+    <Menu.Item>Action 1</Menu.Item>
+    <Menu.Item>Action 2</Menu.Item>
+  </Menu>
+);
 
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+function WareHousingMel() {
+  /**
+   * Rows been expanded definition
+   *
+   */
+  const expandedRowRender = () => {
+    const columns = [
+      // inner row columns
+      { title: "SKU", dataIndex: "sku", key: "sku" },
+      { title: "Name", dataIndex: "name", key: "name" },
+      {
+        title: "In Stock",
+        key: "inStock",
+        dataIndex: "inStocck",
+        render: () => (
+          <span>
+            {" "}
+            <Badge status="success" />
+            123
+          </span>
+        ),
+      },
+      { title: "Upgrade Status", dataIndex: "upgradeNum", key: "upgradeNum" },
+      {
+        title: "Action",
+        dataIndex: "operation",
+        key: "operation",
+        render: () => (
+          <Space size="middle">
+            <a>Pause</a>
+            <a>Stop</a>
+            <Dropdown overlay={menu}>
+              <a>
+                More <DownOutlined />
+              </a>
+            </Dropdown>
+          </Space>
+        ),
+      },
+    ];
 
-const EditableCell = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  record,
-  index,
-  children,
-  ...restProps
-}: any) => {
-  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{
-            margin: 0,
-          }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
-
-const WareHousingMel = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState("");
-
-  const isEditing = (record: any) => record.key === editingKey;
-
-  const edit = (record: any) => {
-    form.setFieldsValue({
-      name: "",
-      age: "",
-      address: "",
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
-
-  const cancel = () => {
-    setEditingKey("");
-  };
-
-  const save = async (key: any) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
-        setEditingKey("");
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey("");
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
+    const data = [];
+    for (let i = 0; i < 3; ++i) {
+      data.push({
+        key: i,
+        date: "2014-12-24 23:12:00",
+        name: "This is production name",
+        upgradeNum: "Upgraded: 56",
+      });
     }
+    return <Table columns={columns} dataSource={data} pagination={false} />;
   };
 
   const columns = [
-    {
-      title: "name",
-      dataIndex: "name",
-      width: "25%",
-      editable: true,
-    },
-    {
-      title: "age",
-      dataIndex: "age",
-      width: "15%",
-      editable: true,
-    },
-    {
-      title: "address",
-      dataIndex: "address",
-      width: "40%",
-      editable: true,
-    },
-    {
-      title: "operation",
-      dataIndex: "operation",
-      render: (_: any, record: any) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-        );
-      },
-    },
+    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Platform", dataIndex: "platform", key: "platform" },
+    { title: "Version", dataIndex: "version", key: "version" },
+    { title: "Upgraded", dataIndex: "upgradeNum", key: "upgradeNum" },
+    { title: "Creator", dataIndex: "creator", key: "creator" },
+    { title: "Date", dataIndex: "createdAt", key: "createdAt" },
+    { title: "Action", key: "operation", render: () => <a>Publish</a> },
   ];
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
 
-    return {
-      ...col,
-      onCell: (record: any) => ({
-        record,
-        inputType: col.dataIndex === "age" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  const data = [];
+  for (let i = 0; i < 3; ++i) {
+    data.push({
+      key: i,
+      name: "Screem",
+      platform: "iOS",
+      version: "10.3.4.5654",
+      upgradeNum: 500,
+      creator: "Jack",
+      createdAt: "2014-12-24 23:12:00",
+    });
+  }
+
   return (
-    <Form form={form} component={false}>
+    <div style={{ width: "100%" }}>
+      <div>
+        {" "}
+        <p>SearchBar placeHolder underConstruction</p>
+      </div>
       <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: cancel,
-        }}
+        className="components-table-demo-nested"
+        columns={columns} // this is pretty straight forward this is cloumns
+        expandable={{ expandedRowRender }} // and this is the expanderable Row
+        dataSource={data} // dataSourse
+        bordered={false}
       />
-    </Form>
+    </div>
   );
-};
+}
 
 export default WareHousingMel;

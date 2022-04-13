@@ -10,8 +10,7 @@ import {
   notification,
 } from "antd";
 import Request from "@DATA/api.controller";
-import { useDispatch, useSelector } from "react-redux";
-import ENVCONFIG from "@SRC/utils/ENVCONFIG";
+import envSwitch from "@SRC/utils/ENVCONFIG";
 
 const layout = {
   labelCol: {
@@ -35,16 +34,19 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewItem = () => {
+  // env config loading
+  const env = envSwitch("dev");
+  //
+
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>();
   const [loadingStatus, setLoadingStatus] = React.useState(false);
-  const dbUri = ENVCONFIG.deployment.dbUri;
 
   const onFinish = (values: any) => {};
 
   const createNewProduct = (payload: object) => {
-    return Request.post("${dbUri}/products", payload, {}, "Product");
+    return Request.post(`${env.dbUri}/products`, payload, {}, "Product");
   };
 
   return (

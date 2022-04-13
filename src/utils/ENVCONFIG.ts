@@ -7,4 +7,19 @@ const ENVCONFIG = {
   },
 };
 
-export default ENVCONFIG;
+interface IEnvConfig {
+  development: Object;
+  deployment: Object;
+}
+const envSwitch = (switchSelector: "dev" | "dep") => {
+  if (switchSelector === "dev") {
+    return ENVCONFIG.development;
+  }
+  if (switchSelector === "dep") {
+    return ENVCONFIG.development;
+  } else {
+    throw new Error("Wrong Env selection");
+  }
+};
+
+export default envSwitch;

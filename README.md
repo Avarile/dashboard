@@ -65,3 +65,15 @@
      - Critical Point: Editable Table: ongoing
      - Critical Point: Nested Table: ongoing
      - Critical Point: Sort and Filter: ongping
+
+#### 13/April/2022:
+
+1. Target1: implement the current stock of Mel
+   - implement the route: done --- so easy just add 2 different routes.
+   - implement the table layouts: done, use Grid to implemented a search bar and a form --- easy.
+   - implement the table and logic: ongoing
+     - Critical Point: Editable Table: ongoing
+     - Critical Point: Nested Table: ongoing
+     - Critical Point: Sort and Filter: ongping
+   - implement a switch to chose the mock backend address for other computer to use: half done, need a global variable to control all the env variable.
+   - fix the login button bug: ongoing.

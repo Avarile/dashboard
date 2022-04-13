@@ -5,7 +5,7 @@ import Request from "@DATA/api.controller";
 import qs from "query-string";
 import { refineQueryString, QueryStringType } from "@SRC/utils/utilFuncs";
 import useDebounce from "@SRC/Hooks/useDebounce";
-import ENVCONFIG from "@SRC/utils/ENVCONFIG";
+import envSwitch from "@SRC/utils/ENVCONFIG";
 
 const layout = {
   labelCol: {
@@ -30,8 +30,8 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const WarehousingDepositeForm = () => {
-  //loading up the constants:
-  const dbUri = ENVCONFIG.development.dbUri;
+  // Env config loading
+  const env = envSwitch("dev");
 
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
@@ -53,7 +53,7 @@ const WarehousingDepositeForm = () => {
     queryData: { name?: string; sku?: string } = {}
   ) => {
     return await Request.get(
-      `${dbUri}/products?${qs.stringify(refineQueryString(queryData))}`
+      `${env.dbUri}/products?${qs.stringify(refineQueryString(queryData))}`
     );
   };
 
@@ -62,7 +62,7 @@ const WarehousingDepositeForm = () => {
     payload: object,
     messageTarget: string
   ) => {
-    return Request.put(`${dbUri}/products/${url}`, payload, messageTarget);
+    return Request.put(`${env.dbUri}/products/${url}`, payload, messageTarget);
   };
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {
