@@ -71,9 +71,32 @@
 1. Target1: implement the current stock of Mel
    - implement the route: done --- so easy just add 2 different routes.
    - implement the table layouts: done, use Grid to implemented a search bar and a form --- easy.
-   - implement the table and logic: ongoing
+   - implement the table and logic: Solved
      - Critical Point: Editable Table: ongoing
-     - Critical Point: Nested Table: ongoing
+       1. How to acquire data from the table structure: Solved
+
+```
+{
+        title: "In Stock",
+        key: "inStock",
+        dataIndex: "inStock",
+        render: (a: any, b: any, c: any) => {
+          // a: current row value, b: current column value(a obj), c: row index
+          debugger
+
+          return (
+            <span>
+              <Badge status={stockIndicator(a)} />
+              {a}
+            </span>
+          )
+        },
+      },
+  };
+```
+
+     - Critical Point: Nested Table: Solved the logic
      - Critical Point: Sort and Filter: ongping
-   - implement a switch to chose the mock backend address for other computer to use: half done, need a global variable to control all the env variable.
-   - fix the login button bug: ongoing.
+
+- implement a switch to chose the mock backend address for other computer to use: half done, need a global variable to control all the env variable.
+- fix the login button bug: fixed.

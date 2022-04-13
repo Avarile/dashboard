@@ -1,8 +1,8 @@
-import React from "react";
-import "antd/dist/antd.css";
-import { Table, Badge, Menu, Dropdown, Space } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import { stockIndicator } from "@SRC/utils/utilFuncs";
+import React from "react"
+import "antd/dist/antd.css"
+import { Table, Badge, Menu, Dropdown, Space } from "antd"
+import { DownOutlined } from "@ant-design/icons"
+import { stockIndicator } from "@SRC/utils/utilFuncs"
 
 /**
  *the menu at the end of the action as well as anywhere else.
@@ -13,7 +13,7 @@ const menu = (
     <Menu.Item>Action 1</Menu.Item>
     <Menu.Item>Action 2</Menu.Item>
   </Menu>
-);
+)
 
 function WareHousingMel() {
   /**
@@ -32,12 +32,17 @@ function WareHousingMel() {
         title: "In Stock",
         key: "inStock",
         dataIndex: "inStock",
-        render: () => (
-          <span>
-            <Badge status="success" />
-            123
-          </span>
-        ),
+        render: (a: any, b: any, c: any) => {
+          // a: current row value, b: current column value(a obj), c: row index
+          debugger
+
+          return (
+            <span>
+              <Badge status={stockIndicator(a)} />
+              {a}
+            </span>
+          )
+        },
       },
       { title: "last Update", dataIndex: "lastUpdate", key: "lastUpdate" },
       {
@@ -56,35 +61,33 @@ function WareHousingMel() {
           </Space>
         ),
       },
-    ];
+    ]
 
-    const data = [];
+    const data: any[] = []
     for (let i = 0; i < 6; ++i) {
       data.push({
         key: i,
         sku: `TB0${i}-${i}s`,
         name: `ProductName${i}`,
         price: 2300,
-        inStocck: () => {
-          return Math.floor(Math.random() * 10);
-        },
+        inStock: 5,
         lastUpdate: Date.now() / 1000,
-      });
+      })
     }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
-  };
+    return <Table columns={columns} dataSource={data} pagination={false} />
+  }
 
   const columns = [
-    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Type", dataIndex: "Type", key: "type" },
     { title: "Platform", dataIndex: "platform", key: "platform" },
     { title: "Version", dataIndex: "version", key: "version" },
     { title: "Upgraded", dataIndex: "upgradeNum", key: "upgradeNum" },
     { title: "Creator", dataIndex: "creator", key: "creator" },
     { title: "Date", dataIndex: "createdAt", key: "createdAt" },
     { title: "Action", key: "operation", render: () => <a>Publish</a> },
-  ];
+  ]
 
-  const data = [];
+  const data = []
   for (let i = 0; i < 3; ++i) {
     data.push({
       key: i,
@@ -94,7 +97,7 @@ function WareHousingMel() {
       upgradeNum: 500,
       creator: "Jack",
       createdAt: "2014-12-24 23:12:00",
-    });
+    })
   }
 
   return (
@@ -114,7 +117,7 @@ function WareHousingMel() {
         bordered={false}
       />
     </div>
-  );
+  )
 }
 
-export default WareHousingMel;
+export default WareHousingMel
