@@ -17,149 +17,6 @@
     }
   ],
   "products": [
-    {
-      "id": 1,
-      "name": "WindowTint",
-      "sku": "WT001",
-      "size": null,
-      "price": 4000,
-      "powdercoatingprice": null,
-      "installationprice": 500,
-      "desc": "Window Tint for univarsal purproses.",
-      "spec": "4000mm * 2500mm Heavy duty.",
-      "currentInStock": 279,
-      "updateLog": "init with 40 units\nadd 1 unit"
-    },
-    {
-      "id": 2,
-      "name": "tray04",
-      "sku": "Tray18-02",
-      "size": "1800l * 1780w * 50h",
-      "price": 3700,
-      "powdercoatingprice": 600,
-      "installationprice": 450,
-      "desc": "Deluxe Tray with trundle drawer, and a pair of under Tray boxes.",
-      "spec": "1800l * 1780w * 50h Heavy duty tray",
-      "currentInStock": 53,
-      "updateLog": "10/April/2022:\n3 added"
-    },
-    {
-      "id": 3,
-      "name": "tray06",
-      "sku": "Tray16-03",
-      "size": "1600l * 1780w * 50h",
-      "price": 3250,
-      "powdercoatingprice": 540,
-      "installationprice": 450,
-      "desc": "Duluxe Tray with trundle drawer, with a pair of under tray boxes.",
-      "spec": "1600l * 1780w * 50h Heavy duty tray",
-      "currentInStock": 100,
-      "updateLog": ""
-    },
-    {
-      "id": 4,
-      "name": "Canopy02",
-      "sku": "CNP18-17320",
-      "size": "1700l * 1800w * 850h",
-      "price": 2800,
-      "powdercoatingprice": 470,
-      "installationprice": 300,
-      "desc": "Fine tuned Canopy with a 2500mm canopy",
-      "spec": "1700l * 1800w * 850h Heavy duty Canopy.",
-      "currentInStock": 10,
-      "updateLog": "10/Apr/2022:\nReceived 1 units\n"
-    },
-    {
-      "id": 5,
-      "name": "drawer01",
-      "sku": "DR001",
-      "size": "850l * 600w * 300h",
-      "price": 600,
-      "powdercoatingprice": null,
-      "installationprice": 100,
-      "desc": "Heavy duty drawer",
-      "spec": "850l * 600w * 300h Heavy duty drawer.",
-      "currentInStock": 25,
-      "updateLog": ""
-    },
-    {
-      "name": "tray07",
-      "sku": "Tray18-04",
-      "size": "1800l * 1780w * 50h",
-      "price": 3700,
-      "powdercoatingprice": 600,
-      "installationprice": 450,
-      "desc": "Duluxe Tray with trundle drawer, with a pair of under tray boxes.",
-      "spec": "1600l * 1780w * 50h Heavy duty tray",
-      "currentInStock": 46,
-      "updateLog": "11/April/2022\n3 added\n\n\n10/April/2022\ninit with 40 units",
-      "id": 6
-    },
-    {
-      "name": "Canopy03",
-      "sku": "CNP18-1810",
-      "size": "1800l * 1780w * 850h",
-      "price": 3500,
-      "powdercoatingprice": 600,
-      "installationprice": 250,
-      "desc": "Heavy duty:  1800l * 1780w * 850h",
-      "spec": "Heavy duty:  1800l * 1780w * 850h",
-      "currentInStock": 0,
-      "updateLog": "",
-      "id": 7
-    },
-    {
-      "name": "Canopy04",
-      "sku": "CNP18-1810H",
-      "size": "1800l * 1780w * 850h",
-      "price": 3800,
-      "powdercoatingprice": 500,
-      "installationprice": 270,
-      "desc": "Heavy Duty 1800l * 1780w * 850h canopy.",
-      "spec": "Heavy Duty 1800l * 1780w * 850h canopy.",
-      "currentInStock": 0,
-      "updateLog": "",
-      "id": 8
-    },
-    {
-      "name": "tray11",
-      "sku": "Tray16-06",
-      "size": "1600l * 1780w * 50h",
-      "price": 2800,
-      "powdercoatingprice": 450,
-      "installationprice": 150,
-      "desc": "asdfasdf",
-      "spec": "asdfasdasdf",
-      "currentInStock": 0,
-      "updateLog": "",
-      "id": 9
-    },
-    {
-      "name": "800 x 450 x 350mm Aluminium Top open Tool box",
-      "sku": "VPC-2",
-      "size": "800l x 450w 350h",
-      "price": 250,
-      "powdercoatingprice": 80,
-      "installationprice": 0,
-      "desc": "asdfasdas",
-      "spec": "asdfasdf",
-      "currentInStock": 0,
-      "updateLog": "",
-      "id": 10
-    },
-    {
-      "name": "Aluminium Full Roof Rack 2.7m x 1.4m with wind deflector",
-      "sku": "FRR-2714WD",
-      "size": "2700L 1400W 120H ",
-      "price": 850,
-      "powdercoatingprice": 275,
-      "installationprice": 0,
-      "desc": "asdfasdas",
-      "spec": "asdfasdf",
-      "currentInStock": 0,
-      "updateLog": "",
-      "id": 11
-    }
   ],
   "order": [
     {
@@ -256,5 +113,16 @@
       "powderCoatingTime": 0,
       "estimateFinishOn": "25/Match/2022"
     }
+  ],
+  "productTypes":[
+    "toolbox",
+    "canopy",
+    "tray",
+    "accessories",
+    "4x4",
+    "bundle&save",
+    "tray&canopy",
+    "tubCanopy",
+    "serviceBody"
   ]
 }
