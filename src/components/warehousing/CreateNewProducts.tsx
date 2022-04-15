@@ -42,8 +42,23 @@ const CreateNewItem = () => {
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>();
   const [loadingStatus, setLoadingStatus] = React.useState(false);
+  const [productTypes, setProductTypes] = React.useState<any>([]);
 
   const onFinish = (values: any) => {};
+
+  const getProductType = async () => {
+    await Request.get(`${env.dbUri}/productTypes`)
+      .then((response: any) => {
+        setProductTypes(response);
+      })
+      .catch((error: any) => {
+        throw new Error("Cannot load the productTypes", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getProductType();
+  }, []);
 
   const createNewProduct = (payload: object) => {
     return Request.post(`${env.dbUri}/products`, payload, {}, "Product");
@@ -61,6 +76,22 @@ const CreateNewItem = () => {
         ref.current = formInstance;
       }}
     >
+      <Form.Item
+        name={["product", "productType"]}
+        label="Product Type"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select placeholder="Please select a Type">
+          {productTypes.map((type: { id: number; name: string }) => {
+            debugger;
+            return <Select.Option key={type.id}>{type.name}</Select.Option>;
+          })}
+        </Select>
+      </Form.Item>
       <Form.Item
         name={["product", "productName"]}
         label="Product Name"
@@ -151,6 +182,7 @@ const CreateNewItem = () => {
             setTimeout(() => {
               const currentFormValues = ref.current?.getFieldValue("product");
               const productPayload = {
+                type: currentFormValues.productType,
                 name: currentFormValues.productName,
                 sku: currentFormValues.productSku,
                 size: currentFormValues.productSize,

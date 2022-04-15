@@ -48,6 +48,7 @@ const WarehousingAbolishForm = () => {
 
   const [isloading, setIsloading] = useState(false);
   const [products, setProducts] = useState<any>([]);
+  const [productType, setProductType] = useState<any>([]);
   const [searchParams, setSearchParams] = useState<QueryStringType>({
     name: "",
     sku: "",
@@ -63,6 +64,16 @@ const WarehousingAbolishForm = () => {
     );
   };
 
+  const getProductType = async () => {
+    return await Request.get(`${env.dbUri}/productTypes`)
+      .then((response: any) => {
+        setProductType(response);
+      })
+      .catch((error: any) => {
+        throw new Error("Cannot load the productTypes", error);
+      });
+  };
+
   const putProductData = async (url: string, payload: object) => {
     return await Request.put(
       `${env.dbUri}/products/${url}`,
@@ -72,10 +83,13 @@ const WarehousingAbolishForm = () => {
   };
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {
+    // load the producData and productTypes on the first render and only load once
+
     getProductData().then((response) => {
       setProducts(response);
-      console.log(response);
     });
+
+    getProductType();
   }, []);
 
   return (
@@ -110,6 +124,7 @@ const WarehousingAbolishForm = () => {
               };
               getProductData(queryData).then((response: any) => {
                 const {
+                  type,
                   size,
                   price,
                   powdercoatingprice,
@@ -124,6 +139,7 @@ const WarehousingAbolishForm = () => {
                 ref.current?.setFieldsValue({
                   product: {
                     ...currentFormValue,
+                    productType: type,
                     productSku: sku,
                     productUpdateLog: updateLog,
                     productQuantityAdd: 0,
@@ -158,6 +174,7 @@ const WarehousingAbolishForm = () => {
                 .then((response: any) => {
                   console.log(response);
                   const {
+                    type,
                     name,
                     size,
                     price,
@@ -179,6 +196,7 @@ const WarehousingAbolishForm = () => {
                   ref.current?.setFieldsValue({
                     product: {
                       ...currentFormValue,
+                      productType: type,
                       productName: name,
                       productUpdateLog: updateLog,
                       productQuantityAdd: 0,
@@ -206,6 +224,18 @@ const WarehousingAbolishForm = () => {
             })}
           </Select>
         </Form.Item>
+      </Form.Item>
+      <Form.Item
+        name={["product", "productType"]}
+        label="Type"
+        rules={[
+          {
+            required: false,
+            message: "must provide product Type",
+          },
+        ]}
+      >
+        <Input />
       </Form.Item>
       <Form.Item
         name={["product", "productSku"]}

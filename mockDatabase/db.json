@@ -17,6 +17,19 @@
     }
   ],
   "products": [
+    {
+      "type": "3",
+      "name": "Heavy Duty !800mm Tray",
+      "sku": "Tray18-DT",
+      "size": "1800L x 1780W x 50H",
+      "price": 2900,
+      "powdercoatingprice": 450,
+      "installationprice": 450,
+      "desc": "Heavy duty 1800mmL Double Tapered tray",
+      "currentInStock": 20,
+      "updateLog": "15/Apr/2022:\nFirst Batch arrived 20 units.",
+      "id": 1
+    }
   ],
   "order": [
     {
@@ -114,15 +127,38 @@
       "estimateFinishOn": "25/Match/2022"
     }
   ],
-  "productTypes":[
-    "toolbox",
-    "canopy",
-    "tray",
-    "accessories",
-    "4x4",
-    "bundle&save",
-    "tray&canopy",
-    "tubCanopy",
-    "serviceBody"
+  "productTypes": [
+    {
+      "id": 1,
+      "name": "toolbox"
+    },
+    {
+      "id": 2,
+      "name": "canopy"
+    },
+    {
+      "id": 3,
+      "name": "tray"
+    },
+    {
+      "id": 4,
+      "name": "accessories"
+    },
+    {
+      "id": 5,
+      "name": "4x4"
+    },
+    {
+      "id": 6,
+      "name": "serviceBody"
+    },
+    {
+      "id": 7,
+      "name": "combo"
+    },
+    {
+      "id": 8,
+      "name": "tubCanopy"
+    }
   ]
 }

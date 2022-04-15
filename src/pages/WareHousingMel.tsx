@@ -79,6 +79,7 @@ function WareHousingMel() {
 
   const columns = [
     { title: "Type", dataIndex: "type", key: "type" },
+    { title: "Items", dataIndex: "items", key: "items" },
     { title: "Action", key: "operation", render: () => <a>Publish</a> },
   ];
 
@@ -87,6 +88,7 @@ function WareHousingMel() {
     data.push({
       key: i,
       type: "Canopy",
+      items: "",
     });
   }
 
