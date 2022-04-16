@@ -18,7 +18,7 @@
   ],
   "products": [
     {
-      "type": "3",
+      "type": "tray",
       "name": "Heavy Duty !800mm Tray",
       "sku": "Tray18-DT",
       "size": "1800L x 1780W x 50H",
@@ -26,9 +26,52 @@
       "powdercoatingprice": 450,
       "installationprice": 450,
       "desc": "Heavy duty 1800mmL Double Tapered tray",
+      "spec": "asdfasdf",
       "currentInStock": 20,
       "updateLog": "15/Apr/2022:\nFirst Batch arrived 20 units.",
       "id": 1
+    },
+    {
+      "type": "toolbox",
+      "name": "Top Open Toolbox",
+      "sku": "TB01-754",
+      "size": "700L x 500W x 400H",
+      "price": 300,
+      "powdercoatingprice": 80,
+      "installationprice": 0,
+      "currentInStock": 20,
+      "desc": "asdfasdf",
+      "spec": "asdfasdf",
+      "updateLog": "16/Apr/2022:\nNew arrival 20",
+      "id": 2
+    },
+    {
+      "type": "tubCanopy",
+      "name": "Generic Type Tub Canopy",
+      "sku": "TC001",
+      "size": "800L x 1780W x 850H",
+      "price": 800,
+      "powdercoatingprice": 200,
+      "installationprice": 150,
+      "desc": "asdfasdf",
+      "spec": "asdfasdf",
+      "currentInStock": 5,
+      "updateLog": "16/Apr/2022:\nNew arrival 5",
+      "id": 3
+    },
+    {
+      "type": "toolbox",
+      "name": "Heavy duty Toolbox 800L x 400W x 300H",
+      "sku": "TB01-843",
+      "size": "800L x 400W x 300H",
+      "price": 450,
+      "powdercoatingprice": 80,
+      "installationprice": 0,
+      "desc": "Heavy duty Toolbox 800L x 400W x 300H, Cheap and steady",
+      "spec": "Heavy duty Toolbox 800L x 400W x 300H, Cheap and steady",
+      "currentInStock": 0,
+      "updateLog": "",
+      "id": 4
     }
   ],
   "order": [

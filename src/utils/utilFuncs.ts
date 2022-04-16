@@ -27,7 +27,7 @@ export const stockIndicator = (stockNumber: number): "success" | "warning" | "er
     return "success"
   }
   if (stockNumber >= 5) {
-    // if  10 > stockNumber > 5
+    // if 10 > stockNumber > 5
     return "warning"
   }
   if (stockNumber >= 3) {
@@ -39,4 +39,15 @@ export const stockIndicator = (stockNumber: number): "success" | "warning" | "er
   } else {
     return "default"
   }
+}
+
+export const CaculateTypeItems = (typeName: string | "" | null | undefined, products: any[]): number => {
+  let count = 0
+  for (const item of products) {
+    if (item.type === typeName) {
+      count++
+    } else count = count
+  }
+
+  return count
 }

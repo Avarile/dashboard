@@ -1,8 +1,10 @@
-import React from "react";
-import "antd/dist/antd.css";
-import { Table, Badge, Menu, Dropdown, Space } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import { stockIndicator } from "@SRC/utils/utilFuncs";
+import React from "react"
+import "antd/dist/antd.css"
+import { Table, Badge, Menu, Dropdown, Space } from "antd"
+import { DownOutlined } from "@ant-design/icons"
+import { stockIndicator, CaculateTypeItems } from "@SRC/utils/utilFuncs"
+import Request from "@DATA/api.controller"
+import envSwitch from "@SRC/utils/ENVCONFIG"
 
 /**
  *the menu at the end of the action as well as anywhere else.
@@ -13,16 +15,17 @@ const menu = (
     <Menu.Item>Action 1</Menu.Item>
     <Menu.Item>Action 2</Menu.Item>
   </Menu>
-);
+)
 
 function WareHousingMel() {
+  // UI controller
+  const [loadingStatus, setLoadingStatus] = React.useState(false)
+
   /**
    * Rows been expanded definition
    *
    */
   const expandedRowRender = () => {
-    // create Ref
-    // const tableRef = React.useRef();
     const columns = [
       // inner row columns
       { title: "SKU", dataIndex: "sku", key: "sku" },
@@ -34,14 +37,13 @@ function WareHousingMel() {
         dataIndex: "inStock",
         render: (a: any, b: any, c: any) => {
           // a: current row value, b: current column value(a obj), c: row index
-          debugger;
 
           return (
             <span>
               <Badge status={stockIndicator(a)} />
               {a}
             </span>
-          );
+          )
         },
       },
       { title: "last Update", dataIndex: "lastUpdate", key: "lastUpdate" },
@@ -61,35 +63,58 @@ function WareHousingMel() {
           </Space>
         ),
       },
-    ];
+    ]
 
-    const data: any[] = [];
-    for (let i = 0; i < 6; ++i) {
-      data.push({
-        key: i,
-        sku: `TB0${i}-${i}s`,
-        name: `ProductName${i}`,
-        price: 2300,
-        inStock: 5,
-        lastUpdate: Date.now() / 1000,
-      });
-    }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
-  };
+    const data: any[] = []
+
+    return <Table columns={columns} dataSource={data} pagination={false} />
+  }
 
   const columns = [
-    { title: "Type", dataIndex: "type", key: "type" },
+    { title: "Type", dataIndex: "type", key: "type", render: (a: any) => <h4>{a}</h4> },
     { title: "Items", dataIndex: "items", key: "items" },
     { title: "Action", key: "operation", render: () => <a>Publish</a> },
-  ];
+  ]
 
-  const data = [];
-  for (let i = 0; i < 3; ++i) {
+  // Data init: Type and items caculation
+  const env = envSwitch("dev")
+  const [productTypes, setProductTypes] = React.useState<any>([])
+  const [products, setProducts] = React.useState<any>([])
+
+  const getProduct = async () => {
+    return await Request.get(`${env.dbUri}/products`)
+      .then((response: any) => {
+        setProducts(response)
+      })
+      .catch((error: any) => {
+        throw new Error("WareHousingMEl cannont get the Product data", error)
+      })
+  }
+
+  const getProductType = async () => {
+    await Request.get(`${env.dbUri}/productTypes`)
+      .then((response: any) => {
+        setProductTypes(response)
+      })
+      .catch((error: any) => {
+        throw new Error("Cannot load the productTypes", error)
+      })
+  }
+
+  React.useEffect(() => {
+    getProductType()
+    getProduct()
+  }, [])
+  // end of DATA init
+
+  const data = []
+  for (let i = 0; i < productTypes.length; ++i) {
+    debugger
     data.push({
       key: i,
-      type: "Canopy",
-      items: "",
-    });
+      type: productTypes[i].name.toUpperCase(),
+      items: CaculateTypeItems(productTypes[i].name, products),
+    })
   }
 
   return (
@@ -104,12 +129,14 @@ function WareHousingMel() {
         // }}
         className="components-table-demo-nested"
         columns={columns} // this is pretty straight forward this is cloumns
-        expandable={{ expandedRowRender }} // and this is the expanderable Row
+        expandable={{
+          expandedRowRender
+        }} // and this is the expanderable Row
         dataSource={data} // dataSourse
         bordered={false}
       />
     </div>
-  );
+  )
 }
 
-export default WareHousingMel;
+export default WareHousingMel

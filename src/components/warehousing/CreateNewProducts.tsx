@@ -1,16 +1,8 @@
-import React, { useRef } from "react";
-import "antd/dist/antd.css";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Button,
-  FormInstance,
-  Select,
-  notification,
-} from "antd";
-import Request from "@DATA/api.controller";
-import envSwitch from "@SRC/utils/ENVCONFIG";
+import React, { useRef } from "react"
+import "antd/dist/antd.css"
+import { Form, Input, InputNumber, Button, FormInstance, Select, notification } from "antd"
+import Request from "@DATA/api.controller"
+import envSwitch from "@SRC/utils/ENVCONFIG"
 
 const layout = {
   labelCol: {
@@ -19,7 +11,7 @@ const layout = {
   wrapperCol: {
     span: 20,
   },
-};
+}
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
@@ -30,39 +22,39 @@ const validateMessages = {
   number: {
     range: "${label} must be between ${min} and ${max}",
   },
-};
+}
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewItem = () => {
   // env config loading
-  const env = envSwitch("dev");
+  const env = envSwitch("dev")
   //
 
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
-  const ref = useRef<FormInstance<any> | null>();
-  const [loadingStatus, setLoadingStatus] = React.useState(false);
-  const [productTypes, setProductTypes] = React.useState<any>([]);
+  const ref = useRef<FormInstance<any> | null>()
+  const [loadingStatus, setLoadingStatus] = React.useState(false)
+  const [productTypes, setProductTypes] = React.useState<any>([])
 
-  const onFinish = (values: any) => {};
+  const onFinish = (values: any) => {}
 
   const getProductType = async () => {
     await Request.get(`${env.dbUri}/productTypes`)
       .then((response: any) => {
-        setProductTypes(response);
+        setProductTypes(response)
       })
       .catch((error: any) => {
-        throw new Error("Cannot load the productTypes", error);
-      });
-  };
+        throw new Error("Cannot load the productTypes", error)
+      })
+  }
 
   React.useEffect(() => {
-    getProductType();
-  }, []);
+    getProductType()
+  }, [])
 
   const createNewProduct = (payload: object) => {
-    return Request.post(`${env.dbUri}/products`, payload, {}, "Product");
-  };
+    return Request.post(`${env.dbUri}/products`, payload, {}, "Product")
+  }
 
   return (
     <Form
@@ -73,9 +65,8 @@ const CreateNewItem = () => {
       style={{ flex: 1 }}
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
-        ref.current = formInstance;
-      }}
-    >
+        ref.current = formInstance
+      }}>
       <Form.Item
         name={["product", "productType"]}
         label="Product Type"
@@ -83,12 +74,16 @@ const CreateNewItem = () => {
           {
             required: true,
           },
-        ]}
-      >
+        ]}>
         <Select placeholder="Please select a Type">
           {productTypes.map((type: { id: number; name: string }) => {
-            debugger;
-            return <Select.Option key={type.id}>{type.name}</Select.Option>;
+            console.log(ref.current?.getFieldValue("product"))
+
+            return (
+              <Select.Option key={type.id} value={type.name}>
+                {type.name}
+              </Select.Option>
+            )
           })}
         </Select>
       </Form.Item>
@@ -99,8 +94,7 @@ const CreateNewItem = () => {
           {
             required: true,
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -110,8 +104,7 @@ const CreateNewItem = () => {
           {
             required: true,
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -121,8 +114,7 @@ const CreateNewItem = () => {
           {
             required: true,
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -133,8 +125,7 @@ const CreateNewItem = () => {
             type: "number",
             min: 0,
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item
@@ -145,8 +136,7 @@ const CreateNewItem = () => {
             type: "number",
             min: 0,
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item
@@ -157,17 +147,13 @@ const CreateNewItem = () => {
             type: "number",
             min: 0,
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item name={["product", "productDescription"]} label="Description">
         <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
       </Form.Item>
-      <Form.Item
-        name={["product", "productSpecification"]}
-        label="Specification"
-      >
+      <Form.Item name={["product", "productSpecification"]} label="Specification">
         <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
@@ -178,9 +164,9 @@ const CreateNewItem = () => {
           style={{ marginBottom: "1rem" }}
           loading={loadingStatus}
           onClick={() => {
-            setLoadingStatus(true);
+            setLoadingStatus(true)
             setTimeout(() => {
-              const currentFormValues = ref.current?.getFieldValue("product");
+              const currentFormValues = ref.current?.getFieldValue("product")
               const productPayload = {
                 type: currentFormValues.productType,
                 name: currentFormValues.productName,
@@ -188,31 +174,28 @@ const CreateNewItem = () => {
                 size: currentFormValues.productSize,
                 price: currentFormValues.productPrice,
                 powdercoatingprice: currentFormValues.productPowderCoatingPrice,
-                installationprice:
-                  currentFormValues.productPowderInstallationPrice,
+                installationprice: currentFormValues.productPowderInstallationPrice,
                 desc: currentFormValues.productDescription,
                 spec: currentFormValues.productSpecification,
                 currentInStock: 0,
                 updateLog: "",
-              };
-              createNewProduct(productPayload);
-              setLoadingStatus(false);
-              ref.current?.resetFields();
-            }, 2000);
-          }}
-        >
+              }
+              createNewProduct(productPayload)
+              setLoadingStatus(false)
+              ref.current?.resetFields()
+            }, 2000)
+          }}>
           Submit
         </Button>
         <Button
           onClick={() => {
-            ref.current?.resetFields();
+            ref.current?.resetFields()
           }}
-          block
-        >
+          block>
           Reset Form
         </Button>
       </Form.Item>
     </Form>
-  );
-};
-export default CreateNewItem;
+  )
+}
+export default CreateNewItem
