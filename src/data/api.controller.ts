@@ -86,7 +86,6 @@ class Request {
   public get(url: string, params = {}) {
     return new Promise((resolve, reject) => {
       this.setIsloading(true)
-      debugger
       this.axiosInstance
         .get(url, {
           params: params,

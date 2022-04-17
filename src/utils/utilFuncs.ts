@@ -24,18 +24,18 @@ export const isVoid = (value: undefined | null | "") => {
 
 export const stockIndicator = (stockNumber: number): "success" | "warning" | "error" | "processing" | "default" => {
   if (stockNumber >= 10) {
-    return "success"
+    return "processing"
   }
   if (stockNumber >= 5) {
     // if 10 > stockNumber > 5
-    return "warning"
+    return "success"
   }
   if (stockNumber >= 3) {
     // if 5 > stockNumber > 1
-    return "error"
+    return "warning"
   }
   if (stockNumber < 1) {
-    return "processing"
+    return "error"
   } else {
     return "default"
   }

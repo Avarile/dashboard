@@ -10,6 +10,8 @@ export const productsSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       //get all or specified products/product
+      console.log(action.payload)
+
       return {
         ...state,
         products: action.payload,

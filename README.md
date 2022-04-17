@@ -100,3 +100,9 @@
 
 - implement a switch to chose the mock backend address for other computer to use: half done, need a global variable to control all the env variable.
 - fix the login button bug: fixed.
+
+#### 17/Apr/2022
+
+1. Create a different color for SubTable, so the colors of main and sub table wont be the same, easier for user.
+   - use styled-components to warp the Table
+   - find the class we need to alter

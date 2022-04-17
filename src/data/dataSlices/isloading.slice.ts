@@ -15,6 +15,8 @@ export const isloadingSlice = createSlice({
     },
 
     setError: (state, action) => {
+      console.log(action.payload)
+
       return {
         ...state,
         error: action.payload,

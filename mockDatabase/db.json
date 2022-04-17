@@ -29,7 +29,8 @@
       "spec": "asdfasdf",
       "currentInStock": 20,
       "updateLog": "15/Apr/2022:\nFirst Batch arrived 20 units.",
-      "id": 1
+      "id": 1,
+      "lastUpdate": ""
     },
     {
       "type": "toolbox",
@@ -43,7 +44,8 @@
       "desc": "asdfasdf",
       "spec": "asdfasdf",
       "updateLog": "16/Apr/2022:\nNew arrival 20",
-      "id": 2
+      "id": 2,
+      "lastUpdate": ""
     },
     {
       "type": "tubCanopy",
@@ -57,7 +59,8 @@
       "spec": "asdfasdf",
       "currentInStock": 5,
       "updateLog": "16/Apr/2022:\nNew arrival 5",
-      "id": 3
+      "id": 3,
+      "lastUpdate": ""
     },
     {
       "type": "toolbox",
@@ -71,7 +74,8 @@
       "spec": "Heavy duty Toolbox 800L x 400W x 300H, Cheap and steady",
       "currentInStock": 0,
       "updateLog": "",
-      "id": 4
+      "id": 4,
+      "lastUpdate": ""
     }
   ],
   "order": [
