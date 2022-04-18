@@ -5,6 +5,17 @@ import Request from "@DATA/api.controller"
 import envSwitch from "@SRC/utils/ENVCONFIG"
 import qs from "query-string"
 import { refineQueryString, debounce } from "@SRC/utils/utilFuncs"
+import { cursorTo } from "readline"
+
+//type Definition
+
+type OrderType = {
+  client: any
+  products: any
+  powderCoating: any
+  workShop: any
+  price: any
+}
 
 const layout = {
   labelCol: {
@@ -29,6 +40,22 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewQuotation = () => {
+  // Util Functions
+  const [loadingStatus, setLoadingStatus] = React.useState(false)
+  const [productTypes, setProductTypes] = React.useState<any>([])
+
+  /**
+   * Judge if the product exist use product or else use temp
+   * @returns {Array}
+   */
+  const renderSwitch = () => {
+    if (currentOrderRef.current.products.product1?.length) {
+      return currentOrderRef.current.products.product1
+    } else {
+      return currentOrderRef.current.products.temp
+    }
+  }
+
   // env config loading
   const env = envSwitch("dev")
   //
@@ -36,18 +63,16 @@ const CreateNewQuotation = () => {
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
-  const currentOrderRef = useRef({
+  const currentOrderRef = useRef<OrderType>({
     client: {},
     products: {
       temp: [],
-      product1: {},
+      product1: [],
     },
     powderCoating: [],
     workShop: [],
     price: {},
   }) // for the CurrentOrder we are working on
-  const [loadingStatus, setLoadingStatus] = React.useState(false)
-  const [productTypes, setProductTypes] = React.useState<any>([])
 
   const onFinish = (values: any) => {}
 
@@ -225,10 +250,13 @@ const CreateNewQuotation = () => {
                 }
                 // make apiCall according to the params and then debounce it.
                 const debouncedApiCall = debounce(() => {
-                  getProducts(queryParams).then((response: any) => {
-                    currentOrderRef.current.products.temp = response
-                  })
-                  setLoadingStatus(false)
+                  getProducts(queryParams)
+                    .then((response: any) => {
+                      currentOrderRef.current.products.temp = response
+                    })
+                    .then(() => {
+                      setLoadingStatus(false)
+                    })
                 })
                 // make the debounced call
                 debouncedApiCall(3000)
@@ -250,10 +278,27 @@ const CreateNewQuotation = () => {
               width: "calc(40%)",
               paddingRight: "5px",
             }}>
-            <Select placeholder="Select Product" onChange={() => {}}>
-              {currentOrderRef.current.products.temp.map((product: any) => {
+            <Select
+              placeholder="Select Product"
+              onChange={() => {
+                setLoadingStatus(true)
+                let currentFormValue = ref.current?.getFieldValue("order")
+                let temp = {}
+                let product = currentOrderRef.current?.products
+                product?.temp.map((product: any) => {
+                  if (product.sku === currentFormValue.item.product1) {
+                    temp = product
+                  } else return null
+                })
+                product.product1 = [temp] // pass selected Value to product1 as a Array --- as a array for later we need to map it.
+                product.temp = [] // reset the temp to empty array.
+                console.log(product.product1, temp)
+                setLoadingStatus(false)
+              }}>
+              {renderSwitch().map((product: any) => {
+                debugger
                 return (
-                  <Select.Option key={product.sku} value={product.name}>
+                  <Select.Option key={product.sku} value={product.sku}>
                     {product.name}
                   </Select.Option>
                 )

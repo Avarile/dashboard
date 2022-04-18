@@ -137,6 +137,7 @@
 #### 18/Apr/2022
 
 1.  Target 1
+
     - Order Managment: the Order is the core entity of the App --- nearly all other module is working around this component and all info is attached to it.
     - Create a tab system to navigate within the order module, we need "Create order", "edit order" and "Delete Order", 3 options
     - 1st Tast:
@@ -145,3 +146,7 @@
         - side notes: create a Debounce func: Done
         - box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         - 2nd step: implements item selection / add: ongoing
+        - Problem: UI and Data not sync: working on it
+
+2.  A MAJOR Problem:
+    - Description: In a Quotation form, I used a ref to store a complex Object which represents the Entire quota. And I used a temp:[] as a tempary place to hold data. after I put data in it. I always called a setState to refresh the page. but still, I encountered the classic "one Step behind" Problem.
