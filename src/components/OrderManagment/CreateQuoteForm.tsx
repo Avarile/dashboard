@@ -38,6 +38,13 @@ const CreateNewQuotation = () => {
   const ref = useRef<FormInstance<any> | null>()
   const currentOrderRef = useRef({
     client: {},
+    products: {
+      temp: [],
+      product1: {},
+    },
+    powderCoating: [],
+    workShop: [],
+    price: {},
   }) // for the CurrentOrder we are working on
   const [loadingStatus, setLoadingStatus] = React.useState(false)
   const [productTypes, setProductTypes] = React.useState<any>([])
@@ -49,18 +56,17 @@ const CreateNewQuotation = () => {
     return await Request.get(`${env.dbUri}/clients?${qs.stringify(refineQueryString(queryParams))}`)
   }
 
-  const getProductType = async () => {
-    await Request.get(`${env.dbUri}/productTypes`)
-      .then((response: any) => {
-        setProductTypes(response)
-      })
-      .catch((error: any) => {
-        throw new Error("Cannot load the productTypes", error)
-      })
+  const getProducts = async (queryParams: { type: string }) => {
+    return await Request.get(`${env.dbUri}/products?${qs.stringify(refineQueryString(queryParams))}`)
   }
 
+  const getProductTypes = async () => {
+    return await Request.get(`${env.dbUri}/productTypes`)
+  }
   React.useEffect(() => {
-    getProductType()
+    getProductTypes().then((response: any) => {
+      setProductTypes(response)
+    })
   }, [])
 
   const createNewProduct = (payload: object) => {
@@ -199,6 +205,102 @@ const CreateNewQuotation = () => {
           </Form.Item>
         </Form.Item>
 
+        <Form.Item label="Item" style={{ marginBottom: 0, display: "flex", flexDirection: "row" }}>
+          <Form.Item
+            name={["order", "item", "itemType"]}
+            rules={[{ required: true }]}
+            style={{
+              display: "inline-block",
+              width: "calc(20%)",
+              paddingRight: "5px",
+            }}>
+            <Select
+              placeholder="Select ProductType"
+              onChange={() => {
+                setLoadingStatus(true)
+                let currentFormValue = ref.current?.getFieldValue("order")
+
+                let queryParams = {
+                  type: currentFormValue?.item.itemType,
+                }
+                // make apiCall according to the params and then debounce it.
+                const debouncedApiCall = debounce(() => {
+                  getProducts(queryParams).then((response: any) => {
+                    currentOrderRef.current.products.temp = response
+                  })
+                  setLoadingStatus(false)
+                })
+                // make the debounced call
+                debouncedApiCall(3000)
+              }}>
+              {productTypes.map((type: { id: number; name: string }) => {
+                return (
+                  <Select.Option key={type.id} value={type.name}>
+                    {type.name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name={["order", "item", "product1"]}
+            rules={[{ required: true }]}
+            style={{
+              display: "inline-block",
+              width: "calc(40%)",
+              paddingRight: "5px",
+            }}>
+            <Select placeholder="Select Product" onChange={() => {}}>
+              {currentOrderRef.current.products.temp.map((product: any) => {
+                return (
+                  <Select.Option key={product.sku} value={product.name}>
+                    {product.name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name={["order", "client", "clientMobile"]}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+            style={{
+              display: "inline-block",
+              width: "calc(40%)",
+            }}>
+            <Input
+              placeholder="Search by Mobile Number"
+              onChange={() => {
+                let currentFormValue = ref.current?.getFieldValue("order")
+
+                let queryParams = {
+                  mobile: currentFormValue?.client.clientMobile,
+                }
+                // make apiCall according to the params and then debounce it.
+                const debouncedApiCall = debounce(() => {
+                  getClients(queryParams).then((response: any) => {
+                    currentOrderRef.current.client = response?.[0] // store the client from response
+                    const { name, email } = response?.[0]
+                    // set the FormFields
+                    ref.current?.setFieldsValue({
+                      order: {
+                        client: {
+                          clientName: name,
+                          clientEmail: email,
+                        },
+                      },
+                    })
+                  })
+                })
+                // make the debounced call
+                debouncedApiCall(3000)
+              }}
+            />
+          </Form.Item>
+        </Form.Item>
         <Form.Item name={["product", "productDescription"]} label="Description">
           <Input.TextArea style={{ minHeight: "10rem", maxHeight: "25rem" }} />
         </Form.Item>
