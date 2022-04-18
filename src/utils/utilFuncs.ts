@@ -51,3 +51,18 @@ export const CaculateTypeItems = (typeName: string | "" | null | undefined, prod
 
   return count
 }
+
+export const debounce = (callback: Function, timer = 1000) => {
+  let timeoutId: ReturnType<typeof setTimeout>
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => callback.apply(this, args), timer)
+  }
+}
+// howto:
+//   const debouncedApiCall = debounce(() => {
+//   getClients(queryParams).then((response: any) => {
+//     currentOrderRef.current.client = response
+//   })
+// })
+// debouncedApiCall(2000)

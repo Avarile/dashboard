@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import "antd/dist/antd.css";
-import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd";
-import Request from "@DATA/api.controller";
-import qs from "query-string";
-import { refineQueryString, QueryStringType } from "@SRC/utils/utilFuncs";
-import useDebounce from "@SRC/Hooks/useDebounce";
-import envSwitch from "@SRC/utils/ENVCONFIG";
+import React, { useEffect, useRef, useState } from "react"
+import "antd/dist/antd.css"
+import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
+import Request from "@DATA/api.controller"
+import qs from "query-string"
+import { refineQueryString, QueryStringType } from "@SRC/utils/utilFuncs"
+import useDebounce from "@SRC/Hooks/useDebounce"
+import envSwitch from "@SRC/utils/ENVCONFIG"
 
 const layout = {
   labelCol: {
@@ -14,7 +14,7 @@ const layout = {
   wrapperCol: {
     span: 20,
   },
-};
+}
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
@@ -26,50 +26,42 @@ const validateMessages = {
   number: {
     range: "${label} must be between ${min} and ${max}",
   },
-};
+}
 /* eslint-enable no-template-curly-in-string */
 
 const WarehousingDepositeForm = () => {
   // Env config loading
-  const env = envSwitch("dev");
+  const env = envSwitch("dev")
 
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
-  const ref = useRef<FormInstance<any> | null>();
-  const currentProductRef = useRef({}); // store the specific product when selected product is back from server
-  const [isloading, setIsloading] = React.useState(false);
+  const ref = useRef<FormInstance<any> | null>()
+  const currentProductRef = useRef({}) // store the specific product when selected product is back from server
+  const [isloading, setIsloading] = React.useState(false)
 
-  const onFinish = (values: any) => {};
+  const onFinish = (values: any) => {}
 
-  const [products, setProducts] = useState<any>([]);
+  const [products, setProducts] = useState<any>([])
   const [searchParams, setSearchParams] = useState<QueryStringType>({
     name: "",
     sku: "",
-  });
+  })
 
-  const debouncedSearchParams = useDebounce(searchParams, 3000);
+  const debouncedSearchParams = useDebounce(searchParams, 3000)
 
-  const getProductData = async (
-    queryData: { name?: string; sku?: string } = {}
-  ) => {
-    return await Request.get(
-      `${env.dbUri}/products?${qs.stringify(refineQueryString(queryData))}`
-    );
-  };
+  const getProductData = async (queryData: { name?: string; sku?: string } = {}) => {
+    return await Request.get(`${env.dbUri}/products?${qs.stringify(refineQueryString(queryData))}`)
+  }
 
-  const putProductData = (
-    url: string,
-    payload: object,
-    messageTarget: string
-  ) => {
-    return Request.put(`${env.dbUri}/products/${url}`, payload, messageTarget);
-  };
+  const putProductData = (url: string, payload: object, messageTarget: string) => {
+    return Request.put(`${env.dbUri}/products/${url}`, payload, messageTarget)
+  }
   // 生命周期hook执行，切记不是事件执行，依赖为啥叫依赖而不是监听源头，不是事件驱动的。
   useEffect(() => {
     getProductData().then((response) => {
-      setProducts(response);
-    });
-  }, []);
+      setProducts(response)
+    })
+  }, [])
 
   return (
     <Form
@@ -81,9 +73,8 @@ const WarehousingDepositeForm = () => {
       style={{ flex: 1 }} // flex: 1 的作用
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
-        ref.current = formInstance;
-      }}
-    >
+        ref.current = formInstance
+      }}>
       <Form.Item label="Product Name" style={{ marginBottom: 0 }}>
         <Form.Item
           name={["product", "productName"]}
@@ -92,17 +83,16 @@ const WarehousingDepositeForm = () => {
             display: "inline-block",
             width: "calc(50% - 8px)",
             paddingRight: "5px",
-          }}
-        >
+          }}>
           <Input
             onChange={() => {
-              let currentFormValue = ref.current?.getFieldValue("product");
+              let currentFormValue = ref.current?.getFieldValue("product")
               let queryData = {
                 name: currentFormValue.productName,
-              };
+              }
               getProductData(queryData).then((response: any) => {
-                const { currentInStock, sku, updateLog } = response?.[0] || {};
-                currentProductRef.current = response?.[0]; // store the currentProduct in the ref
+                const { currentInStock, sku, updateLog } = response?.[0] || {}
+                currentProductRef.current = response?.[0] // store the currentProduct in the ref
                 // set FormFields
                 ref.current?.setFieldsValue({
                   product: {
@@ -112,30 +102,26 @@ const WarehousingDepositeForm = () => {
                     productQuantityAdd: 0,
                     productQuantityInstock: currentInStock,
                   },
-                });
-              });
+                })
+              })
             }}
           />
         </Form.Item>
 
-        <Form.Item
-          name={["product", "productSku"]}
-          style={{ display: "inline-block", width: "calc(50% - 8px)" }}
-        >
+        <Form.Item name={["product", "productSku"]} style={{ display: "inline-block", width: "calc(50% - 8px)" }}>
           <Select
             placeholder="Select Product"
             onChange={() => {
               // 当select数据变化时，获得form表单的product的数据
-              let currentFormValue = ref.current?.getFieldValue("product");
+              let currentFormValue = ref.current?.getFieldValue("product")
               let queryData = {
                 sku: currentFormValue.productSku,
-              };
+              }
               // 根据选择项的数据，进行请求
               getProductData(queryData)
                 .then((response: any) => {
-                  currentProductRef.current = response?.[0]; // store the currentProduct in the ref
-                  const { name, currentInStock, sku, updateLog } =
-                    response?.[0] || {};
+                  currentProductRef.current = response?.[0] // store the currentProduct in the ref
+                  const { name, currentInStock, sku, updateLog } = response?.[0] || {}
                   // 设置表单数据
                   // setFieldsValue是底层包装了state，确保了表单刷新
                   // 但是，setFieldsValue并不会引发当前组件的刷新
@@ -152,19 +138,18 @@ const WarehousingDepositeForm = () => {
                       productDescription: updateLog,
                       productQuantityAdd: 0,
                     },
-                  });
+                  })
                 })
                 .catch((error: any) => {
-                  throw new Error(error);
-                });
-            }}
-          >
+                  throw new Error(error)
+                })
+            }}>
             {products.map((product: any) => {
               return (
                 <Select.Option value={product.sku} key={product.id}>
                   {product.sku}
                 </Select.Option>
-              );
+              )
             })}
           </Select>
         </Form.Item>
@@ -177,8 +162,7 @@ const WarehousingDepositeForm = () => {
             required: false,
             message: "must provide products SKU",
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -189,8 +173,7 @@ const WarehousingDepositeForm = () => {
             type: "number",
             min: 0,
           },
-        ]}
-      >
+        ]}>
         <InputNumber />
       </Form.Item>
       <Form.Item
@@ -202,8 +185,7 @@ const WarehousingDepositeForm = () => {
             min: 0,
             max: 99999,
           },
-        ]}
-      >
+        ]}>
         <InputNumber disabled={true} />
       </Form.Item>
       <Form.Item name={["product", "productDescription"]} label="Description">
@@ -217,42 +199,36 @@ const WarehousingDepositeForm = () => {
           block
           style={{ marginBottom: "1rem" }}
           onClick={() => {
-            setIsloading(true);
+            setIsloading(true)
             setTimeout(() => {
-              let { productQuantityAdd, productDescription } =
-                ref.current?.getFieldValue("product");
+              let { productQuantityAdd, productDescription } = ref.current?.getFieldValue("product")
 
-              const currentProduct = currentProductRef.current as any;
-              const targetId = currentProduct.id;
+              const currentProduct = currentProductRef.current as any
+              const targetId = currentProduct.id
               const payloadProduct = {
                 ...currentProduct,
-                currentInStock:
-                  currentProduct.currentInStock + productQuantityAdd,
+                currentInStock: currentProduct.currentInStock + productQuantityAdd,
                 updateLog: productDescription,
-              };
-              putProductData(targetId, payloadProduct, "Product").then(
-                (response: any) => {
-                  if (response.id) {
-                  }
+              }
+              putProductData(targetId, payloadProduct, "Product").then((response: any) => {
+                if (response.id) {
                 }
-              );
-              setIsloading(false);
-              ref.current?.resetFields();
-            }, 2000);
-          }}
-        >
+              })
+              setIsloading(false)
+              ref.current?.resetFields()
+            }, 2000)
+          }}>
           Submit
         </Button>
         <Button
           onClick={() => {
-            ref.current?.resetFields();
+            ref.current?.resetFields()
           }}
-          block
-        >
+          block>
           Reset Form
         </Button>
       </Form.Item>
     </Form>
-  );
-};
-export default WarehousingDepositeForm;
+  )
+}
+export default WarehousingDepositeForm

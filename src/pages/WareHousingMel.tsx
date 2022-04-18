@@ -7,7 +7,8 @@ import Request from "@DATA/api.controller"
 import envSwitch from "@SRC/utils/ENVCONFIG"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "@SRC/components/SearchBar"
-import 
+import QueriedTable from "@SRC/components/warehousing/QueriedTable"
+import "./pages.css"
 
 /**
  *the menu at the end of the action as well as anywhere else.
@@ -25,6 +26,7 @@ function WareHousingMel() {
 
   // UI controller
   const [loadingStatus, setLoadingStatus] = React.useState(false)
+  const [hoverEvent, setHoverEvent] = React.useState(false)
 
   /**
    * Rows been expanded definition
@@ -94,8 +96,12 @@ function WareHousingMel() {
             onClick: (event) => {}, // 点击行
             onDoubleClick: (event) => {},
             onContextMenu: (event) => {},
-            onMouseEnter: (event) => {}, // 鼠标移入行
-            onMouseLeave: (event) => {},
+            onMouseEnter: (event) => {
+              setHoverEvent(true)
+            }, // 鼠标移入行
+            onMouseLeave: (event) => {
+              setHoverEvent(false)
+            },
           }
         }}
         columns={columns}
@@ -103,8 +109,8 @@ function WareHousingMel() {
         pagination={false}
         rowClassName={(record, index) => {
           if (index / 2 === 0) {
-            return "oddRow"
-          } else return "evenRow"
+            return "warehousing-oddRow"
+          } else return "warehousing-evenRow"
         }}
       />
     )
@@ -161,7 +167,6 @@ function WareHousingMel() {
 
   const data = []
   for (let i = 0; i < productTypes.length; ++i) {
-    debugger
     data.push({
       key: i,
       type: productTypes[i].name,
@@ -172,28 +177,32 @@ function WareHousingMel() {
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
       {SearchBar({ placeHolder: "Please input sku", style: { minWidth: "15rem", maxWidth: "20rem", marginBottom: "5rem", alignSelf: "flex-end", marginRight: "8rem" } })}
-      <Table
-        // tableRef={(tableInstance: any) => {
-        //   tableRef.current = tableInstance;
-        // }}
-        className="components-table-demo-nested"
-        columns={columns} // this is pretty straight forward this is cloumns
-        expandable={{
-          expandedRowRender: (record) => {
-            let values: any[] = []
-            products.map((product: any) => {
-              if (product.type === record.type) {
-                values.push(product)
-              } else return null
-            })
-            // IMPORTANT!!! the temp will be like this: [null, null, product1, null, product2 ...] and you cannot pass the nulls on to downstires
+      <QueriedTable />
+      <>
+        <h3>Cataglorised Display</h3>
+        <Table
+          // tableRef={(tableInstance: any) => {
+          //   tableRef.current = tableInstance;
+          // }}
+          className="components-table-demo-nested"
+          columns={columns} // this is pretty straight forward this is cloumns
+          expandable={{
+            expandedRowRender: (record) => {
+              let values: any[] = []
+              products.map((product: any) => {
+                if (product.type === record.type) {
+                  values.push(product)
+                } else return null
+              })
+              // IMPORTANT!!! the temp will be like this: [null, null, product1, null, product2 ...] and you cannot pass the nulls on to downstires
 
-            return <ExpandedRowRender values={values} />
-          },
-        }} // and this is the expanderable Row
-        dataSource={data} // dataSourse
-        bordered={false}
-      />
+              return <ExpandedRowRender values={values} />
+            },
+          }} // and this is the expanderable Row
+          dataSource={data} // dataSourse
+          bordered={false}
+        />
+      </>
     </div>
   )
 }

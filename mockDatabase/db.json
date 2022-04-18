@@ -78,56 +78,7 @@
       "lastUpdate": ""
     }
   ],
-  "order": [
-    {
-      "id": 1,
-      "initTime": "4/April/2022",
-      "totalAmount": 11750,
-      "offset": 400,
-      "deposite": 5000,
-      "item1": 2,
-      "item1Powder": false,
-      "item2": 1,
-      "item2Powder": false,
-      "item3": 4,
-      "item3Powder": false,
-      "client": 3,
-      "salesMan": 1,
-      "fabricationOrder": 3
-    },
-    {
-      "id": 2,
-      "initTime": "2/April/2022",
-      "totalAmount": 4150,
-      "offset": 0,
-      "deposite": 4150,
-      "item1": 2,
-      "item1Powder": false,
-      "item2": null,
-      "item2Powder": false,
-      "item3": null,
-      "item3Powder": false,
-      "client": 2,
-      "salesMan": 2,
-      "fabricationOrder": 2
-    },
-    {
-      "id": 3,
-      "initTime": "26/Match/2022",
-      "totalAmount": 7950,
-      "offset": 400,
-      "deposite": 5000,
-      "item1": 2,
-      "item1Powder": false,
-      "item2": 4,
-      "item2Powder": false,
-      "item3": 5,
-      "item3Powder": false,
-      "client": 1,
-      "salesMan": 3,
-      "fabricationOrder": 1
-    }
-  ],
+  "quotes": [],
   "clients": [
     {
       "id": 1,

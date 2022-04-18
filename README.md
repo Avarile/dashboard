@@ -106,3 +106,42 @@
 1. Create a different color for SubTable, so the colors of main and sub table wont be the same, easier for user.
    - use styled-components to warp the Table
    - find the class we need to alter
+   - Solution: rowClassName
+
+```
+
+    return (
+      <Table
+        onRow={(record) => {
+          return {
+            onClick: (event) => {}, // 点击行
+            onDoubleClick: (event) => {},
+            onContextMenu: (event) => {},
+            onMouseEnter: (event) => {}, // 鼠标移入行
+            onMouseLeave: (event) => {},
+          }
+        }}
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        rowClassName={(record, index) => {
+          if (index / 2 === 0) {
+            return "oddRow"
+          } else return "evenRow"
+        }}
+      />
+    )
+  }
+```
+
+#### 18/Apr/2022
+
+1.  Target 1
+    - Order Managment: the Order is the core entity of the App --- nearly all other module is working around this component and all info is attached to it.
+    - Create a tab system to navigate within the order module, we need "Create order", "edit order" and "Delete Order", 3 options
+    - 1st Tast:
+      - Create Order Form: ongoing
+        - first Step: Create / Select Customer : Done
+        - side notes: create a Debounce func: Done
+        - box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        - 2nd step: implements item selection / add: ongoing
