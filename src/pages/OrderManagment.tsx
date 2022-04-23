@@ -11,7 +11,7 @@ const OrderManagment = () => {
       <Tabs defaultActiveKey="1" animated style={{ marginLeft: "-20px", width: "100%" }}>
         <StyledTabPane
           tab={
-            <span style={{ width: "100%", height: "100" }}>
+            <span style={{ width: "100%", height: "100%" }}>
               <FileOutlined />
               Create Order
             </span>

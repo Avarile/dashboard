@@ -150,3 +150,10 @@
 
 2.  A MAJOR Problem:
     - Description: In a Quotation form, I used a ref to store a complex Object which represents the Entire quota. And I used a temp:[] as a tempary place to hold data. after I put data in it. I always called a setState to refresh the page. but still, I encountered the classic "one Step behind" Problem.
+
+#### 23/Apr/2022
+
+1. Target 1
+
+- Order managment redesign:
+  - Customer Creation / Selection: ongoing.

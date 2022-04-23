@@ -83,7 +83,7 @@
     {
       "id": 1,
       "name": "Billy",
-      "email": "billy@gamail.com",
+      "email": "billy@gmail.com",
       "mobile": 40000000,
       "vip": false
     },
@@ -96,10 +96,45 @@
     },
     {
       "id": 3,
-      "name": "Luke Skywalker",
+      "name": "Skywalker",
       "email": "LukeSkywalker@gamail.com",
       "mobile": 60000000,
       "vip": true
+    },
+    {
+      "id": 4,
+      "name": "Avarile",
+      "email": "Avarile@gmail.com",
+      "mobile": 42200000,
+      "vip": false
+    },
+    {
+      "id": 5,
+      "name": "Avarile",
+      "email": "Sparuts@gmail.com",
+      "mobile": 600324000,
+      "vip": false
+    },
+    {
+      "id": 6,
+      "name": "Avarile",
+      "email": "Emily@gmail.com",
+      "mobile": 6005656000,
+      "vip": false
+    },
+    {
+      "id": 7,
+      "name": "Skywalker",
+      "email": "AnakinSkywalker@gamail.com",
+      "mobile": 60000900,
+      "vip": false
+    },
+    {
+      "name": "Emily",
+      "email": "Anastasia@gmail.com",
+      "mobile": "04789803448",
+      "vip": false,
+      "id": 8
     }
   ],
   "fabrications": [

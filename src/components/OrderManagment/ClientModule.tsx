@@ -5,17 +5,9 @@ import Request from "@DATA/api.controller"
 import envSwitch from "@SRC/utils/ENVCONFIG"
 import qs from "query-string"
 import { refineQueryString, debounce } from "@SRC/utils/utilFuncs"
-import { types } from "@babel/core"
 
-// layout Definition
-const layout = {
-  labelCol: {
-    span: 4,
-  },
-  wrapperCol: {
-    span: 20,
-  },
-}
+//type Definition
+
 // init env
 const env = envSwitch("dev")
 
@@ -23,7 +15,7 @@ const env = envSwitch("dev")
 
 const CreateNewQuotation = () => {
   const onFinish = () => {} // a hook for submit
-  const formRef1 = useRef<FormInstance<any> | null>()
+  const ref = useRef<FormInstance<any> | null>()
   const refClient = useRef<any>({})
   refClient.current.clients = []
 
@@ -32,7 +24,6 @@ const CreateNewQuotation = () => {
   const [uiController, setUIController] = React.useState(true)
   // const [clients, setClients] = React.useState<any>([])
 
-  // start of customer state
   /**
    * search for customer
    * @param param
@@ -44,7 +35,7 @@ const CreateNewQuotation = () => {
       await Request.get(`${env.dbUri}/clients?${qs.stringify(refineQueryString(param))}`).then((response: any) => {
         refClient.current.clients = response
         const { name, id, email, mobile, vip } = response[0]
-        formRef1.current?.setFieldsValue({
+        ref.current?.setFieldsValue({
           client: {
             clientName: name,
             clientEmail: email,
@@ -65,37 +56,18 @@ const CreateNewQuotation = () => {
   const createNewClient = async (payload: Object) => {
     return await Request.post(`${env.dbUri}/clients`, payload, {}, "Client")
   }
-  // end of customer state
-
-  // start of product Selection
-  const [productTypes, setProductTypes] = React.useState<any>([])
-
-  const getProducts = async (queryParams: { type: string }) => {
-    return await Request.get(`${env.dbUri}/products?${qs.stringify(refineQueryString(queryParams))}`)
-  }
-
-  const getProductTypes = async () => {
-    return await Request.get(`${env.dbUri}/productTypes`)
-  }
-  React.useEffect(() => {
-    getProductTypes().then((response: any) => {
-      setProductTypes(response)
-    })
-  }, [])
-  // end of product Selection
 
   return (
     <>
       <Form
-        // {...layout}
         initialValues={{}}
         name="clientSelection"
         onFinish={onFinish}
         // validateMessages={validateMessages}
-        style={{ flex: 1, height: "100%vh" }} // flex: 1 的作用
+        style={{ flex: 1 }} // flex: 1 的作用
         //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
         ref={(formInstance: FormInstance<any> | null) => {
-          formRef1.current = formInstance
+          ref.current = formInstance
         }}>
         <Form.Item label="Search for the Client" style={{ marginBottom: "20px", display: "flex", flexDirection: "row" }}>
           <Form.Item
@@ -110,7 +82,7 @@ const CreateNewQuotation = () => {
               placeholder="Please Input the client Email or Mobile Number"
               onChange={() => {
                 let queryParam
-                let currentFormValue = formRef1.current?.getFieldValue("client")
+                let currentFormValue = ref.current?.getFieldValue("client")
                 if (!isNaN(currentFormValue.clientSearch)) {
                   // if the string can be transform to number and bigger than 0, it must be a number.
                   queryParam = { mobile: Number(currentFormValue.clientSearch) }
@@ -141,7 +113,7 @@ const CreateNewQuotation = () => {
               style={{}}
               onClick={() => {
                 if (uiController === false) {
-                  const currentFormValues = formRef1.current?.getFieldValue("client")
+                  const currentFormValues = ref.current?.getFieldValue("client")
                   const clientPayload = {
                     name: currentFormValues.clientName,
                     email: currentFormValues.clientEmail,
@@ -156,35 +128,6 @@ const CreateNewQuotation = () => {
               }}>
               Create New User
             </Button>
-          </Form.Item>
-        </Form.Item>
-
-        <Form.Item label="Item Selection" style={{ padding: "20px", display: "flex", flexDirection: "row" }}>
-          <Form.Item name={["products", "productType"]}>
-            <Select
-              placeholder="Determine the Type first"
-              defaultActiveFirstOption
-              style={{ minWidth: "15rem" }}
-              onChange={() => {
-                setLoadingStatus(true)
-                debugger
-                let currentType = formRef1.current?.getFieldValue("products")
-                console.log(currentType)
-
-                getProducts({ type: currentType.productType }).then((response: any) => {
-                  formRef1.current?.setFieldsValue({
-                    products: {},
-                  })
-                })
-              }}>
-              {productTypes.map((type: any) => {
-                return (
-                  <Select.Option key={type.id} value={type.name}>
-                    {type.name}
-                  </Select.Option>
-                )
-              })}
-            </Select>
           </Form.Item>
         </Form.Item>
       </Form>
