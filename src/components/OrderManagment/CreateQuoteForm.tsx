@@ -50,6 +50,8 @@ const CreateNewQuotation = () => {
    */
   const renderSwitch = () => {
     if (currentOrderRef.current.products.product1?.length) {
+      // console.log(currentOrderRef.current.products.product1?.length, currentOrderRef.current.products.temp)
+
       return currentOrderRef.current.products.product1
     } else {
       return currentOrderRef.current.products.temp
@@ -292,11 +294,11 @@ const CreateNewQuotation = () => {
                 })
                 product.product1 = [temp] // pass selected Value to product1 as a Array --- as a array for later we need to map it.
                 product.temp = [] // reset the temp to empty array.
-                console.log(product.product1, temp)
+                // console.log(product.product1, temp)
                 setLoadingStatus(false)
               }}>
               {renderSwitch().map((product: any) => {
-                debugger
+                // console.log(renderSwitch())
                 return (
                   <Select.Option key={product.sku} value={product.sku}>
                     {product.name}
