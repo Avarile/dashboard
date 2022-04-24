@@ -66,3 +66,12 @@ export const debounce = (callback: Function, timer = 1000) => {
 //   })
 // })
 // debouncedApiCall(2000)
+
+/**
+ * deduplicate
+ * @param array
+ * @returns array
+ */
+export const deduplicateArray = (array: [any]) => {
+  return Array.from(new Set(array))
+}

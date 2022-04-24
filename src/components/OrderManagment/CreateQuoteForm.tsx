@@ -4,16 +4,16 @@ import { Form, Input, InputNumber, Button, FormInstance, Select } from "antd"
 import Request from "@DATA/api.controller"
 import envSwitch from "@SRC/utils/ENVCONFIG"
 import qs from "query-string"
-import { refineQueryString, debounce } from "@SRC/utils/utilFuncs"
-import { types } from "@babel/core"
+import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs"
+import ProductList from "./ProductListModule"
 
 // layout Definition
 const layout = {
   labelCol: {
-    span: 4,
+    span: 2,
   },
   wrapperCol: {
-    span: 20,
+    span: 22,
   },
 }
 // init env
@@ -24,8 +24,12 @@ const env = envSwitch("dev")
 const CreateNewQuotation = () => {
   const onFinish = () => {} // a hook for submit
   const formRef1 = useRef<FormInstance<any> | null>()
-  const refClient = useRef<any>({})
-  refClient.current.clients = []
+  const orderRef = useRef<any>({})
+  //  order.current.client = client
+  // order.current.items = [ {item1}, {item2} ...]
+  // order.current.itemsLength = [
+  // {}, {} ...
+  //]
 
   // setStates init
   const [loadingStatus, setLoadingStatus] = React.useState(false)
@@ -42,7 +46,7 @@ const CreateNewQuotation = () => {
     setLoadingStatus(true)
     const tempFunc = async () => {
       await Request.get(`${env.dbUri}/clients?${qs.stringify(refineQueryString(param))}`).then((response: any) => {
-        refClient.current.clients = response
+        orderRef.current.client = response[0]
         const { name, id, email, mobile, vip } = response[0]
         formRef1.current?.setFieldsValue({
           client: {
@@ -70,7 +74,7 @@ const CreateNewQuotation = () => {
   // start of product Selection
   const [productTypes, setProductTypes] = React.useState<any>([])
 
-  const getProducts = async (queryParams: { type: string }) => {
+  const getProducts = async (queryParams: Object) => {
     return await Request.get(`${env.dbUri}/products?${qs.stringify(refineQueryString(queryParams))}`)
   }
 
@@ -78,10 +82,34 @@ const CreateNewQuotation = () => {
     return await Request.get(`${env.dbUri}/productTypes`)
   }
   React.useEffect(() => {
+    orderRef.current.itemLength = []
     getProductTypes().then((response: any) => {
       setProductTypes(response)
     })
   }, [])
+
+  const getProductListForSelect = () => {
+    setLoadingStatus(true)
+    let currentType = formRef1.current?.getFieldValue("products")
+    console.log(currentType)
+
+    getProducts({ type: currentType.productType })
+      .then((response: any) => {
+        debugger
+        // we got the temp array for operator to select, and will be reset after selected
+        orderRef.current.tempSelection = response // and its obviously an array.
+        //extract the length from products
+        for (let item of orderRef.current.tempSelection) {
+          // console.log(item.size.substring(0, item.size.indexOf(" ")), item.size.split(" ")[0])
+          orderRef.current.itemLength.push(item.size.split(" ")[0])
+          orderRef.current.itemLength = deduplicateArray(orderRef.current.itemLength)
+        }
+      })
+      .finally(() => {
+        setLoadingStatus(false)
+        console.log(orderRef.current.itemLength)
+      })
+  }
   // end of product Selection
 
   return (
@@ -160,22 +188,13 @@ const CreateNewQuotation = () => {
         </Form.Item>
 
         <Form.Item label="Item Selection" style={{ padding: "20px", display: "flex", flexDirection: "row" }}>
-          <Form.Item name={["products", "productType"]}>
+          <Form.Item name={["products", "productType"]} style={{ display: "inline-block", width: "calc(15%)", marginRight: "5px" }}>
             <Select
               placeholder="Determine the Type first"
               defaultActiveFirstOption
-              style={{ minWidth: "15rem" }}
+              style={{}}
               onChange={() => {
-                setLoadingStatus(true)
-                debugger
-                let currentType = formRef1.current?.getFieldValue("products")
-                console.log(currentType)
-
-                getProducts({ type: currentType.productType }).then((response: any) => {
-                  formRef1.current?.setFieldsValue({
-                    products: {},
-                  })
-                })
+                getProductListForSelect()
               }}>
               {productTypes.map((type: any) => {
                 return (
@@ -186,8 +205,21 @@ const CreateNewQuotation = () => {
               })}
             </Select>
           </Form.Item>
+          <Form.Item name={["products", "productLength"]} style={{ display: "inline-block", width: "calc(15%)" }}>
+            <Select placeholder="Determine the length" defaultActiveFirstOption style={{}} onChange={() => {}}>
+              {orderRef.current.itemLength?.map((length: any, index: number) => {
+                return (
+                  <Select.Option key={index} value={length}>
+                    {length}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </Form.Item>
         </Form.Item>
       </Form>
+
+      <ProductList />
     </>
   )
 }
