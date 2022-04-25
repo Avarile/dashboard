@@ -13,7 +13,7 @@ const menu = (
   </Menu>
 )
 
-const ProductListModule = ({ values }: any) => {
+const SelectedListModule = ({ values }: any) => {
   // define when mouse over the row
 
   const columns = [
@@ -96,4 +96,4 @@ const ProductListModule = ({ values }: any) => {
   )
 }
 
-export default ProductListModule
+export default SelectedListModule

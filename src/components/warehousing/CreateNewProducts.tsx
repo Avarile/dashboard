@@ -3,6 +3,7 @@ import "antd/dist/antd.css"
 import { Form, Input, InputNumber, Button, FormInstance, Select, notification } from "antd"
 import Request from "@DATA/api.controller"
 import envSwitch from "@SRC/utils/ENVCONFIG"
+import { details, subType } from "@SRC/utils/productTypes"
 
 const layout = {
   labelCol: {
@@ -12,6 +13,7 @@ const layout = {
     span: 20,
   },
 }
+
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
@@ -75,13 +77,52 @@ const CreateNewItem = () => {
             required: true,
           },
         ]}>
-        <Select placeholder="Please select a Type">
+        <Select
+          placeholder="Please select a Type"
+          onChange={() => {
+            // console.log(ref.current?.getFieldValue("product").productType)
+            setLoadingStatus(false)
+          }}>
           {productTypes.map((type: { id: number; name: string }) => {
-            console.log(ref.current?.getFieldValue("product"))
-
             return (
               <Select.Option key={type.id} value={type.name}>
                 {type.name}
+              </Select.Option>
+            )
+          })}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        name={["product", "productSubType"]}
+        label="SubType"
+        rules={[
+          {
+            required: true,
+          },
+        ]}>
+        <Select placeholder="Please select SubType of the product">
+          {subType.map((sub: any) => {
+            return (
+              <Select.Option key={sub.id} value={sub.name}>
+                {sub.name}
+              </Select.Option>
+            )
+          })}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        name={["product", "productDetail"]}
+        label="Detail"
+        rules={[
+          {
+            required: true,
+          },
+        ]}>
+        <Select placeholder="Please select the detail definition">
+          {details.map((detail) => {
+            return (
+              <Select.Option key={detail.id} value={detail.name}>
+                {detail.name}
               </Select.Option>
             )
           })}
@@ -116,6 +157,16 @@ const CreateNewItem = () => {
           },
         ]}>
         <Input />
+      </Form.Item>
+      <Form.Item
+        name={["product", "productLength"]}
+        label="Length"
+        rules={[
+          {
+            required: true,
+          },
+        ]}>
+        <InputNumber />
       </Form.Item>
       <Form.Item
         name={["product", "productPrice"]}
@@ -168,6 +219,9 @@ const CreateNewItem = () => {
             setTimeout(() => {
               const currentFormValues = ref.current?.getFieldValue("product")
               const productPayload = {
+                subtype: currentFormValues.productSubType,
+                detail: currentFormValues.productDetail,
+                length: currentFormValues.productLength,
                 type: currentFormValues.productType,
                 name: currentFormValues.productName,
                 sku: currentFormValues.productSku,

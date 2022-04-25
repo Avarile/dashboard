@@ -6,6 +6,7 @@ import envSwitch from "@SRC/utils/ENVCONFIG"
 import qs from "query-string"
 import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs"
 import ProductList from "./ProductListModule"
+import { details, subType } from "@SRC/utils/productTypes"
 
 // layout Definition
 const layout = {
@@ -75,6 +76,8 @@ const CreateNewQuotation = () => {
   const [productTypes, setProductTypes] = React.useState<any>([])
 
   const getProducts = async (queryParams: Object) => {
+    console.log(queryParams)
+
     return await Request.get(`${env.dbUri}/products?${qs.stringify(refineQueryString(queryParams))}`)
   }
 
@@ -83,6 +86,7 @@ const CreateNewQuotation = () => {
   }
   React.useEffect(() => {
     orderRef.current.itemLength = []
+    orderRef.current.queryParams = {}
     getProductTypes().then((response: any) => {
       setProductTypes(response)
     })
@@ -90,24 +94,37 @@ const CreateNewQuotation = () => {
 
   const getProductListForSelect = () => {
     setLoadingStatus(true)
-    let currentType = formRef1.current?.getFieldValue("products")
-    console.log(currentType)
+    let currentType = formRef1.current?.getFieldValue("products").productType
+    let currentSubType = formRef1.current?.getFieldValue("products").productSubType
+    let currentDetail = formRef1.current?.getFieldValue("products").productDetail
+    let currentLength = formRef1.current?.getFieldValue("products").productLength
 
-    getProducts({ type: currentType.productType })
+    let queryParams = {
+      detail: currentDetail === "no detail" ? null : currentDetail,
+      type: currentType,
+      subtype: currentSubType === "no subtype" ? null : currentSubType,
+      length: currentLength,
+    }
+
+    getProducts(queryParams)
       .then((response: any) => {
-        debugger
         // we got the temp array for operator to select, and will be reset after selected
         orderRef.current.tempSelection = response // and its obviously an array.
         //extract the length from products
+        orderRef.current.itemLength = [] // before each call reset the itemLength list
+        let currentFormValues = formRef1.current?.getFieldValue("products")
+        formRef1.current?.setFieldsValue({
+          ...currentFormValues,
+          productLength: "default",
+        })
         for (let item of orderRef.current.tempSelection) {
           // console.log(item.size.substring(0, item.size.indexOf(" ")), item.size.split(" ")[0])
-          orderRef.current.itemLength.push(item.size.split(" ")[0])
+          orderRef.current.itemLength.push(item.size.split("L")[0])
           orderRef.current.itemLength = deduplicateArray(orderRef.current.itemLength)
         }
       })
       .finally(() => {
         setLoadingStatus(false)
-        console.log(orderRef.current.itemLength)
       })
   }
   // end of product Selection
@@ -187,10 +204,12 @@ const CreateNewQuotation = () => {
           </Form.Item>
         </Form.Item>
 
+        
+
         <Form.Item label="Item Selection" style={{ padding: "20px", display: "flex", flexDirection: "row" }}>
           <Form.Item name={["products", "productType"]} style={{ display: "inline-block", width: "calc(15%)", marginRight: "5px" }}>
             <Select
-              placeholder="Determine the Type first"
+              placeholder="Determine the Type"
               defaultActiveFirstOption
               style={{}}
               onChange={() => {
@@ -205,8 +224,48 @@ const CreateNewQuotation = () => {
               })}
             </Select>
           </Form.Item>
+          <Form.Item name={["products", "productSubType"]} style={{ display: "inline-block", width: "calc(15%)", marginRight: "5px" }}>
+            <Select
+              placeholder="Determine the subType"
+              defaultActiveFirstOption
+              style={{}}
+              onChange={() => {
+                getProductListForSelect()
+              }}>
+              {subType.map((type: any) => {
+                return (
+                  <Select.Option key={type.id} value={type.name}>
+                    {type.name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </Form.Item>
+          <Form.Item name={["products", "productDetail"]} style={{ display: "inline-block", width: "calc(15%)", marginRight: "5px" }}>
+            <Select
+              placeholder="Determine the Detail"
+              defaultActiveFirstOption
+              style={{}}
+              onChange={() => {
+                getProductListForSelect()
+              }}>
+              {details.map((type: any) => {
+                return (
+                  <Select.Option key={type.id} value={type.name}>
+                    {type.name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </Form.Item>
           <Form.Item name={["products", "productLength"]} style={{ display: "inline-block", width: "calc(15%)" }}>
-            <Select placeholder="Determine the length" defaultActiveFirstOption style={{}} onChange={() => {}}>
+            <Select
+              placeholder="Determine the length"
+              defaultActiveFirstOption
+              style={{}}
+              onChange={() => {
+                getProductListForSelect()
+              }}>
               {orderRef.current.itemLength?.map((length: any, index: number) => {
                 return (
                   <Select.Option key={index} value={length}>
@@ -216,10 +275,20 @@ const CreateNewQuotation = () => {
               })}
             </Select>
           </Form.Item>
+          <Form.Item style={{ display: "inline-block", width: "5rem" }}>
+            <Button
+              onClick={() => {
+                orderRef.current.tempSelection = []
+                formRef1.current?.resetFields()
+                setLoadingStatus(false)
+              }}>
+              Reset Search
+            </Button>
+          </Form.Item>
         </Form.Item>
       </Form>
 
-      <ProductList />
+      <ProductList values={orderRef.current.tempSelection} />
     </>
   )
 }

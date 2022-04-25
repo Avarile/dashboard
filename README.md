@@ -156,4 +156,6 @@
 1. Target 1
 
 - Order managment redesign:
-  - Customer Creation / Selection: ongoing.
+  - Customer Creation / Selection: done.
+  - Product Filtering :ongoing
+    - Use productType / subtype / detail to filter the products, 
