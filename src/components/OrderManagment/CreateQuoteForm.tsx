@@ -28,8 +28,6 @@ const env = envSwitch("dev")
 const CreateNewQuotation = () => {
   let selectedItems = useSelector(selectOrder)
 
-  console.log(selectedItems)
-
   const onFinish = () => {} // a hook for submit
   const formRef1 = useRef<FormInstance<any> | null>()
   const orderRef = useRef<any>({})
@@ -148,7 +146,7 @@ const CreateNewQuotation = () => {
         ref={(formInstance: FormInstance<any> | null) => {
           formRef1.current = formInstance
         }}>
-        <Form.Item label="Search for the Client" style={{ marginBottom: "20px", display: "flex", flexDirection: "row" }}>
+        <Form.Item label="Search for the Client" style={{ marginBottom: "10px", display: "flex", flexDirection: "row" }}>
           <Form.Item
             name={["client", "clientSearch"]}
             rules={[{ required: true }]}

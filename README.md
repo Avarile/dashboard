@@ -156,6 +156,10 @@
 1. Target 1
 
 - Order managment redesign:
+
   - Customer Creation / Selection: done.
-  - Product Filtering :ongoing
-    - Use productType / subtype / detail to filter the products,  
+  - Product Filtering :done
+    - Use productType / subtype / detail to filter the products,
+  - Receive all the info from submitting the order: ongoing
+
+  IMPORTANT: a.splice() will not leave a undefinied in the original array, but delete will, so in a array use splice always!!

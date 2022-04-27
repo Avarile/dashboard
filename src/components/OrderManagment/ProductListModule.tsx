@@ -17,7 +17,7 @@ const menu = (
 
 const ProductListModule = ({ values }: any) => {
   const dispatch = useDispatch()
-  let previousItems = useSelector(selectOrder)
+  let previousItems = useSelector(selectOrder).selectedItems
 
   // define when mouse over the row
 

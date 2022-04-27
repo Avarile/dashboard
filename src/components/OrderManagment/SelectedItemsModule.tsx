@@ -1,12 +1,12 @@
 import React from "react"
 import "antd/dist/antd.css"
-import { Table, Tag, Space, Badge, Dropdown, Menu } from "antd"
+import { Table, Space, Badge, Menu, Button } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 // import envSwitch from "@SRC/utils/ENVCONFIG"
 import { stockIndicator, CaculateTypeItems } from "@SRC/utils/utilFuncs"
 import "@PAGE/pages.css"
 import { useDispatch, useSelector } from "react-redux"
-import { setSelectedItems, selectOrder } from "@DATA/dataSlices/order.slice"
+import { setSelectedItems, selectOrder, setPrice } from "@DATA/dataSlices/order.slice"
 
 const menu = (
   <Menu>
@@ -16,8 +16,9 @@ const menu = (
 )
 
 const SelectedListModule = () => {
-  let selectedItems = useSelector(selectOrder)
-  console.log(selectedItems)
+  let selectedItems = useSelector(selectOrder).selectedItems
+  let orderPrices = useSelector(selectOrder).orderPrices
+  const dispatch = useDispatch()
 
   // define when mouse over the row
 
@@ -48,9 +49,17 @@ const SelectedListModule = () => {
       title: "Action",
       dataIndex: "operation",
       key: "operation",
-      render: () => (
+      render: (allData: any, currentRecord: any, index: any) => (
         <Space size="middle">
-          <a>Deleted Item</a>
+          <a
+            onClick={() => {
+              let temp = [...selectedItems]
+              debugger
+              temp.splice(index, 1)
+              dispatch(setSelectedItems(temp))
+            }}>
+            Deleted Item
+          </a>
         </Space>
       ),
     },
@@ -72,6 +81,16 @@ const SelectedListModule = () => {
       inStock: selectedItems[i].inStock,
       lastUpdate: selectedItems[i].lastUpdate,
     })
+  }
+
+  let totalPCPrice = 0,
+    totalInstallationPrice = 0,
+    totalLogisticCost = 0,
+    totalItemPrice = 0
+  for (let item of data) {
+    totalPCPrice += item.pcPrice
+    totalInstallationPrice += item.installPrice
+    totalItemPrice += item.price
   }
 
   return (
@@ -98,6 +117,11 @@ const SelectedListModule = () => {
           }}
         />
       </div>
+
+      <div>
+        <p>Total{totalPCPrice}</p>
+      </div>
+      <Button>Submit Order</Button>
     </>
   )
 }
