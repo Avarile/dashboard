@@ -5,6 +5,8 @@ import { DownOutlined } from "@ant-design/icons"
 // import envSwitch from "@SRC/utils/ENVCONFIG"
 import { stockIndicator, CaculateTypeItems } from "@SRC/utils/utilFuncs"
 import "@PAGE/pages.css"
+import { setSelectedItems, selectOrder } from "@DATA/dataSlices/order.slice"
+import { useDispatch, useSelector } from "react-redux"
 
 const menu = (
   <Menu>
@@ -14,6 +16,9 @@ const menu = (
 )
 
 const ProductListModule = ({ values }: any) => {
+  const dispatch = useDispatch()
+  let previousItems = useSelector(selectOrder)
+
   // define when mouse over the row
 
   const columns = [
@@ -43,13 +48,14 @@ const ProductListModule = ({ values }: any) => {
       title: "Action",
       dataIndex: "operation",
       key: "operation",
-      render: () => (
+      render: (entireEntity: any, currentItem: any, index: any) => (
         <Space size="middle">
-          <Dropdown overlay={menu}>
-            <a>
-              More <DownOutlined />
-            </a>
-          </Dropdown>
+          <a
+            onClick={() => {
+              dispatch(setSelectedItems([...previousItems, currentItem]))
+            }}>
+            Add item
+          </a>
         </Space>
       ),
     },
@@ -74,25 +80,30 @@ const ProductListModule = ({ values }: any) => {
   }
 
   return (
-    <Table
-      onRow={(record) => {
-        return {
-          onClick: (event) => {}, // 点击行
-          onDoubleClick: (event) => {},
-          onContextMenu: (event) => {},
-          onMouseEnter: (event) => {}, // 鼠标移入行
-          onMouseLeave: (event) => {},
-        }
-      }}
-      columns={columns}
-      dataSource={data}
-      pagination={false}
-      rowClassName={(record, index) => {
-        if (index % 2 === 0) {
-          return "warehousing-oddRow"
-        } else return "warehousing-evenRow"
-      }}
-    />
+    <>
+      <div style={{}}>
+        <h4>Item selection menu</h4>
+        <Table
+          onRow={(record) => {
+            return {
+              onClick: (event) => {}, // 点击行
+              onDoubleClick: (event) => {},
+              onContextMenu: (event) => {},
+              onMouseEnter: (event) => {}, // 鼠标移入行
+              onMouseLeave: (event) => {},
+            }
+          }}
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+          rowClassName={(record, index) => {
+            if (index % 2 === 0) {
+              return "warehousing-oddRow"
+            } else return "warehousing-evenRow"
+          }}
+        />
+      </div>
+    </>
   )
 }
 

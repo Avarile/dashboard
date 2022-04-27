@@ -158,4 +158,4 @@
 - Order managment redesign:
   - Customer Creation / Selection: done.
   - Product Filtering :ongoing
-    - Use productType / subtype / detail to filter the products, 
+    - Use productType / subtype / detail to filter the products,  

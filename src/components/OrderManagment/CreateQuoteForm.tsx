@@ -7,6 +7,9 @@ import qs from "query-string"
 import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs"
 import ProductList from "./ProductListModule"
 import { details, subType } from "@SRC/utils/productTypes"
+import { selectOrder } from "@DATA/dataSlices/order.slice"
+import { useDispatch, useSelector } from "react-redux"
+import SelectedListModule from "./SelectedItemsModule"
 
 // layout Definition
 const layout = {
@@ -23,6 +26,10 @@ const env = envSwitch("dev")
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewQuotation = () => {
+  let selectedItems = useSelector(selectOrder)
+
+  console.log(selectedItems)
+
   const onFinish = () => {} // a hook for submit
   const formRef1 = useRef<FormInstance<any> | null>()
   const orderRef = useRef<any>({})
@@ -86,7 +93,6 @@ const CreateNewQuotation = () => {
   }
   React.useEffect(() => {
     orderRef.current.itemLength = []
-    orderRef.current.queryParams = {}
     getProductTypes().then((response: any) => {
       setProductTypes(response)
     })
@@ -204,7 +210,7 @@ const CreateNewQuotation = () => {
           </Form.Item>
         </Form.Item>
 
-        
+        <SelectedListModule />
 
         <Form.Item label="Item Selection" style={{ padding: "20px", display: "flex", flexDirection: "row" }}>
           <Form.Item name={["products", "productType"]} style={{ display: "inline-block", width: "calc(15%)", marginRight: "5px" }}>
@@ -288,7 +294,7 @@ const CreateNewQuotation = () => {
         </Form.Item>
       </Form>
 
-      <ProductList values={orderRef.current.tempSelection} />
+      <ProductList values={orderRef.current.tempSelection} selected={orderRef.current.selectedItems} />
     </>
   )
 }
