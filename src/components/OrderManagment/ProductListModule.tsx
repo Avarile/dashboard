@@ -56,6 +56,12 @@ const ProductListModule = ({ values }: any) => {
             }}>
             Add item
           </a>
+          <a
+            onClick={() => {
+              dispatch(setSelectedItems([...previousItems, currentItem]))
+            }}>
+            Add item
+          </a>
         </Space>
       ),
     },

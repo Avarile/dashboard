@@ -44,7 +44,9 @@ const SelectedListModule = () => {
       },
     },
     { title: "PCPrice", dataIndex: "pcPrice", key: "pcPrice" },
-    { title: "Installation", dataIndex: "installPrice", key: "installPrice" },
+    {
+      title: "Installation", dataIndex: "installPrice", key: "installPrice"
+    },
     {
       title: "Action",
       dataIndex: "operation",
@@ -119,7 +121,10 @@ const SelectedListModule = () => {
       </div>
 
       <div>
-        <p>Total{totalPCPrice}</p>
+        <p>Total PC: {totalPCPrice}</p>
+        <p>Total Install: {totalInstallationPrice}</p>
+        <p>Total Item Price: {totalItemPrice}</p>
+        <p>Total Amount: {totalItemPrice + totalInstallationPrice + totalPCPrice}</p>
       </div>
       <Button>Submit Order</Button>
     </>

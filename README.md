@@ -163,3 +163,14 @@
   - Receive all the info from submitting the order: ongoing
 
   IMPORTANT: a.splice() will not leave a undefinied in the original array, but delete will, so in a array use splice always!!
+
+temp
+
+        <Space size="middle">
+          <a
+            onClick={() => {
+              dispatch(setSelectedItems([...previousItems, currentItem]))
+            }}>
+            Add item
+          </a>
+        </Space>
