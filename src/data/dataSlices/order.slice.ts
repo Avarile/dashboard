@@ -8,9 +8,11 @@ export const orderSlice = createSlice({
       totalPCPrice: 0,
       totalInstallationPrice: 0,
       logisticCost: 0,
+      shippingAddress: "",
       totalItemPrices: 0,
       totalAmount: 0,
     },
+    orderClient: {},
   },
   reducers: {
     setSelectedItems: (state, action) => {
@@ -27,9 +29,17 @@ export const orderSlice = createSlice({
         orderPrices: action.payload,
       }
     },
+    setOrderCustomer: (state, action) => {
+      return {
+        ...state,
+        orderClient: action.payload,
+      }
+    },
   },
 })
 
-export const { setSelectedItems, setPrice } = orderSlice.actions
+
+
+export const { setSelectedItems, setPrice, setOrderCustomer } = orderSlice.actions
 export const selectOrder = (state: any) => state.order
 export default orderSlice.reducer

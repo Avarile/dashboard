@@ -7,6 +7,7 @@ import { stockIndicator, CaculateTypeItems } from "@SRC/utils/utilFuncs"
 import "@PAGE/pages.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setSelectedItems, selectOrder, setPrice } from "@DATA/dataSlices/order.slice"
+import { generateOrder, getOrders } from "@DATA/api.service"
 
 const menu = (
   <Menu>
@@ -18,7 +19,11 @@ const menu = (
 const SelectedListModule = () => {
   let selectedItems = useSelector(selectOrder).selectedItems
   let orderPrices = useSelector(selectOrder).orderPrices
+  let order = useSelector(selectOrder)
+  const getCurrentOrders = getOrders()
   const dispatch = useDispatch()
+
+  const [] = React.useState({})
 
   // define when mouse over the row
 
@@ -45,7 +50,9 @@ const SelectedListModule = () => {
     },
     { title: "PCPrice", dataIndex: "pcPrice", key: "pcPrice" },
     {
-      title: "Installation", dataIndex: "installPrice", key: "installPrice"
+      title: "Installation",
+      dataIndex: "installPrice",
+      key: "installPrice",
     },
     {
       title: "Action",
@@ -56,7 +63,7 @@ const SelectedListModule = () => {
           <a
             onClick={() => {
               let temp = [...selectedItems]
-              debugger
+              // debugger
               temp.splice(index, 1)
               dispatch(setSelectedItems(temp))
             }}>
@@ -87,8 +94,8 @@ const SelectedListModule = () => {
 
   let totalPCPrice = 0,
     totalInstallationPrice = 0,
-    totalLogisticCost = 0,
     totalItemPrice = 0
+
   for (let item of data) {
     totalPCPrice += item.pcPrice
     totalInstallationPrice += item.installPrice
@@ -126,7 +133,34 @@ const SelectedListModule = () => {
         <p>Total Item Price: {totalItemPrice}</p>
         <p>Total Amount: {totalItemPrice + totalInstallationPrice + totalPCPrice}</p>
       </div>
-      <Button>Submit Order</Button>
+      <Button
+        onClick={() => {
+          // debugger
+          dispatch(
+            setPrice({
+              ...orderPrices,
+              totalPCPrice: totalPCPrice,
+              totalInstallationPrice: totalInstallationPrice,
+              totalItemPrices: totalItemPrice,
+              totalAmount: totalItemPrice + totalInstallationPrice + totalPCPrice,
+            })
+          )
+          dispatch(setSelectedItems(data))
+          generateOrder({
+            ...order,
+            orderPrices: {
+              totalPCPrice: totalPCPrice,
+              totalInstallationPrice: totalInstallationPrice,
+              totalItemPrices: totalItemPrice,
+              totalAmount: totalItemPrice + totalInstallationPrice + totalPCPrice,
+            },
+            active: true,
+            depositPayed: false,
+            fullyPayed: false,
+          })
+        }}>
+        Submit Order
+      </Button>
     </>
   )
 }

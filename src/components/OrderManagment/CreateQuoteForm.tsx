@@ -7,7 +7,7 @@ import qs from "query-string"
 import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs"
 import ProductList from "./ProductListModule"
 import { details, subType } from "@SRC/utils/productTypes"
-import { selectOrder } from "@DATA/dataSlices/order.slice"
+import { selectOrder, setOrderCustomer, setPrice } from "@DATA/dataSlices/order.slice"
 import { useDispatch, useSelector } from "react-redux"
 import SelectedListModule from "./SelectedItemsModule"
 
@@ -26,7 +26,12 @@ const env = envSwitch("dev")
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewQuotation = () => {
-  let selectedItems = useSelector(selectOrder)
+  let selectedItems = useSelector(selectOrder).selectedItems
+  let orderClient = useSelector(selectOrder).orderClient
+  let orderPrices = useSelector(selectOrder).orderPrices
+  console.log(orderPrices, orderClient, selectedItems)
+
+  const dispatch = useDispatch()
 
   const onFinish = () => {} // a hook for submit
   const formRef1 = useRef<FormInstance<any> | null>()
@@ -39,7 +44,10 @@ const CreateNewQuotation = () => {
 
   // setStates init
   const [loadingStatus, setLoadingStatus] = React.useState(false)
-  const [uiController, setUIController] = React.useState(true)
+  const [uiController, setUIController] = React.useState({
+    userInfo: false,
+    shippingInfo: false,
+  })
   // const [clients, setClients] = React.useState<any>([])
 
   // start of customer state
@@ -61,7 +69,15 @@ const CreateNewQuotation = () => {
             clientMobile: mobile,
             clientStatus: vip ? "returning Client" : "new Client",
           },
-        })
+        }) //  fill the fomr
+        dispatch(
+          setOrderCustomer({
+            name: name,
+            email: email,
+            mobile: mobile,
+            vip: vip ? true : false,
+          })
+        ) // setup client in the redux
         setLoadingStatus(false)
       })
     }
@@ -146,7 +162,7 @@ const CreateNewQuotation = () => {
         ref={(formInstance: FormInstance<any> | null) => {
           formRef1.current = formInstance
         }}>
-        <Form.Item label="Search for the Client" style={{ marginBottom: "10px", display: "flex", flexDirection: "row" }}>
+        <Form.Item label="Search for the Client" style={{ display: "flex", flexDirection: "row" }}>
           <Form.Item
             name={["client", "clientSearch"]}
             rules={[{ required: true }]}
@@ -171,16 +187,16 @@ const CreateNewQuotation = () => {
             />
           </Form.Item>
           <Form.Item name={["client", "clientName"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
-            <Input disabled={uiController} placeholder="client name" />
+            <Input disabled={uiController.userInfo} placeholder="client name" />
           </Form.Item>
           <Form.Item name={["client", "clientEmail"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
-            <Input disabled={uiController} placeholder="client email" />
+            <Input disabled={uiController.userInfo} placeholder="client email" />
           </Form.Item>
           <Form.Item name={["client", "clientMobile"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
-            <Input disabled={uiController} placeholder="client mobile" />
+            <Input disabled={uiController.userInfo} placeholder="client mobile" />
           </Form.Item>
           <Form.Item name={["client", "clientStatus"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
-            <Input disabled={uiController} placeholder="client status" />
+            <Input disabled={uiController.userInfo} placeholder="client status" />
           </Form.Item>
 
           <Form.Item style={{ display: "inline-block" }}>
@@ -189,7 +205,7 @@ const CreateNewQuotation = () => {
               block
               style={{}}
               onClick={() => {
-                if (uiController === false) {
+                if (uiController.userInfo === false) {
                   const currentFormValues = formRef1.current?.getFieldValue("client")
                   const clientPayload = {
                     name: currentFormValues.clientName,
@@ -198,12 +214,51 @@ const CreateNewQuotation = () => {
                     vip: currentFormValues.clientStatus === "returning Client" ? true : false,
                   }
                   createNewClient(clientPayload).then(() => {
-                    setUIController(true)
+                    setUIController({
+                      ...uiController,
+                      userInfo: true,
+                    })
                   })
                 }
-                setUIController(false)
+
+                setUIController({
+                  ...uiController,
+                  userInfo: false,
+                })
               }}>
               Create New User
+            </Button>
+          </Form.Item>
+        </Form.Item>
+
+        <Form.Item label="Shipping address" style={{ display: "flex", flexDirection: "row" }}>
+          <Form.Item name={["shipping", "clientAddress"]} style={{ width: "50%", paddingRight: "5px", display: "inline-block" }}>
+            <Input placeholder="Please provide a address if needed!" disabled={uiController.shippingInfo} />
+          </Form.Item>
+
+          <Form.Item name={["shipping", "clientShippingFee"]} style={{ width: "20%", paddingRight: "5px", display: "inline-block" }}>
+            <Input placeholder="Please fill in the shipping fee" disabled={uiController.shippingInfo} />
+          </Form.Item>
+          <Form.Item style={{ display: "inline-block" }}>
+            <Button
+              type="primary"
+              onClick={() => {
+                setTimeout(() => {
+                  dispatch(
+                    setPrice({
+                      ...orderPrices,
+                      logisticCost: formRef1.current?.getFieldValue("shipping").clientShippingFee,
+                      shippingAddress: formRef1.current?.getFieldValue("shipping").clientAddress,
+                    })
+                  )
+                }, 2000)
+
+                setUIController({
+                  ...uiController,
+                  shippingInfo: !uiController.shippingInfo,
+                })
+              }}>
+              Comfirm Shipping Info
             </Button>
           </Form.Item>
         </Form.Item>

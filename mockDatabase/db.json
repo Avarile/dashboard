@@ -103,7 +103,6 @@
       "id": 5
     }
   ],
-  "quotes": [],
   "clients": [
     {
       "id": 1,
@@ -167,6 +166,13 @@
       "mobile": "0478903556",
       "vip": false,
       "id": 9
+    },
+    {
+      "name": "Santa",
+      "email": "Santa@gmail.com",
+      "mobile": "0478903556",
+      "vip": false,
+      "id": 10
     }
   ],
   "fabrications": [
@@ -224,6 +230,48 @@
     {
       "id": 8,
       "name": "tubCanopy"
+    }
+  ],
+  "orders": [
+    {
+      "selectedItems": [
+        {
+          "key": 4,
+          "sku": "Tray-Deluxe-16S",
+          "name": "1780W x 1600L mm (Deck Only) Premium Tray Aluminium Dual Cab Ute",
+          "price": 1900,
+          "size": "1600L 1780W",
+          "pcPrice": 495,
+          "installPrice": 890,
+          "inStock": 0
+        },
+        {
+          "key": 1,
+          "sku": "TB046F-17148",
+          "name": "1400mm Flat Plate Aluminium Canopy With Dog Box Section",
+          "price": 2750,
+          "size": "1400L x 1780W x 850H",
+          "pcPrice": 500,
+          "installPrice": 160,
+          "inStock": 0
+        }
+      ],
+      "orderPrices": {
+        "totalPCPrice": 995,
+        "totalInstallationPrice": 1050,
+        "totalItemPrices": 4650,
+        "totalAmount": 6695
+      },
+      "orderClient": {
+        "name": "Billy",
+        "email": "billy@gmail.com",
+        "mobile": 40000000,
+        "vip": false
+      },
+      "active": true,
+      "depositPayed": false,
+      "fullyPayed": false,
+      "id": 1
     }
   ]
 }
