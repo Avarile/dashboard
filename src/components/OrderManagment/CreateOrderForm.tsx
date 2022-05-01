@@ -9,7 +9,7 @@ const OrderCreationComponent = () => {
   return (
     <>
       <div style={{ boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px", height: "100%" }}>
-        <Tabs defaultActiveKey="1" animated style={{ marginLeft: "20px", backgroundColor: "#fef2f2", width: "100%", height: "100%" }}>
+        <Tabs defaultActiveKey="1" animated style={{ backgroundColor: "#fef2f2", height: "100%" }}>
           <StyledTabPane
             tab={
               <span>

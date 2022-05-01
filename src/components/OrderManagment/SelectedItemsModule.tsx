@@ -9,13 +9,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { setSelectedItems, selectOrder, setPrice } from "@DATA/dataSlices/order.slice"
 import { generateOrder, getOrders } from "@DATA/api.service"
 
-const menu = (
-  <Menu>
-    <Menu.Item>Delete Item</Menu.Item>
-    <Menu.Item>Action 2</Menu.Item>
-  </Menu>
-)
-
 const SelectedListModule = () => {
   let selectedItems = useSelector(selectOrder).selectedItems
   let orderPrices = useSelector(selectOrder).orderPrices

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { Action } from "history"
 
 export const orderSlice = createSlice({
   name: "order",
@@ -7,12 +8,22 @@ export const orderSlice = createSlice({
     orderPrices: {
       totalPCPrice: 0,
       totalInstallationPrice: 0,
-      logisticCost: 0,
-      shippingAddress: "",
       totalItemPrices: 0,
       totalAmount: 0,
     },
-    orderClient: {},
+    orderShippingInfo: {
+      shippingAddress: "",
+      postcode: "",
+      fee: 0,
+    },
+    orderClient: {
+      name: "",
+      email: "",
+      mobile: "",
+      address: "",
+      shippingAddress: "",
+      vip: false,
+    },
   },
   reducers: {
     setSelectedItems: (state, action) => {
@@ -35,11 +46,15 @@ export const orderSlice = createSlice({
         orderClient: action.payload,
       }
     },
+    setOrderShippingInfo: (state, action) => {
+      return {
+        ...state,
+        orderShippingInfo: action.payload,
+      }
+    },
   },
 })
 
-
-
-export const { setSelectedItems, setPrice, setOrderCustomer } = orderSlice.actions
+export const { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } = orderSlice.actions
 export const selectOrder = (state: any) => state.order
 export default orderSlice.reducer

@@ -4,14 +4,15 @@ import { Tabs } from "antd"
 import { FileOutlined, FileProtectOutlined, FileExcelOutlined } from "@ant-design/icons"
 import OrderCreationComponent from "@SRC/components/OrderManagment/CreateOrderForm"
 import { StyledTabPane } from "@SRC/components/styledComponents/TabSpan"
+import Temp from "@SRC/components/OrderManagment/CreateQuoteForm"
 
 const OrderManagment = () => {
   return (
     <>
-      <Tabs defaultActiveKey="1" animated style={{ marginLeft: "-20px", width: "100%" }}>
+      <Tabs defaultActiveKey="1" animated style={{ marginLeft: "20px", width: "100%" }}>
         <StyledTabPane
           tab={
-            <span style={{ width: "100%", height: "100%" }}>
+            <span style={{ height: "100%" }}>
               <FileOutlined />
               Create Order
             </span>
@@ -27,7 +28,7 @@ const OrderManagment = () => {
             </span>
           }
           key="2">
-          Contents of Tab 2
+          <Temp />
         </StyledTabPane>
         <StyledTabPane
           tab={

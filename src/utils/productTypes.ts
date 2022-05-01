@@ -117,3 +117,38 @@ export const subType = [
     name: "jackoff canopy",
   },
 ]
+
+export const productTypes = [
+  {
+    id: 1,
+    name: "toolbox",
+  },
+  {
+    id: 2,
+    name: "canopy",
+  },
+  {
+    id: 3,
+    name: "tray",
+  },
+  {
+    id: 4,
+    name: "accessories",
+  },
+  {
+    id: 5,
+    name: "4x4",
+  },
+  {
+    id: 6,
+    name: "serviceBody",
+  },
+  {
+    id: 7,
+    name: "combo",
+  },
+  {
+    id: 8,
+    name: "tubCanopy",
+  },
+]
