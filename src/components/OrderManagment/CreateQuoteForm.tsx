@@ -1,6 +1,6 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import "antd/dist/antd.css"
-import { Form, Input, Button, Space } from "antd"
+import { Form, Input, Button, Space, FormInstance } from "antd"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
 
 const CreateNewQuotation = () => {
@@ -13,8 +13,17 @@ const CreateNewQuotation = () => {
     console.log("Received values of form:", values)
   }
 
+  const formRef = useRef<FormInstance<any> | null>()
   return (
-    <Form name="orderCreationForm" onFinish={onFinish} autoComplete="off" labelCol={{ span: 2 }} wrapperCol={{ span: 22 }}>
+    <Form
+      name="orderCreationForm"
+      onFinish={onFinish}
+      autoComplete="off"
+      labelCol={{ span: 2 }}
+      wrapperCol={{ span: 22 }}
+      ref={(formInstance: FormInstance<any> | null) => {
+        formRef.current = formInstance
+      }}>
       <Form.Item label="User Selection">
         <Form.Item
           name={["client", "clientSearch"]}
@@ -70,13 +79,31 @@ const CreateNewQuotation = () => {
           </Button>
         </Form.Item>
       </Form.Item>
-      <Form.List name="users">
+
+      <Form.List name="products">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Space key={key} style={{ display: "flex", marginBottom: 8 }} align="baseline">
+              <Space key={key} style={{ display: "flex" }} align="start" size={1}>
                 <Form.Item {...restField} name={[name, "first"]} rules={[{ required: true, message: "Missing first name" }]}>
-                  <Input placeholder="First Name" />
+                  <Input
+                    placeholder="First Name"
+                    onChange={() => {
+                      console.log(formRef.current?.getFieldValue("users"))
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item {...restField} name={[name, "last"]} rules={[{ required: true, message: "Missing last name" }]}>
+                  <Input placeholder="Last Name" />
+                </Form.Item>
+                <Form.Item {...restField} name={[name, "last"]} rules={[{ required: true, message: "Missing last name" }]}>
+                  <Input placeholder="Last Name" />
+                </Form.Item>
+                <Form.Item {...restField} name={[name, "last"]} rules={[{ required: true, message: "Missing last name" }]}>
+                  <Input placeholder="Last Name" />
+                </Form.Item>
+                <Form.Item {...restField} name={[name, "last"]} rules={[{ required: true, message: "Missing last name" }]}>
+                  <Input placeholder="Last Name" />
                 </Form.Item>
                 <Form.Item {...restField} name={[name, "last"]} rules={[{ required: true, message: "Missing last name" }]}>
                   <Input placeholder="Last Name" />
