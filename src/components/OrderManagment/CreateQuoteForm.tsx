@@ -2,28 +2,23 @@ import React, { useRef, useState } from "react"
 import "antd/dist/antd.css"
 import { Form, Input, Button, Space, FormInstance } from "antd"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
+import { getClientsByParams } from "@DATA/api.service"
 
 const CreateNewQuotation = () => {
   const [loadingStatus, setLoadingStatus] = React.useState(false)
   const [uiController, setUIController] = React.useState({
     userInfo: false,
+    userInfoSwitch: false,
     shippingInfo: false,
   })
   const onFinish = (values: any) => {
     console.log("Received values of form:", values)
   }
 
-  const formRef = useRef<FormInstance<any> | null>()
+  const [formInstance] = Form.useForm()
+
   return (
-    <Form
-      name="orderCreationForm"
-      onFinish={onFinish}
-      autoComplete="off"
-      labelCol={{ span: 2 }}
-      wrapperCol={{ span: 22 }}
-      ref={(formInstance: FormInstance<any> | null) => {
-        formRef.current = formInstance
-      }}>
+    <Form name="orderCreationForm" onFinish={onFinish} autoComplete="off" labelCol={{ span: 2 }} wrapperCol={{ span: 22 }} form={formInstance}>
       <Form.Item label="User Selection">
         <Form.Item
           name={["client", "clientSearch"]}
@@ -33,24 +28,47 @@ const CreateNewQuotation = () => {
             width: "calc(20%)",
             paddingRight: "5px",
           }}>
-          <Input placeholder="Please Input the client Email or Mobile Number" onChange={() => {}} />
+          <Input
+            placeholder="Please Input the client Email or Mobile Number"
+            onChange={() => {
+              let queryParam
+              let currentFormValue = formInstance?.getFieldValue("client")
+              if (!isNaN(currentFormValue.clientSearch)) {
+                // if the string can be transform to number and bigger than 0, it must be a number.
+                queryParam = { mobile: Number(currentFormValue.clientSearch) }
+              } else {
+                queryParam = { email: currentFormValue.clientSearch }
+              }
+
+              getClientsByParams(queryParam, setLoadingStatus, formInstance, setUIController, uiController)
+            }}
+          />
         </Form.Item>
-        <Form.Item name={["client", "clientName"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
+        <Form.Item rules={[{ required: true }]} name={["client", "id"]} style={{ display: "inline-block", width: "calc(5%)", paddingRight: "5px" }}>
+          <Input disabled placeholder="ID" />
+        </Form.Item>
+        <Form.Item rules={[{ required: true }]} name={["client", "name"]} style={{ display: "inline-block", width: "calc(25%)", paddingRight: "5px" }}>
           <Input disabled={uiController.userInfo} placeholder="client name" />
         </Form.Item>
-        <Form.Item name={["client", "clientEmail"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
+        <Form.Item rules={[{ required: true }]} name={["client", "email"]} style={{ display: "inline-block", width: "calc(35%)", paddingRight: "5px" }}>
           <Input disabled={uiController.userInfo} placeholder="client email" />
         </Form.Item>
-        <Form.Item name={["client", "clientMobile"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
+        <Form.Item rules={[{ required: true }]} name={["client", "mobile"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
           <Input disabled={uiController.userInfo} placeholder="client mobile" />
         </Form.Item>
-        <Form.Item name={["client", "clientStatus"]} style={{ display: "inline-block", width: "calc(15%)", paddingRight: "5px" }}>
+        <Form.Item rules={[{ required: true }]} name={["client", "vip"]} style={{ display: "inline-block", width: "calc(10%)", paddingRight: "5px" }}>
           <Input disabled={uiController.userInfo} placeholder="client status" />
+        </Form.Item>
+        <Form.Item rules={[{ required: true }]} name={["client", "address"]} style={{ display: "inline-block", width: "calc(35%)", paddingRight: "5px" }}>
+          <Input disabled={uiController.userInfo} placeholder="Address" />
+        </Form.Item>
+        <Form.Item name={["client", "shippingAddress"]} style={{ display: "inline-block", width: "calc(35%)", paddingRight: "5px" }} rules={[{ required: true }]}>
+          <Input disabled={uiController.userInfo} placeholder="Shipping Address" />
         </Form.Item>
 
         <Form.Item style={{ display: "inline-block" }}>
           <Button type="primary" block style={{}} onClick={() => {}}>
-            Create New User
+            {!uiController.userInfoSwitch ? "Create New User" : "Update User Info"}
           </Button>
         </Form.Item>
       </Form.Item>
@@ -89,7 +107,7 @@ const CreateNewQuotation = () => {
                   <Input
                     placeholder="First Name"
                     onChange={() => {
-                      console.log(formRef.current?.getFieldValue("users"))
+                      console.log(formInstance?.getFieldValue("users"))
                     }}
                   />
                 </Form.Item>

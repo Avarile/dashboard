@@ -1,6 +1,5 @@
 // Universal Api controller
 //
-
 import axios from "axios"
 import Storage from "@SRC/data/session.controller"
 import { setIsloading, setError } from "@DATA/dataSlices/isloading.slice"
