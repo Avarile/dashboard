@@ -5,7 +5,7 @@ import { message } from "antd"
 export interface IConfig {
   type: "success" | "error" | "warning"
   message?: string
-  messageTarget: string
+  messageTarget?: string
 }
 /**
  * notificationControll messageTarget is a token to represent what subject is about this message.

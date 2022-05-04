@@ -4,7 +4,8 @@ import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFu
 import qs from "query-string"
 import { store } from "./dataStore/store.redux"
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice"
-import { SocketAddress } from "net"
+import { IUser, IProduct } from "src/utils/interfaces"
+import Notification from "@SRC/components/Notification"
 
 const dispatch = store.dispatch
 
@@ -28,23 +29,26 @@ export const CreateClient = (payload: Object) => {}
 
 export const getClientsByParams = (
   params: { email: string } | { mobile: number },
+  loadingStatus: any,
   setLoadingStatus: any,
   formInstance: any,
   setUiController: any,
-  uiController: { userInfo: any; userInfoSwitch: any; shippingInfo: any }
+  uiController: { userInfo: any; userCreateOrEditSwitch: any; shippingInfo: any }
 ) => {
-  setLoadingStatus(true)
-
+  setLoadingStatus({
+    ...loadingStatus,
+    userInfo: true,
+  })
   const tempFunc = async () => {
     await Request.get(`${env.dbUri}/clients?${qs.stringify(refineQueryString(params))}`)
       .then((response: any) => {
         if (response.length > 0) {
           setUiController({
             ...uiController,
-            userInfoSwitch: true,
+            userCreateOrEditSwitch: true,
           })
 
-          const { name, id, email, mobile, vip, address, shippingAddress } = response[0]
+          const { name, id, email, mobile, vip, address, postcode } = response[0]
           formInstance.setFieldsValue({
             client: {
               name: name,
@@ -52,7 +56,7 @@ export const getClientsByParams = (
               mobile: mobile,
               vip: vip,
               address: address,
-              shippingAdress: shippingAddress,
+              postcode: postcode,
               id: id,
             },
           })
@@ -64,18 +68,37 @@ export const getClientsByParams = (
               mobile: null,
               vip: null,
               address: null,
-              shippingAdress: null,
+              postcode: null,
               id: null,
             },
           })
         }
       })
       .finally(() => {
-        setLoadingStatus(false)
+        // setUiController({
+        //   ...uiController,
+        //   userCreateOrEditSwitch: false,
+        // })
+        setLoadingStatus({
+          ...loadingStatus,
+          userInfo: false,
+        })
       })
   }
 
-  tempFunc()
+  const debouncedTempFunc = debounce(tempFunc, 3000)
+  debouncedTempFunc()
 }
 
-// export
+/**
+ * Update exiting user Info or Create new user
+ *
+ */
+export const manipulateUserInfo = async (payload: IUser, funcSwitch: "create" | "update") => {
+  if (funcSwitch === "update") {
+    await Request.put(`${env.dbUri}/clients/${payload.id}}`, payload, `User Info${payload.name}`)
+  }
+  if (funcSwitch === "create") {
+    await Request.post(`${env.dbUri}/clients`, payload, {}, `user: ${payload.name}`)
+  } else return Notification({ type: "error", message: "User Component Error" })
+}

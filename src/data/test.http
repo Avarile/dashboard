@@ -1,0 +1,37 @@
+
+GET http://localhost:3001/clients
+
+### Get specific
+GET http://localhost:3001/clients/0
+
+###  Post
+POST http://localhost:3001/clients
+Content-Type: "application/json"
+
+{
+  "id":1,
+  "name":"Avarile",
+  "email":"Avarile@gmail.com",
+  "mobile":0478903556,
+  "vip": true,
+  "address":"15 seabird dr, pointcook",
+  "postcode": 3030
+}
+
+### DELETE
+DELETE  http://localhost:3001/clients/0
+
+
+###  Put
+PUT  http://localhost:3001/clients/1
+Content-Type: "application/json"
+
+{
+  "id":1,
+  "name":"Avarile",
+  "email":"Avarile@gmail.com",
+  "mobile":0478903556,
+  "vip": true,
+  "address":"15 seabird dr, pointcook",
+  "postcode": 3040
+}
