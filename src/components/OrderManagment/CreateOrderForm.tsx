@@ -1,9 +1,10 @@
-import React from "react"
-import "antd/dist/antd.css"
-import { Tabs } from "antd"
-import { FileOutlined, FileProtectOutlined, FileExcelOutlined } from "@ant-design/icons"
-import { StyledTabPane } from "../styledComponents/TabSpan"
-import CreateNewQuotation from "./CreateQuoteForm"
+import React from "react";
+import "antd/dist/antd.css";
+import { Tabs } from "antd";
+import { FileOutlined, FileProtectOutlined, FileExcelOutlined } from "@ant-design/icons";
+import { StyledTabPane } from "../styledComponents/TabSpan";
+import CreateNewQuotation from "./CreateQuoteForm";
+import OrderListModule from "./OrderListModule";
 
 const OrderCreationComponent = () => {
   return (
@@ -38,12 +39,12 @@ const OrderCreationComponent = () => {
               </span>
             }
             key="3">
-            Delete Order
+            <OrderListModule />
           </StyledTabPane>
         </Tabs>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default OrderCreationComponent
+export default OrderCreationComponent;

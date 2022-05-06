@@ -1,13 +1,18 @@
-export interface IProduct {
+export interface IProduct extends IOrderProduct, IProductSide {}
+
+export interface IOrderProduct {
   id: number
   type: "canopy" | "tray" | "toolbox" | "accessories" | "4x4" | "servicebody" | "tubcanopy"
   name: string
   price: number
   inStock: number
-  powderCoatingPrice: number
-  installationPrice: number
-  sku: string
-  size: string
+  pcPrice: number
+  installPrice: number
+}
+
+export interface IProductSide {
+  subtype: "no subtype" | "dogbox" | "drawbar" | "gullwing"
+  detailType: "detailType1" | "detailType2" | "detailType3"
   desc: string
   spec: string
   updateLog: string

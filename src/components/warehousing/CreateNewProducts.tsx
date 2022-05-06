@@ -3,7 +3,8 @@ import "antd/dist/antd.css"
 import { Form, Input, InputNumber, Button, FormInstance, Select, notification } from "antd"
 import Request from "@DATA/api.controller"
 import envSwitch from "@SRC/utils/ENVCONFIG"
-import { details, subType } from "@SRC/utils/productTypes"
+import { details, subType, productTypes } from "@SRC/utils/productTypes"
+import dayjs from "dayjs"
 
 const layout = {
   labelCol: {
@@ -36,23 +37,8 @@ const CreateNewItem = () => {
   // 1st step: create a ref
   const ref = useRef<FormInstance<any> | null>()
   const [loadingStatus, setLoadingStatus] = React.useState(false)
-  const [productTypes, setProductTypes] = React.useState<any>([])
 
   const onFinish = (values: any) => {}
-
-  const getProductType = async () => {
-    await Request.get(`${env.dbUri}/productTypes`)
-      .then((response: any) => {
-        setProductTypes(response)
-      })
-      .catch((error: any) => {
-        throw new Error("Cannot load the productTypes", error)
-      })
-  }
-
-  React.useEffect(() => {
-    getProductType()
-  }, [])
 
   const createNewProduct = (payload: object) => {
     return Request.post(`${env.dbUri}/products`, payload, {}, "Product")
@@ -233,6 +219,7 @@ const CreateNewItem = () => {
                 spec: currentFormValues.productSpecification,
                 currentInStock: 0,
                 updateLog: "",
+                lastUpdate: dayjs().format("DD/MM/YYYY"),
               }
               createNewProduct(productPayload)
               setLoadingStatus(false)

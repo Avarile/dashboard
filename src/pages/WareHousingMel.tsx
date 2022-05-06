@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import SearchBar from "@SRC/components/SearchBar"
 import QueriedTable from "@SRC/components/warehousing/QueriedTable"
 import "./pages.css"
+import { productTypes } from "@SRC/utils/productTypes"
 
 /**
  *the menu at the end of the action as well as anywhere else.
@@ -91,6 +92,7 @@ function WareHousingMel() {
 
     return (
       <Table
+        // size="small"
         onRow={(record) => {
           return {
             onClick: (event) => {}, // 点击行
@@ -108,7 +110,7 @@ function WareHousingMel() {
         dataSource={data}
         pagination={false}
         rowClassName={(record, index) => {
-          if (index / 2 === 0) {
+          if (index % 2 === 0) {
             return "warehousing-oddRow"
           } else return "warehousing-evenRow"
         }}
@@ -136,7 +138,6 @@ function WareHousingMel() {
 
   // Data init: Type and items caculation
   const env = envSwitch("dev")
-  const [productTypes, setProductTypes] = React.useState<any>([])
   const [products, setProducts] = React.useState<any>([])
 
   const getProduct = async () => {
@@ -149,18 +150,7 @@ function WareHousingMel() {
       })
   }
 
-  const getProductType = async () => {
-    await Request.get(`${env.dbUri}/productTypes`)
-      .then((response: any) => {
-        setProductTypes(response)
-      })
-      .catch((error: any) => {
-        throw new Error("Cannot load the productTypes", error)
-      })
-  }
-
   React.useEffect(() => {
-    getProductType()
     getProduct()
   }, [])
   // end of DATA init
@@ -181,6 +171,7 @@ function WareHousingMel() {
       <>
         <h3>Cataglorised Display</h3>
         <Table
+          // size="small"
           // tableRef={(tableInstance: any) => {
           //   tableRef.current = tableInstance;
           // }}

@@ -178,4 +178,9 @@ temp
 #### 1/May/2022
 
 Refactor the Create Quote / invoice.
-fg
+
+#### 7/May/2022
+
+Refactor of the Create Quote / invoice Finished.
+
+Start working on OrderList's Design and implementation --- expect to finish tomorrow

@@ -1,24 +1,12 @@
 import React, { ReactInstance, useState } from "react"
 import "antd/dist/antd.css"
-import { Layout, Menu } from "antd"
+import { Layout, Menu, Space } from "antd"
 import { TabletOutlined, CrownOutlined } from "@ant-design/icons"
 import { useNavigate, Link, Outlet } from "react-router-dom"
 import Header from "@SRC/components/Header"
 
 const { Sider, Content } = Layout
 const { SubMenu } = Menu
-
-// Content
-const originData: any = []
-
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `TB001-${i}`,
-    price: "400",
-    currentStock: `40`,
-  })
-}
 
 const MainEntrance = () => {
   const navigate = useNavigate()
@@ -54,9 +42,11 @@ const MainEntrance = () => {
   return (
     <Layout style={{ minHeight: "100vh", backgroundColor: "dark" }}>
       <Sider trigger={null} collapsible collapsed={uiController.collapsed} theme="light">
-        <div className="logo">{uiController.collapsed ? <h3>EZT</h3> : <h3>Easy Tool Box</h3>}</div>
+        <Space className="logo" style={{ padding: "0,1rem,0,1rem" }}>
+          {uiController.collapsed ? <h3>EZT</h3> : <h3>Easy Tool Box</h3>}
+        </Space>
         <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })}>
+          <Menu.Item key="1" icon={StyledCrownWrapper(CrownOutlined, { color: "light" })}>
             <Link to="/mainentrance/ordermanagment" style={{ textDecoration: "none" }}>
               订单管理
             </Link>

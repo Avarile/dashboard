@@ -31,7 +31,7 @@
       "desc": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*",
       "spec": "Toolbox size: 1780mm x 1400mm x 850mm \nDog Box Section: 700mm W x 890mm D\nHeavy Duty 2.5mm Aluminium Flat Plate \nAluminium Tubes Frame, can take up to 300kg top load when stationary\n4 x Stainless Steel Whale Tail Locks Secured; keyed alike\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\n2.5mm Reinforced Tubes Roof Bracing Structure\n3mm refinforced spare wheel carrier support\nFloor Included\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
       "currentInStock": 0,
-      "updateLog": "",
+      "updateLog": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*",
       "id": 1
     },
     {
@@ -101,6 +101,24 @@
       "currentInStock": 0,
       "updateLog": "",
       "id": 5
+    },
+    {
+      "subtype": "no subtype",
+      "detail": "no detail",
+      "length": 1800,
+      "type": "tray",
+      "name": "Heavy duty 1800L x 1780W Aluminium tray",
+      "sku": "Tray-18D",
+      "size": "1800L 1780W 50H",
+      "price": 2800,
+      "powdercoatingprice": 400,
+      "installationprice": 560,
+      "desc": "asdfasdfasdf",
+      "spec": "asdfasdfasdf",
+      "currentInStock": 0,
+      "updateLog": "",
+      "lastUpdate": "06/05/2022",
+      "id": 6
     }
   ],
   "clients": [
@@ -139,43 +157,54 @@
   ],
   "orders": [
     {
-      "selectedItems": [
+      "client": {
+        "clientSearch": "Avarile@gmail.com",
+        "id": 1,
+        "name": "Avarile",
+        "email": "Avarile@gmail.com",
+        "mobile": "0481877127",
+        "vip": "true",
+        "address": "15 seabird dr, Point Cook",
+        "postcode": "3040"
+      },
+      "shipping": {
+        "Address": "15 Seabird Drive",
+        "postcode": "3030",
+        "shippingFee": "400"
+      },
+      "products": [
         {
-          "key": 4,
-          "sku": "Tray-Deluxe-16S",
-          "name": "1780W x 1600L mm (Deck Only) Premium Tray Aluminium Dual Cab Ute",
-          "price": 1900,
-          "size": "1600L 1780W",
+          "sku": "Tray-Deluxe-18S",
+          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
+          "size": "1800L 1780W",
+          "price": 2199,
           "pcPrice": 495,
-          "installPrice": 890,
-          "inStock": 0
+          "installPrice": 890
         },
         {
-          "key": 1,
-          "sku": "TB046F-17148",
-          "name": "1400mm Flat Plate Aluminium Canopy With Dog Box Section",
-          "price": 2750,
-          "size": "1400L x 1780W x 850H",
-          "pcPrice": 500,
-          "installPrice": 160,
-          "inStock": 0
+          "sku": "Tray-Deluxe-18S",
+          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
+          "size": "1800L 1780W",
+          "price": 2199,
+          "pcPrice": 495,
+          "installPrice": 890
+        },
+        {
+          "sku": "Tray-Deluxe-18S",
+          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
+          "size": "1800L 1780W",
+          "price": 2199,
+          "pcPrice": 495,
+          "installPrice": 890
         }
       ],
-      "orderPrices": {
-        "totalPCPrice": 995,
-        "totalInstallationPrice": 1050,
-        "totalItemPrices": 4650,
-        "totalAmount": 6695
+      "price": {
+        "itemPrice": 6597,
+        "pcPrice": 1485,
+        "installPrice": 2670,
+        "totalAmount": 10752
       },
-      "orderClient": {
-        "name": "Billy",
-        "email": "billy@gmail.com",
-        "mobile": 40000000,
-        "vip": false
-      },
-      "active": true,
-      "depositPayed": false,
-      "fullyPayed": false,
+      "orderDescription": "Urgent need",
       "id": 1
     }
   ]

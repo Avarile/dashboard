@@ -1,31 +1,31 @@
-import Request from "@DATA/api.controller"
-import envSwitch from "@SRC/utils/ENVCONFIG"
-import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs"
-import qs from "query-string"
-import { store } from "./dataStore/store.redux"
-import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice"
-import { IUser, IProduct } from "src/utils/interfaces"
-import Notification from "@SRC/components/Notification"
+import Request from "@DATA/api.controller";
+import envSwitch from "@SRC/utils/ENVCONFIG";
+import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs";
+import qs from "query-string";
+import { store } from "./dataStore/store.redux";
+import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice";
+import { IUser, IProduct } from "src/utils/interfaces";
+import Notification from "@SRC/components/Notification";
 
-const dispatch = store.dispatch
+const dispatch = store.dispatch;
 
-const env = envSwitch("dev")
+const env = envSwitch("dev");
 
 export const generateOrder = async (payload: object) => {
-  return await Request.post(`${env.dbUri}/orders`, payload, {}, "order")
-}
+  await Request.post(`${env.dbUri}/orders`, payload, {}, "order");
+};
 
 export const getOrders = async () => {
-  return await Request.get(`${env.dbUri}/orders`)
-}
+  return await Request.get(`${env.dbUri}/orders`);
+};
 
 export const getProductBySku = async (searchParams: { sku: string }) => {
   return await Request.get(`${env.dbUri}/products?${qs.stringify(refineQueryString(searchParams))}`).then((response: any) => {
-    console.log(response)
-  })
-}
+    console.log(response);
+  });
+};
 
-export const CreateClient = (payload: Object) => {}
+export const CreateClient = (payload: Object) => {};
 
 export const getClientsByParams = (
   params: { email: string } | { mobile: number },
@@ -38,7 +38,7 @@ export const getClientsByParams = (
   setLoadingStatus({
     ...loadingStatus,
     userInfo: true,
-  })
+  });
   const tempFunc = async () => {
     await Request.get(`${env.dbUri}/clients?${qs.stringify(refineQueryString(params))}`)
       .then((response: any) => {
@@ -46,9 +46,9 @@ export const getClientsByParams = (
           setUiController({
             ...uiController,
             userCreateOrEditSwitch: true,
-          })
+          });
 
-          const { name, id, email, mobile, vip, address, postcode } = response[0]
+          const { name, id, email, mobile, vip, address, postcode } = response[0];
           formInstance.setFieldsValue({
             client: {
               name: name,
@@ -59,7 +59,7 @@ export const getClientsByParams = (
               postcode: postcode,
               id: id,
             },
-          })
+          });
         } else {
           formInstance.setFieldsValue({
             client: {
@@ -71,7 +71,7 @@ export const getClientsByParams = (
               postcode: null,
               id: null,
             },
-          })
+          });
         }
       })
       .finally(() => {
@@ -82,13 +82,13 @@ export const getClientsByParams = (
         setLoadingStatus({
           ...loadingStatus,
           userInfo: false,
-        })
-      })
-  }
+        });
+      });
+  };
 
-  const debouncedTempFunc = debounce(tempFunc, 3000)
-  debouncedTempFunc()
-}
+  const debouncedTempFunc = debounce(tempFunc, 3000);
+  debouncedTempFunc();
+};
 
 /**
  * Update exiting user Info or Create new user
@@ -96,9 +96,67 @@ export const getClientsByParams = (
  */
 export const manipulateUserInfo = async (payload: IUser, funcSwitch: "create" | "update") => {
   if (funcSwitch === "update") {
-    await Request.put(`${env.dbUri}/clients/${payload.id}}`, payload, `User Info${payload.name}`)
+    await Request.put(`${env.dbUri}/clients/${payload.id}}`, payload, `User Info${payload.name}`);
   }
   if (funcSwitch === "create") {
-    await Request.post(`${env.dbUri}/clients`, payload, {}, `user: ${payload.name}`)
-  } else return Notification({ type: "error", message: "User Component Error" })
-}
+    await Request.post(`${env.dbUri}/clients`, payload, {}, `user: ${payload.name}`);
+  } else return Notification({ type: "error", message: "User Component Error" });
+};
+
+export const searchProductBySku = async (
+  sku: string,
+  setLoadingStatus: any,
+  loadingStatus: {
+    userInfo: boolean;
+    shippingInfo: boolean;
+    productSearch: boolean;
+  },
+  formInstance: any,
+  columnIndex: number
+) => {
+  setLoadingStatus({
+    ...loadingStatus,
+    productSearch: true,
+  });
+  // console.log(sku)
+
+  await Request.get(`${env.dbUri}/products?sku=${sku}`)
+    .then((response: any) => {
+      let currentFormValue = formInstance.getFieldValue("products"); // accquire entire list of items
+      if (response.length > 0) {
+        // console.log(response[0])
+
+        const { name, size, price, powdercoatingprice, installationprice } = response[0]; // accquire the response item
+        const currentColumn = {
+          name: name,
+          size: size,
+          price: price,
+          pcPrice: powdercoatingprice,
+          installPrice: installationprice,
+        };
+        const changedFormValue = currentFormValue.map((item: any, index: number) => {
+          if (index === columnIndex) {
+            item.name = currentColumn.name;
+            item.size = currentColumn.size;
+            item.price = currentColumn.price;
+            item.pcPrice = currentColumn.pcPrice;
+            item.installPrice = currentColumn.installPrice;
+
+            return item;
+          } else return item;
+        });
+
+        formInstance.setFieldsValue({ products: changedFormValue });
+      } else {
+        return null;
+      }
+    })
+    .finally(() => {
+      setTimeout(() => {
+        setLoadingStatus({
+          ...loadingStatus,
+          productSearch: false,
+        });
+      }, 1000);
+    });
+};
