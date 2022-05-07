@@ -1,10 +1,10 @@
-import React from "react"
-import "antd/dist/antd.css"
-import { Tabs } from "antd"
-import { FileOutlined, FileProtectOutlined, FileExcelOutlined } from "@ant-design/icons"
-import OrderCreationComponent from "@SRC/components/OrderManagment/CreateOrderForm"
-import { StyledTabPane } from "@SRC/components/styledComponents/TabSpan"
-import Temp from "@SRC/components/OrderManagment/CreateQuoteForm"
+import React from "react";
+import "antd/dist/antd.css";
+import { Tabs } from "antd";
+import { FileOutlined, FileProtectOutlined, FileExcelOutlined } from "@ant-design/icons";
+import OrderCreationComponent from "@SRC/components/OrderManagment/CreateOrderForm";
+import { StyledTabPane } from "@SRC/components/styledComponents/TabSpan";
+import Temp from "@SRC/components/OrderManagment/CreateQuoteForm";
 
 const OrderManagment = () => {
   return (
@@ -34,7 +34,7 @@ const OrderManagment = () => {
           tab={
             <span>
               <FileExcelOutlined />
-              Delete Order
+              Manage Order / Quote
             </span>
           }
           key="3">
@@ -42,7 +42,7 @@ const OrderManagment = () => {
         </StyledTabPane>
       </Tabs>
     </>
-  )
-}
+  );
+};
 
-export default OrderManagment
+export default OrderManagment;

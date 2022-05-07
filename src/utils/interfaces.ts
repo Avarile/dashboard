@@ -27,3 +27,5 @@ export interface IUser {
   address: string
   postcode: number
 }
+
+export interface IOrderDetail { }

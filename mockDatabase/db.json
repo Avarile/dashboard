@@ -168,44 +168,41 @@
         "postcode": "3040"
       },
       "shipping": {
-        "Address": "15 Seabird Drive",
+        "address": "15 Seabird Dr. Point Cook. Melbourne",
         "postcode": "3030",
         "shippingFee": "400"
       },
       "products": [
         {
-          "sku": "Tray-Deluxe-18S",
-          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
-          "size": "1800L 1780W",
-          "price": 2199,
-          "pcPrice": 495,
-          "installPrice": 890
+          "sku": "Tray-18D",
+          "name": "Heavy duty 1800L x 1780W Aluminium tray",
+          "size": "1800L 1780W 50H",
+          "price": 2800,
+          "pcPrice": 400,
+          "installPrice": 560
         },
         {
-          "sku": "Tray-Deluxe-18S",
-          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
-          "size": "1800L 1780W",
-          "price": 2199,
-          "pcPrice": 495,
-          "installPrice": 890
-        },
-        {
-          "sku": "Tray-Deluxe-18S",
-          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
-          "size": "1800L 1780W",
-          "price": 2199,
-          "pcPrice": 495,
-          "installPrice": 890
+          "sku": "Tray-18D",
+          "name": "Heavy duty 1800L x 1780W Aluminium tray",
+          "size": "1800L 1780W 50H",
+          "price": 2800,
+          "pcPrice": 400,
+          "installPrice": 560
         }
       ],
       "price": {
-        "itemPrice": 6597,
-        "pcPrice": 1485,
-        "installPrice": 2670,
-        "totalAmount": 10752
+        "itemPrice": 5600,
+        "pcPrice": 800,
+        "installPrice": 1120,
+        "totalAmount": 7520
       },
-      "orderDescription": "Urgent need",
-      "id": 1
+      "orderDescription": "Urgent needs",
+      "orderStatus": "pending",
+      "orderPayed": 0,
+      "orderDeposit": 0,
+      "balanceDue": 7520,
+      "paymentDetail": [],
+      "id": 2
     }
   ]
 }

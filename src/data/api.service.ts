@@ -25,8 +25,6 @@ export const getProductBySku = async (searchParams: { sku: string }) => {
   });
 };
 
-export const CreateClient = (payload: Object) => {};
-
 export const getClientsByParams = (
   params: { email: string } | { mobile: number },
   loadingStatus: any,
@@ -159,4 +157,8 @@ export const searchProductBySku = async (
         });
       }, 1000);
     });
+};
+
+export const updateOrder = (orderID:number, payload:any) => {
+  
 };

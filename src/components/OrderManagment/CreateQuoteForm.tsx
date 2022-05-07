@@ -33,9 +33,20 @@ const CreateNewQuotation = () => {
       ...loadingStatus,
       orderCreation: true,
     });
+
     setTimeout(() => {
       console.log("Received values of form:", values);
-      generateOrder(values).then(() => {
+      // add the order Status into the orderInfo
+      const payload = {
+        ...values,
+        orderStatus: "pending",
+        orderPayed: 0,
+        orderDeposit: 0,
+        paymentDetail: [],
+        balanceDue: values.price.totalAmount - values.price.orderDeposit - values.price.orderPayed,
+      };
+
+      generateOrder(payload).then(() => {
         setLoadingStatus({
           ...loadingStatus,
           orderCreation: false,
@@ -185,7 +196,7 @@ const CreateNewQuotation = () => {
 
       <Form.Item label="Shipping Info">
         <Form.Item
-          name={["shipping", "Address"]}
+          name={["shipping", "address"]}
           rules={[{ required: true }]}
           style={{
             display: "inline-block",

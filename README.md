@@ -184,3 +184,11 @@ Refactor the Create Quote / invoice.
 Refactor of the Create Quote / invoice Finished.
 
 Start working on OrderList's Design and implementation --- expect to finish tomorrow
+
+1. Finished most of the Design and implementation of Order Display, currently working on the "Add payment Modal"
+2. Add some monir changes in the designs of the orderCreation component
+
+   1. update only the payment, as well as the details of each payment.
+   2. so the design of the "Add Payment Modal" should generate an Obj that can be pushed into the paymentDetail Array
+
+3. Problem: How should I solve the problem of "Clicked the Edit Button, then How should I navigate to Edit page? Or do I really need a Edit page?

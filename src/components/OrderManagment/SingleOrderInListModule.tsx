@@ -1,34 +1,101 @@
-import { Descriptions, Badge } from "antd";
+import React, { useEffect, useState } from "react";
+import { Descriptions, Badge, Divider, Button } from "antd";
+import Request from "@DATA/api.controller";
 
-const SingleOrderInListModule = () => (
-  <Descriptions title="User Info" bordered>
-    <Descriptions.Item label="Product">Cloud Database</Descriptions.Item>
-    <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item>
-    <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item>
-    <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item>
-    <Descriptions.Item label="Usage Time" span={2}>
-      2019-04-24 18:00:00
-    </Descriptions.Item>
-    <Descriptions.Item label="Status" span={3}>
-      <Badge status="processing" text="Running" />
-    </Descriptions.Item>
-    <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
-    <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
-    <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
-    <Descriptions.Item label="Config Info">
-      Data disk type: MongoDB
-      <br />
-      Database version: 3.4
-      <br />
-      Package: dds.mongo.mid
-      <br />
-      Storage space: 10 GB
-      <br />
-      Replication factor: 3
-      <br />
-      Region: East China 1<br />
-    </Descriptions.Item>
-  </Descriptions>
-);
+const SingleOrderInListModule = () => {
+  const [order, setOrder] = useState({
+    client: {
+      name: "",
+      email: "",
+      mobile: "0412345678",
+      vip: false,
+      address: "",
+      postcode: "",
+    },
+    shipping: {
+      address: "",
+      postcode: "",
+      shippingFee: 0,
+    },
+    products: [],
+    price: {
+      itemPrice: 0,
+      pcPrice: 0,
+      installPrice: 0,
+      totalAmount: 0,
+    },
+    orderDescription: "",
+    orderStatus: "",
+    orderPayed: 0,
+    orderDeposit: 0,
+    paymentDetail: [],
+    balanceDue: 0,
+    id: 0,
+  });
+
+  const getOrder = () => {
+    Request.get("http://localhost:3001/orders").then((response: any) => {
+      setOrder(response[0]);
+    });
+  };
+
+  useEffect(() => {
+    getOrder();
+  }, []);
+
+  return (
+    <>
+      <Descriptions title="Client Info" column={2}>
+        <Descriptions.Item label="Client Name">{order.client.name}</Descriptions.Item>
+        <Descriptions.Item label="Client Email">{order.client.email}</Descriptions.Item>
+        <Descriptions.Item label="Client Mobile">{order.client.mobile}</Descriptions.Item>
+        <Descriptions.Item label="Client Status">{order.client.vip ? "VIP" : "Normal"}</Descriptions.Item>
+        <Descriptions.Item label="Usage Time" span={2}>
+          2019-04-24 18:00:00
+        </Descriptions.Item>
+        <Descriptions.Item label="Status" span={2}>
+          <Badge status="processing" text="Running" />
+        </Descriptions.Item>
+      </Descriptions>
+      <Divider />
+      <Descriptions title="Shipping Info" column={2}>
+        <Descriptions.Item label="Client Name">{order.client.name}</Descriptions.Item>
+        <Descriptions.Item label="Client Email">{order.client.email}</Descriptions.Item>
+        <Descriptions.Item label="Client Mobile">{order.client.mobile}</Descriptions.Item>
+        <Descriptions.Item label="Client Status">{order.client.vip ? "VIP" : "Normal"}</Descriptions.Item>
+        <Descriptions.Item label="Address">{order.client.address}</Descriptions.Item>
+        <Descriptions.Item label="Postcode">{order.client.postcode}</Descriptions.Item>
+      </Descriptions>
+      <Divider />
+      <Descriptions title="Products" column={2}>
+        {order.products.map((item: { sku: string; name: string; size: string; price: number; pcPrice: number; installPrice: number }, index: any) => {
+          return (
+            <>
+              <Descriptions.Item span={2}>
+                <p style={{ color: "red" }}>Item: {index + 1}</p>
+              </Descriptions.Item>
+              <Descriptions.Item label="SKU">{item.sku}</Descriptions.Item>
+              <Descriptions.Item label="Name">{item.name}</Descriptions.Item>
+              <Descriptions.Item label="Size">{item.size}</Descriptions.Item>
+              <Descriptions.Item label="price">{item.price}</Descriptions.Item>
+              <Descriptions.Item label="PowderCoating">{item.pcPrice}</Descriptions.Item>
+              <Descriptions.Item label="Installation">{item.installPrice}</Descriptions.Item>
+            </>
+          );
+        })}
+      </Descriptions>
+      <Divider />
+      <Descriptions title="Price" column={1}>
+        <Descriptions.Item label="Item Price">{order.price.itemPrice}</Descriptions.Item>
+        <Descriptions.Item label="Powder Coating fee">{order.price.pcPrice}</Descriptions.Item>
+        <Descriptions.Item label="Installation">{order.price.installPrice}</Descriptions.Item>
+        <Descriptions.Item label="Total Amount">{order.price.totalAmount}</Descriptions.Item>
+        <Descriptions.Item>
+          <Button type="primary">Add Payment</Button>
+        </Descriptions.Item>
+      </Descriptions>
+    </>
+  );
+};
 
 export default SingleOrderInListModule;

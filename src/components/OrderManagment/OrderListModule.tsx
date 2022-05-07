@@ -1,57 +1,89 @@
-import { Table } from "antd";
+import { Table, Input, Badge } from "antd";
+import "@SRC/pages/pages.css";
+import { orderStatusIndicator } from "@SRC/utils/utilFuncs";
+import SingleOrderInListModule from "./SingleOrderInListModule";
+
+const { Search } = Input;
 
 const columns = [
-  { title: "Name", dataIndex: "name", key: "name" },
-  { title: "Age", dataIndex: "age", key: "age" },
-  { title: "Address", dataIndex: "address", key: "address" },
+  { title: "Order Number", dataIndex: "id", key: "orderNumber" },
+  { title: "Client", dataIndex: "clientName", key: "clientName" },
+  { title: "OrderAmount", dataIndex: "orderAmount", key: "orderAmount" },
+  { title: "Amount payed", dataIndex: "amountPayed", key: "amountPayed" },
   {
-    title: "Action",
-    dataIndex: "",
-    key: "x",
-    render: () => <a>Delete</a>,
+    title: "Balance Due",
+    dataIndex: "balanceDue",
+    key: "balanceDue",
+  },
+  {
+    title: "Order Status",
+    dataIndex: "orderStatus",
+    key: "orderStatus",
+    render: (currentRowValue: any, currentColumnValue: any, index: number) => (
+      <span>
+        <Badge status={orderStatusIndicator(currentRowValue)} />
+        {currentRowValue}
+      </span>
+    ),
   },
 ];
 
 const data = [
   {
     key: 1,
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    description: "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
+    id: 1,
+    clientName: "Avarile",
+    orderAmount: 57000,
+    amountPayed: 0,
+    orderStatus: "pending",
+    balanceDue: 8700,
   },
   {
     key: 2,
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    description: "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
+    id: 2,
+    clientName: "Avarile",
+    orderAmount: 57000,
+    amountPayed: 0,
+    orderStatus: "delivered",
+    balanceDue: 8700,
   },
   {
     key: 3,
-    name: "Not Expandable",
-    age: 29,
-    address: "Jiangsu No. 1 Lake Park",
-    description: "This not expandable",
+    id: 3,
+    clientName: "Avarile",
+    orderAmount: 57000,
+    amountPayed: 0,
+    orderStatus: "deposit payed",
+    balanceDue: 8700,
   },
   {
     key: 4,
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    description: "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.",
+    id: 4,
+    clientName: "Avarile",
+    orderAmount: 57000,
+    amountPayed: 0,
+    orderStatus: "fullyPayed(Not yet deliverd)",
+    balanceDue: 8700,
   },
 ];
 
 const OrderListModule = () => (
-  <Table
-    columns={columns}
-    expandable={{
-      expandedRowRender: (record) => <p style={{ margin: 0 }}>{record.description}</p>,
-      rowExpandable: (record) => record.name !== "Not Expandable",
-    }}
-    dataSource={data}
-  />
+  <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+    <Search style={{ minWidth: "15rem", maxWidth: "20rem", marginBottom: "5rem", alignSelf: "flex-end", marginRight: "8rem" }} enterButton="search" allowClear loading={false} />
+    <Table
+      rowClassName={(record, index) => {
+        if (index % 2 === 0) {
+          return "warehousing-oddRow";
+        } else return "warehousing-evenRow";
+      }}
+      columns={columns}
+      expandable={{
+        expandedRowRender: (record) => <SingleOrderInListModule />,
+        // rowExpandable: (record) => record.name !== "Not Expandable",
+      }}
+      dataSource={data}
+    />
+  </div>
 );
 
 export default OrderListModule;
