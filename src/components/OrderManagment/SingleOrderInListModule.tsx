@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Descriptions, Badge, Divider, Button } from "antd";
 import Request from "@DATA/api.controller";
+import AddPaymentModal from "./AddPayment.Modal";
 
 const SingleOrderInListModule = () => {
+  const [showPaymentModal, setShowpaymentModal] = useState(false);
+
   const [order, setOrder] = useState({
     client: {
       name: "",
@@ -91,9 +94,16 @@ const SingleOrderInListModule = () => {
         <Descriptions.Item label="Installation">{order.price.installPrice}</Descriptions.Item>
         <Descriptions.Item label="Total Amount">{order.price.totalAmount}</Descriptions.Item>
         <Descriptions.Item>
-          <Button type="primary">Add Payment</Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              setShowpaymentModal(true);
+            }}>
+            Add Payment
+          </Button>
         </Descriptions.Item>
       </Descriptions>
+      <AddPaymentModal showPaymentModal={showPaymentModal} setShowPaymentModal={ setShowpaymentModal} />
     </>
   );
 };
