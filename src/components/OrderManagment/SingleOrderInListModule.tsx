@@ -3,48 +3,48 @@ import { Descriptions, Badge, Divider, Button } from "antd";
 import Request from "@DATA/api.controller";
 import AddPaymentModal from "./AddPayment.Modal";
 
-const SingleOrderInListModule = () => {
+const SingleOrderInListModule = ({ order, setLoadingStatus }: any) => {
   const [showPaymentModal, setShowpaymentModal] = useState(false);
 
-  const [order, setOrder] = useState({
-    client: {
-      name: "",
-      email: "",
-      mobile: "0412345678",
-      vip: false,
-      address: "",
-      postcode: "",
-    },
-    shipping: {
-      address: "",
-      postcode: "",
-      shippingFee: 0,
-    },
-    products: [],
-    price: {
-      itemPrice: 0,
-      pcPrice: 0,
-      installPrice: 0,
-      totalAmount: 0,
-    },
-    orderDescription: "",
-    orderStatus: "",
-    orderPayed: 0,
-    orderDeposit: 0,
-    paymentDetail: [],
-    balanceDue: 0,
-    id: 0,
-  });
+  // const [order, setOrder] = useState({
+  //   client: {
+  //     name: "",
+  //     email: "",
+  //     mobile: "0412345678",
+  //     vip: false,
+  //     address: "",
+  //     postcode: "",
+  //   },
+  //   shipping: {
+  //     address: "",
+  //     postcode: "",
+  //     shippingFee: 0,
+  //   },
+  //   products: [],
+  //   price: {
+  //     itemPrice: 0,
+  //     pcPrice: 0,
+  //     installPrice: 0,
+  //     totalAmount: 0,
+  //   },
+  //   orderDescription: "",
+  //   orderStatus: "",
+  //   orderPayed: 0,
+  //   orderDeposit: 0,
+  //   paymentDetail: [],
+  //   balanceDue: 0,
+  //   id: 0,
+  // });
 
-  const getOrder = () => {
-    Request.get("http://localhost:3001/orders").then((response: any) => {
-      setOrder(response[0]);
-    });
-  };
+  // const getOrder = () => {
+  //   Request.get("http://localhost:3001/orders").then((response: any) => {
+  //     setOrder(response[0]);
+  //   });
+  // };
 
-  useEffect(() => {
-    getOrder();
-  }, []);
+  // useEffect(() => {
+  //   getOrder();
+  // }, []);
 
   return (
     <>
@@ -53,7 +53,7 @@ const SingleOrderInListModule = () => {
         <Descriptions.Item label="Client Email">{order.client.email}</Descriptions.Item>
         <Descriptions.Item label="Client Mobile">{order.client.mobile}</Descriptions.Item>
         <Descriptions.Item label="Client Status">{order.client.vip ? "VIP" : "Normal"}</Descriptions.Item>
-        <Descriptions.Item label="Usage Time" span={2}>
+        <Descriptions.Item label="Created Time" span={2}>
           2019-04-24 18:00:00
         </Descriptions.Item>
         <Descriptions.Item label="Status" span={2}>
@@ -70,23 +70,18 @@ const SingleOrderInListModule = () => {
         <Descriptions.Item label="Postcode">{order.client.postcode}</Descriptions.Item>
       </Descriptions>
       <Divider />
-      <Descriptions title="Products" column={2}>
-        {order.products.map((item: { sku: string; name: string; size: string; price: number; pcPrice: number; installPrice: number }, index: any) => {
-          return (
-            <>
-              <Descriptions.Item span={2}>
-                <p style={{ color: "red" }}>Item: {index + 1}</p>
-              </Descriptions.Item>
-              <Descriptions.Item label="SKU">{item.sku}</Descriptions.Item>
-              <Descriptions.Item label="Name">{item.name}</Descriptions.Item>
-              <Descriptions.Item label="Size">{item.size}</Descriptions.Item>
-              <Descriptions.Item label="price">{item.price}</Descriptions.Item>
-              <Descriptions.Item label="PowderCoating">{item.pcPrice}</Descriptions.Item>
-              <Descriptions.Item label="Installation">{item.installPrice}</Descriptions.Item>
-            </>
-          );
-        })}
-      </Descriptions>
+      {order.products.map((item: { sku: string; name: string; size: string; price: number; pcPrice: number; installPrice: number }, index: any) => {
+        return (
+          <Descriptions title={`Products: ${index + 1}`} column={2} key={index}>
+            <Descriptions.Item label="SKU">{item.sku}</Descriptions.Item>
+            <Descriptions.Item label="Name">{item.name}</Descriptions.Item>
+            <Descriptions.Item label="Size">{item.size}</Descriptions.Item>
+            <Descriptions.Item label="price">{item.price}</Descriptions.Item>
+            <Descriptions.Item label="PowderCoating">{item.pcPrice}</Descriptions.Item>
+            <Descriptions.Item label="Installation">{item.installPrice}</Descriptions.Item>
+          </Descriptions>
+        );
+      })}
       <Divider />
       <Descriptions title="Price" column={1}>
         <Descriptions.Item label="Item Price">{order.price.itemPrice}</Descriptions.Item>
@@ -103,7 +98,7 @@ const SingleOrderInListModule = () => {
           </Button>
         </Descriptions.Item>
       </Descriptions>
-      <AddPaymentModal showPaymentModal={showPaymentModal} setShowPaymentModal={ setShowpaymentModal} />
+      <AddPaymentModal showPaymentModal={showPaymentModal} setShowPaymentModal={setShowpaymentModal} orderDetail={order} setLoadingStatus={setLoadingStatus} />
     </>
   );
 };

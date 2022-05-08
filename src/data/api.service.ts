@@ -1,6 +1,6 @@
 import Request from "@DATA/api.controller";
 import envSwitch from "@SRC/utils/ENVCONFIG";
-import { refineQueryString, debounce, deduplicateArray } from "@SRC/utils/utilFuncs";
+import { refineQueryString, debounce, deduplicateArray, timeStamp } from "@SRC/utils/utilFuncs";
 import qs from "query-string";
 import { store } from "./dataStore/store.redux";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice";
@@ -15,8 +15,18 @@ export const generateOrder = async (payload: object) => {
   await Request.post(`${env.dbUri}/orders`, payload, {}, "order");
 };
 
-export const getOrders = async () => {
-  return await Request.get(`${env.dbUri}/orders`);
+export const getOrdersById = async (searchParams: { orderId: string }) => {
+  return await Request.get(`${env.dbUri}/orders?${qs.stringify(refineQueryString(searchParams))}`);
+};
+
+/**
+ * beware that this func is specifically designed for Json-server, if the backend is deployed, this should change.
+ */
+export const updateOrder = async (
+  orderId: number,
+  paymentDetail: { method: "cash" | "debitCard" | "creditCard" | "paypal" | "3rdParty"; amount: number; referenceCodes: string; description: string }
+) => {
+  Request.put(`${env.dbUri}/orders/${orderId}`, paymentDetail, "Payment");
 };
 
 export const getProductBySku = async (searchParams: { sku: string }) => {
@@ -93,10 +103,13 @@ export const getClientsByParams = (
  *
  */
 export const manipulateUserInfo = async (payload: IUser, funcSwitch: "create" | "update") => {
+  let tempPayload;
   if (funcSwitch === "update") {
-    await Request.put(`${env.dbUri}/clients/${payload.id}}`, payload, `User Info${payload.name}`);
+    tempPayload = { ...payload, updatedAt: timeStamp() };
+    await Request.put(`${env.dbUri}/clients/${tempPayload.id}}`, payload, `User Info${payload.name}`);
   }
   if (funcSwitch === "create") {
+    tempPayload = { ...payload, createdAt: timeStamp() };
     await Request.post(`${env.dbUri}/clients`, payload, {}, `user: ${payload.name}`);
   } else return Notification({ type: "error", message: "User Component Error" });
 };
@@ -157,8 +170,4 @@ export const searchProductBySku = async (
         });
       }, 1000);
     });
-};
-
-export const updateOrder = (orderID:number, payload:any) => {
-  
 };

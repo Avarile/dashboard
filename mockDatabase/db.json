@@ -198,10 +198,46 @@
       },
       "orderDescription": "Urgent needs",
       "orderStatus": "pending",
-      "orderPayed": 0,
+      "orderPayed": 2324,
       "orderDeposit": 0,
-      "balanceDue": 7520,
-      "paymentDetail": [],
+      "balanceDue": 5196,
+      "paymentDetail": [
+        {
+          "method": "cash",
+          "amount": 400,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 500,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "debitCard",
+          "amount": 600,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 500,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 200,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 123,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 1,
+          "payedAt": "09/05/2022"
+        }
+      ],
       "id": 2
     }
   ]

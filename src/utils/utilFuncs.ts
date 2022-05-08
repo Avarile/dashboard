@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
+
 export type QueryStringType = {
-  [Key: string]: any;
+  [Key: string | number]: any;
 };
 
 export const refineQueryString = (queryString: QueryStringType) => {
@@ -91,4 +93,8 @@ export const debounce = (callback: Function, timer = 1000) => {
  */
 export const deduplicateArray = (array: [any]) => {
   return Array.from(new Set(array));
+};
+
+export const timeStamp = () => {
+  return dayjs().format("DD/MM/YYYY");
 };

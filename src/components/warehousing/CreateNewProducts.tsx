@@ -1,10 +1,10 @@
-import React, { useRef } from "react"
-import "antd/dist/antd.css"
-import { Form, Input, InputNumber, Button, FormInstance, Select, notification } from "antd"
-import Request from "@DATA/api.controller"
-import envSwitch from "@SRC/utils/ENVCONFIG"
-import { details, subType, productTypes } from "@SRC/utils/productTypes"
-import dayjs from "dayjs"
+import React, { useRef } from "react";
+import "antd/dist/antd.css";
+import { Form, Input, InputNumber, Button, FormInstance, Select, notification } from "antd";
+import Request from "@DATA/api.controller";
+import envSwitch from "@SRC/utils/ENVCONFIG";
+import { details, subType, productTypes } from "@SRC/utils/productTypes";
+import { timeStamp } from "@SRC/utils/utilFuncs";
 
 const layout = {
   labelCol: {
@@ -13,7 +13,7 @@ const layout = {
   wrapperCol: {
     span: 20,
   },
-}
+};
 
 /* eslint-disable no-template-curly-in-string */
 
@@ -25,24 +25,24 @@ const validateMessages = {
   number: {
     range: "${label} must be between ${min} and ${max}",
   },
-}
+};
 /* eslint-enable no-template-curly-in-string */
 
 const CreateNewItem = () => {
   // env config loading
-  const env = envSwitch("dev")
+  const env = envSwitch("dev");
   //
 
   // useRef example usage as  refering an instance of a component
   // 1st step: create a ref
-  const ref = useRef<FormInstance<any> | null>()
-  const [loadingStatus, setLoadingStatus] = React.useState(false)
+  const ref = useRef<FormInstance<any> | null>();
+  const [loadingStatus, setLoadingStatus] = React.useState(false);
 
-  const onFinish = (values: any) => {}
+  const onFinish = (values: any) => {};
 
   const createNewProduct = (payload: object) => {
-    return Request.post(`${env.dbUri}/products`, payload, {}, "Product")
-  }
+    return Request.post(`${env.dbUri}/products`, payload, {}, "Product");
+  };
 
   return (
     <Form
@@ -53,7 +53,7 @@ const CreateNewItem = () => {
       style={{ flex: 1 }}
       //ref need to receive a instance of a component using a function to pass it into the current state of the ref.
       ref={(formInstance: FormInstance<any> | null) => {
-        ref.current = formInstance
+        ref.current = formInstance;
       }}>
       <Form.Item
         name={["product", "productType"]}
@@ -67,14 +67,14 @@ const CreateNewItem = () => {
           placeholder="Please select a Type"
           onChange={() => {
             // console.log(ref.current?.getFieldValue("product").productType)
-            setLoadingStatus(false)
+            setLoadingStatus(false);
           }}>
           {productTypes.map((type: { id: number; name: string }) => {
             return (
               <Select.Option key={type.id} value={type.name}>
                 {type.name}
               </Select.Option>
-            )
+            );
           })}
         </Select>
       </Form.Item>
@@ -92,7 +92,7 @@ const CreateNewItem = () => {
               <Select.Option key={sub.id} value={sub.name}>
                 {sub.name}
               </Select.Option>
-            )
+            );
           })}
         </Select>
       </Form.Item>
@@ -110,7 +110,7 @@ const CreateNewItem = () => {
               <Select.Option key={detail.id} value={detail.name}>
                 {detail.name}
               </Select.Option>
-            )
+            );
           })}
         </Select>
       </Form.Item>
@@ -201,9 +201,9 @@ const CreateNewItem = () => {
           style={{ marginBottom: "1rem" }}
           loading={loadingStatus}
           onClick={() => {
-            setLoadingStatus(true)
+            setLoadingStatus(true);
             setTimeout(() => {
-              const currentFormValues = ref.current?.getFieldValue("product")
+              const currentFormValues = ref.current?.getFieldValue("product");
               const productPayload = {
                 subtype: currentFormValues.productSubType,
                 detail: currentFormValues.productDetail,
@@ -219,24 +219,24 @@ const CreateNewItem = () => {
                 spec: currentFormValues.productSpecification,
                 currentInStock: 0,
                 updateLog: "",
-                lastUpdate: dayjs().format("DD/MM/YYYY"),
-              }
-              createNewProduct(productPayload)
-              setLoadingStatus(false)
-              ref.current?.resetFields()
-            }, 2000)
+                lastUpdate: timeStamp(),
+              };
+              createNewProduct(productPayload);
+              setLoadingStatus(false);
+              ref.current?.resetFields();
+            }, 2000);
           }}>
           Submit
         </Button>
         <Button
           onClick={() => {
-            ref.current?.resetFields()
+            ref.current?.resetFields();
           }}
           block>
           Reset Form
         </Button>
       </Form.Item>
     </Form>
-  )
-}
-export default CreateNewItem
+  );
+};
+export default CreateNewItem;
