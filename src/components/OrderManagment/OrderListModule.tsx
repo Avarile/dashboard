@@ -32,17 +32,19 @@ const columns = [
 
 const OrderListModule = () => {
   const [data, setData] = useState<any>([]);
-  const [loadingStatus, setLoadingStatus] = useState<boolean>(false); // I use this as a triggger to refresh the component if I updated the Amount payed, that's why I did the prop drilling
+  const [searchParams, setSearchParams] = useState<any>({ orderId: "" });
+  // const [loadingStatus, setLoadingStatus] = useState<boolean>(false); // I use this as a triggger to refresh the component if I updated the Amount payed, that's why I did the prop drilling
 
-  console.log(loadingStatus);
-
-  useEffect(() => {
-    getOrdersById({ orderId: "" }).then((response: any) => {
+  const getOrderByIdandSetdata = () => {
+    getOrdersById(searchParams).then((response: any) => {
       setData(
         response.map((item: any) => {
           const temp = { ...item };
           // flaten some of the values so they can be displayed
           // remember to get rid of them in AddPayment.Modal
+          // console.log(temp);
+          // console.log("useEffect is triggered");
+          // debugger;
           return {
             ...temp,
             key: item.id,
@@ -52,8 +54,11 @@ const OrderListModule = () => {
         })
       );
     });
-  }, []);
-  console.log(data);
+  };
+  useEffect(() => {
+    getOrderByIdandSetdata();
+  }, [searchParams]);
+  // console.log(data);
 
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
@@ -63,18 +68,11 @@ const OrderListModule = () => {
         allowClear
         loading={false}
         onSearch={(value) => {
-          getOrdersById({ orderId: value }).then((response: any) => {
-            setData(
-              response.map((item: any) => {
-                const temp = { ...item };
-                return { ...temp, key: item.id };
-              })
-            );
-          });
+          setSearchParams(value);
         }}
       />
       <Table
-        loading={loadingStatus}
+        // loading={loadingStatus}
         rowClassName={(record, index) => {
           if (index % 2 === 0) {
             return "warehousing-oddRow";
@@ -82,7 +80,7 @@ const OrderListModule = () => {
         }}
         columns={columns}
         expandable={{
-          expandedRowRender: (record) => <SingleOrderInListModule order={record} setLoadingStatus={setLoadingStatus} />,
+          expandedRowRender: (record) => <SingleOrderInListModule order={record} getOrderByIdandSetdata={getOrderByIdandSetdata} />,
           // rowExpandable: (record) => record.name !== "Not Expandable",
         }}
         dataSource={data}

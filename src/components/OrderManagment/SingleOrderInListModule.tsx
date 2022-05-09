@@ -3,7 +3,7 @@ import { Descriptions, Badge, Divider, Button } from "antd";
 import Request from "@DATA/api.controller";
 import AddPaymentModal from "./AddPayment.Modal";
 
-const SingleOrderInListModule = ({ order, setLoadingStatus }: any) => {
+const SingleOrderInListModule = ({ order, getOrderByIdandSetdata }: any) => {
   const [showPaymentModal, setShowpaymentModal] = useState(false);
 
   // const [order, setOrder] = useState({
@@ -98,7 +98,7 @@ const SingleOrderInListModule = ({ order, setLoadingStatus }: any) => {
           </Button>
         </Descriptions.Item>
       </Descriptions>
-      <AddPaymentModal showPaymentModal={showPaymentModal} setShowPaymentModal={setShowpaymentModal} orderDetail={order} setLoadingStatus={setLoadingStatus} />
+      <AddPaymentModal showPaymentModal={showPaymentModal} setShowPaymentModal={setShowpaymentModal} orderDetail={order} getOrderByIdandSetdata={getOrderByIdandSetdata} />
     </>
   );
 };

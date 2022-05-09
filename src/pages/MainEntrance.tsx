@@ -1,116 +1,126 @@
-import React, { ReactInstance, useState } from "react"
-import "antd/dist/antd.css"
-import { Layout, Menu, Space } from "antd"
-import { TabletOutlined, CrownOutlined } from "@ant-design/icons"
-import { useNavigate, Link, Outlet } from "react-router-dom"
-import Header from "@SRC/components/Header"
+import React, { ReactInstance, useState } from "react";
+import "antd/dist/antd.css";
+import { Layout, Menu, Space } from "antd";
+import { TabletOutlined, CrownOutlined } from "@ant-design/icons";
+import { useNavigate, Link, Outlet } from "react-router-dom";
+import Header from "@SRC/components/Header";
 
-const { Sider, Content } = Layout
-const { SubMenu } = Menu
+const { Sider, Content } = Layout;
+const { SubMenu } = Menu;
 
 const MainEntrance = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [uiController, setUiController] = useState({
     collapsed: false,
     loading: false,
-  })
+  });
 
   const logout = () => {
-    window.sessionStorage.clear()
+    window.sessionStorage.clear();
     setUiController({
       ...uiController,
       loading: true,
-    })
+    });
     setTimeout(() => {
       setUiController({
         ...uiController,
         loading: false,
-      })
+      });
 
-      navigate("/login")
-    }, 3000)
-  }
+      navigate("/login");
+    }, 3000);
+  };
 
   const toggle = () => {
     setUiController({
       ...uiController,
       collapsed: !uiController.collapsed,
-    })
-  }
+    });
+  };
 
   return (
     <Layout style={{ minHeight: "100vh", backgroundColor: "dark" }}>
-      <Sider trigger={null} collapsible collapsed={uiController.collapsed} theme="light">
+      <Sider width={250} trigger={null} collapsible collapsed={uiController.collapsed} theme="light">
         <Space className="logo" style={{ padding: "0,1rem,0,1rem" }}>
           {uiController.collapsed ? <h3>EZT</h3> : <h3>Easy Tool Box</h3>}
         </Space>
-        <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1" icon={StyledCrownWrapper(CrownOutlined, { color: "light" })}>
-            <Link to="/mainentrance/ordermanagment" style={{ textDecoration: "none" }}>
-              订单管理
+        <Menu theme="light" defaultSelectedKeys={["14"]} mode="inline">
+          <Menu.Item key="14" icon={StyledCrownWrapper(CrownOutlined, { color: "light" })}>
+            <Link to="/mainentrance/dashboardindex" style={{ textDecoration: "none" }}>
+              DashBoard
             </Link>
           </Menu.Item>
-          <SubMenu key="sub1" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })} title="库存管理">
+          <Menu.Item key="1" icon={StyledCrownWrapper(CrownOutlined, { color: "light" })}>
+            <Link to="/mainentrance/ordermanagment" style={{ textDecoration: "none" }}>
+              Order Managment
+            </Link>
+          </Menu.Item>
+          <SubMenu key="sub1" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })} title="Inventory Managment">
             <Menu.Item key="2" icon={<TabletOutlined />}>
               <Link to="/mainentrance/warehousing/instock" style={{ textDecoration: "none" }}>
-                入库
+                Invertory
               </Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<TabletOutlined />}>
               <Link to="/mainentrance/warehousing/melstock" style={{ textDecoration: "none" }}>
-                当前库存(Mel)
+                Current Stock(Melbourne)
               </Link>
             </Menu.Item>
             <Menu.Item key="4" icon={<TabletOutlined />}>
               <Link to="/mainentrance/warehousing/melstock" style={{ textDecoration: "none" }}>
-                当前库存(Bri)
+                Current Stock(Brisbane)
               </Link>
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="sub2" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })} title="生产加工">
+          <SubMenu key="sub2" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })} title="Fabrication">
             <Menu.Item key="5" icon={<TabletOutlined />}>
+              <Link to="/mainentrance/fabrication/index" style={{ textDecoration: "none" }}>
+                Fabrication Index
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<TabletOutlined />}>
               <Link to="/mainentrance/fabrication/powdercoating" style={{ textDecoration: "none" }}>
                 Powder Coating
               </Link>
             </Menu.Item>
-            <Menu.Item key="6" icon={<TabletOutlined />}>
+            <Menu.Item key="7" icon={<TabletOutlined />}>
               <Link to="/mainentrance/fabrication/workshop" style={{ textDecoration: "none" }}>
                 WorkShop
               </Link>
             </Menu.Item>
-            <Menu.Item key="7" icon={<TabletOutlined />}>
+            <Menu.Item key="8" icon={<TabletOutlined />}>
               <Link to="/mainentrance/fabrication/customize" style={{ textDecoration: "none" }}>
-                定制
+                Custom Item
               </Link>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="sub3" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })} title="物流管理">
-            <Menu.Item key="8" icon={<TabletOutlined />}>
-              <Link to="/mainentrance/fabrication/bigpost" style={{ textDecoration: "none" }}>
-                Big Post
-              </Link>
-            </Menu.Item>
+          <SubMenu key="sub3" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })} title="Logistic">
             <Menu.Item key="9" icon={<TabletOutlined />}>
-              <Link to="/mainentrance/fabrication/fastway" style={{ textDecoration: "none" }}>
-                Fastway
+              <Link to="/mainentrance/logistic/logisticindex" style={{ textDecoration: "none" }}>
+                Logistic Index
               </Link>
             </Menu.Item>
             <Menu.Item key="10" icon={<TabletOutlined />}>
-              <Link to="/mainentrance/fabrication/post" style={{ textDecoration: "none" }}>
-                Post
+              <Link to="/mainentrance/logistic/fastway" style={{ textDecoration: "none" }}>
+                Fastway
               </Link>
             </Menu.Item>
             <Menu.Item key="11" icon={<TabletOutlined />}>
-              <Link to="/mainentrance/fabrication/general" style={{ textDecoration: "none" }}>
-                general info
+              <Link to="/mainentrance/logstic/post" style={{ textDecoration: "none" }}>
+                Post
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="12" icon={<TabletOutlined />}>
+              <Link to="/mainentrance/logistic/bigpost" style={{ textDecoration: "none" }}>
+                Bigpost
               </Link>
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="12" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })}>
+          <Menu.Item key="13" icon={StyledCrownWrapper(CrownOutlined, { color: "dark" })}>
             <Link to="/mainentrance/incomingcontainer" style={{ textDecoration: "none" }}>
-              下个集装箱内容
+              Arriving Container
             </Link>
           </Menu.Item>
         </Menu>
@@ -129,13 +139,13 @@ const MainEntrance = () => {
         </Content>
       </Layout>
     </Layout>
-  )
-}
+  );
+};
 
-export default MainEntrance
+export default MainEntrance;
 
 const StyledCrownWrapper = (Child: React.ForwardRefExoticComponent<any>, Style: Object) => {
-  return <Child style={Style} />
-}
+  return <Child style={Style} />;
+};
 
-const Crown = StyledCrownWrapper(CrownOutlined, { color: "dark" })
+const Crown = StyledCrownWrapper(CrownOutlined, { color: "dark" });

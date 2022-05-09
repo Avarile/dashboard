@@ -43,12 +43,12 @@ export const stockIndicator = (stockNumber: number): "success" | "warning" | "er
   }
 };
 
-export const orderStatusIndicator = (orderStatus: "pending" | "deposit payed" | "fullyPayed(Not yet deliverd)" | "delivered") => {
+export const orderStatusIndicator = (orderStatus: "pending" | "partially Payed" | "fullyPayed(Not yet deliverd)" | "delivered") => {
   switch (orderStatus) {
     case "pending":
       return "error";
       break;
-    case "deposit payed":
+    case "partially Payed":
       return "processing";
       break;
     case "fullyPayed(Not yet deliverd)":

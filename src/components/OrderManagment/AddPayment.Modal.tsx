@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, setLoadingStatus }: any) => {
+const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, getOrderByIdandSetdata }: any) => {
   const order = { ...orderDetail };
   // remove the flatened key/value in OrderListModule
   delete order.key;
@@ -21,7 +21,6 @@ const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, s
   const [formRef] = Form.useForm();
 
   const handleOk = () => {
-    setLoadingStatus(true);
     setModalText("Please Wait while System is handling payment");
     setConfirmLoading(true);
     setTimeout(() => {
@@ -30,17 +29,23 @@ const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, s
       const currentFormValue = formRef.getFieldValue("payment");
       console.log(currentFormValue);
 
+      //process data before submit: calc the numbers
       const payload = {
         ...order,
         paymentDetail: [...order.paymentDetail, { ...currentFormValue, payedAt: timeStamp() }],
         orderPayed: currentFormValue.amount + order.orderPayed + order.orderDeposit,
         balanceDue: order.price.totalAmount - order.orderPayed - currentFormValue.amount,
+        orderStatus: order.orderPayed > order.price.totalAmount ? "fullyPayed(Not yet deliverd)" : "Partially payed",
       };
-      formRef.getFieldValue("payment");
+      // formRef.getFieldValue("payment");
 
-      updateOrder(orderDetail.id, payload);
+      updateOrder(orderDetail.id, payload).then(() => {
+        formRef.resetFields(); // reset form after submit
+        getOrderByIdandSetdata();
+      });
     }, 2000);
   };
+
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -72,7 +77,7 @@ const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, s
         maskClosable={false}
         keyboard={false}
         afterClose={() => {
-          setLoadingStatus(false);
+          // window.location.reload();
         }}>
         <p>{modalText}</p>{" "}
         <Form {...layout} name="addPaymentForm" form={formRef} validateMessages={validateMessages}>

@@ -192,3 +192,11 @@ Start working on OrderList's Design and implementation --- expect to finish tomo
    2. so the design of the "Add Payment Modal" should generate an Obj that can be pushed into the paymentDetail Array
 
 3. Problem: How should I solve the problem of "Clicked the Edit Button, then How should I navigate to Edit page? Or do I really need a Edit page?
+   1. solved: REMEMBER NEVER TRUST ASYNC funcs to useEffect but eventHandlers and Promises.
+
+#### 9/May/2022
+
+I have go through the project throughly again, and re-configured the router, pageindex, and inited lots of files. The project is expanded so the rest of it can start to be built.
+
+1. Created and set up them in the PageIndex and router.
+2. finished the

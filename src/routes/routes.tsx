@@ -7,23 +7,21 @@ import {
   OrderManagment,
   WareHousingMel,
   FallbackLoading,
+  FabricationIndex,
+  LogisticIndex,
+  DashboardIndex,
+  PowderCoating,
+  Workshop,
+  Customize,
 } from "@PAGE/index";
 
 import Storage from "@DATA/session.controller";
 
-type FallbackComponentType =
-  | boolean
-  | React.ReactChild
-  | React.ReactFragment
-  | React.ReactPortal
-  | null;
+type FallbackComponentType = boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null;
 type ChildComponentType = React.LazyExoticComponent<() => JSX.Element>;
 
 // load the component asyncly and while loading display  a fallback component.
-const LazyLoadingWrapper = (
-  Child: ChildComponentType,
-  Fallback?: FallbackComponentType
-) => {
+const LazyLoadingWrapper = (Child: ChildComponentType, Fallback?: FallbackComponentType) => {
   return (
     <React.Suspense fallback={FallbackLoading || <>...</>}>
       <Child />
@@ -48,18 +46,10 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
   return children;
 };
 
-type CutonFallBackT =
-  | boolean
-  | React.ReactChild
-  | React.ReactFragment
-  | React.ReactPortal
-  | null;
+type CutonFallBackT = boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null;
 type ChildT = React.LazyExoticComponent<() => JSX.Element> | React.FC;
 // 加载异步组件的loading
-const SuspenseWrapper = (
-  Child: ChildT,
-  customFallBack?: FallbackComponentType
-) => {
+const SuspenseWrapper = (Child: ChildT, customFallBack?: FallbackComponentType) => {
   return (
     <React.Suspense fallback={customFallBack || <>...</>}>
       <Child />
@@ -78,11 +68,7 @@ const SuspenseWrapperEX = (Child: any, cutonFallBack?: CutonFallBackT) => {
       return <Child></Child>;
     } else {
       // 判断是否为lazy组件
-      return (
-        <React.Suspense fallback={cutonFallBack || <>...</>}>
-          {<Child></Child>}
-        </React.Suspense>
-      );
+      return <React.Suspense fallback={cutonFallBack || <>...</>}>{<Child></Child>}</React.Suspense>;
     }
   }
 };
@@ -112,6 +98,11 @@ export const routes: RouteObject[] = [
     children: [
       {
         // index: true,
+        path: "/mainentrance/dashboardindex",
+        element: SuspenseWrapper(DashboardIndex, FallbackLoading),
+      },
+      {
+        // index: true,
         path: "/mainentrance/ordermanagment",
         element: SuspenseWrapper(OrderManagment, FallbackLoading),
       },
@@ -128,12 +119,31 @@ export const routes: RouteObject[] = [
         element: SuspenseWrapper(WareHousingMel, FallbackLoading),
       },
       {
+        path: "/mainentrance/fabrication/index",
+        element: SuspenseWrapper(FabricationIndex, FallbackLoading),
+        children: [
+          {
+            index: true,
+            path: "/mainentrance/fabrication/index/powdercoating",
+            element: SuspenseWrapper(PowderCoating, FallbackLoading),
+          },
+          {
+            path: "/mainentrance/fabrication/index/workshop",
+            element: SuspenseWrapper(Workshop, FallbackLoading),
+          },
+        ],
+      },
+      {
+        path: "/mainentrance/fabrication/customize",
+        element: SuspenseWrapper(Customize, FallbackLoading),
+      },
+      {
+        path: "/mainentrance/logistic/logisticindex",
+        element: SuspenseWrapper(LogisticIndex, FallbackLoading),
+      },
+      {
         path: "*",
-        element: (
-          <p style={{ position: "absolute", left: "50%", top: "50%" }}>
-            404 Not Found
-          </p>
-        ),
+        element: <p style={{ position: "absolute", left: "50%", top: "50%" }}>404 Not Found</p>,
       },
     ],
   },

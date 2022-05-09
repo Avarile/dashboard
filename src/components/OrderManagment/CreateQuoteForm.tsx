@@ -43,8 +43,10 @@ const CreateNewQuotation = () => {
         orderPayed: 0,
         orderDeposit: 0,
         paymentDetail: [],
-        balanceDue: values.price.totalAmount - values.price.orderDeposit - values.price.orderPayed,
-      };
+        balanceDue: Number(values.price.totalAmount) - Number(values.orderDeposit),
+      }; // TODO: why generate null
+
+      console.log(payload);
 
       generateOrder(payload).then(() => {
         setLoadingStatus({
@@ -53,6 +55,7 @@ const CreateNewQuotation = () => {
         });
       });
     }, 2000);
+    formInstance.resetFields();
   };
 
   const priceCalc = () => {
@@ -118,7 +121,7 @@ const CreateNewQuotation = () => {
             }}
           />
         </Form.Item>
-        <Form.Item rules={[{ required: true }]} name={["client", "id"]} style={{ display: "inline-block", width: "calc(5%)", paddingRight: "5px" }}>
+        <Form.Item rules={[{ required: false }]} name={["client", "id"]} style={{ display: "inline-block", width: "calc(5%)", paddingRight: "5px" }}>
           <Input disabled placeholder="ID" />
         </Form.Item>
         <Form.Item rules={[{ required: true }]} name={["client", "name"]} style={{ display: "inline-block", width: "calc(25%)", paddingRight: "5px" }}>
@@ -131,10 +134,7 @@ const CreateNewQuotation = () => {
           <Input disabled={uiController.userInfo} placeholder="client mobile" />
         </Form.Item>
         <Form.Item rules={[{ required: true }]} name={["client", "vip"]} style={{ display: "inline-block", width: "calc(10%)", paddingRight: "5px" }}>
-          <Input disabled={uiController.userInfo} placeholder="client status" />
-        </Form.Item>
-        <Form.Item rules={[{ required: true }]} name={["client", "address"]} style={{ display: "inline-block", width: "calc(35%)", paddingRight: "5px" }}>
-          <Select placeholder="Please select SubType of the product">
+          <Select placeholder="Client Status" disabled={uiController.userInfo}>
             <Select.Option key={1} value={false}>
               false
             </Select.Option>
@@ -142,7 +142,9 @@ const CreateNewQuotation = () => {
               true
             </Select.Option>
           </Select>
-          {/* <Input disabled={uiController.userInfo} placeholder="Address" /> */}
+        </Form.Item>
+        <Form.Item rules={[{ required: true }]} name={["client", "address"]} style={{ display: "inline-block", width: "calc(35%)", paddingRight: "5px" }}>
+          <Input disabled={uiController.userInfo} placeholder="Address" />
         </Form.Item>
         <Form.Item name={["client", "postcode"]} style={{ display: "inline-block", width: "calc(35%)", paddingRight: "5px" }} rules={[{ required: true }]}>
           <Input disabled={uiController.userInfo} placeholder="Postcode" />

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Delivery = () => {
+const PowderCoating = () => {
   return (
     <>
       <p>Hello from Delivery</p>
@@ -8,4 +8,4 @@ const Delivery = () => {
   );
 };
 
-export default Delivery;
+export default PowderCoating;

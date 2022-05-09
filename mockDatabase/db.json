@@ -30,8 +30,8 @@
       "installationprice": 160,
       "desc": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*",
       "spec": "Toolbox size: 1780mm x 1400mm x 850mm \nDog Box Section: 700mm W x 890mm D\nHeavy Duty 2.5mm Aluminium Flat Plate \nAluminium Tubes Frame, can take up to 300kg top load when stationary\n4 x Stainless Steel Whale Tail Locks Secured; keyed alike\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\n2.5mm Reinforced Tubes Roof Bracing Structure\n3mm refinforced spare wheel carrier support\nFloor Included\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
-      "currentInStock": 0,
-      "updateLog": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*",
+      "currentInStock": 50,
+      "updateLog": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*\n\n5/May/2022:\nArrival 50 units",
       "id": 1
     },
     {
@@ -130,6 +130,33 @@
       "vip": "true",
       "address": "15 seabird dr, Point Cook",
       "postcode": "3040"
+    },
+    {
+      "name": "Sparutus",
+      "email": "Sparutus@gmail.com",
+      "mobile": "0412345678",
+      "vip": true,
+      "address": "Adelaide",
+      "postcode": "4001",
+      "id": 2
+    },
+    {
+      "name": "Anastasia",
+      "email": "Anastasia@gmail.com",
+      "mobile": "040123456789",
+      "vip": false,
+      "address": "Brisbane",
+      "postcode": "5000",
+      "id": 3
+    },
+    {
+      "name": "Luoluo wei",
+      "email": "Luoluo@gmail.com",
+      "mobile": "404040040",
+      "vip": true,
+      "address": "Chongqing",
+      "postcode": "400053",
+      "id": 4
     }
   ],
   "fabrications": [
@@ -197,7 +224,7 @@
         "totalAmount": 7520
       },
       "orderDescription": "Urgent needs",
-      "orderStatus": "pending",
+      "orderStatus": "partially Payed",
       "orderPayed": 2324,
       "orderDeposit": 0,
       "balanceDue": 5196,
@@ -238,7 +265,177 @@
           "payedAt": "09/05/2022"
         }
       ],
+      "id": 1
+    },
+    {
+      "client": {
+        "clientSearch": "Sparutus@gmail.com",
+        "id": 2,
+        "name": "Sparutus",
+        "email": "Sparutus@gmail.com",
+        "mobile": "0412345678",
+        "vip": true,
+        "address": "Adelaide",
+        "postcode": "4001"
+      },
+      "shipping": {
+        "address": "Adelaide",
+        "postcode": "4000",
+        "shippingFee": "500"
+      },
+      "products": [
+        {
+          "sku": "TB038H-17168",
+          "name": "1600mm Checker Plate Aluminium Canopy",
+          "size": "1600L 1780W 850H",
+          "price": 2350,
+          "pcPrice": 365,
+          "installPrice": 160
+        }
+      ],
+      "price": {
+        "itemPrice": 2350,
+        "pcPrice": 365,
+        "installPrice": 160,
+        "totalAmount": 2875
+      },
+      "orderDescription": "asdfasdf",
+      "orderStatus": "pending",
+      "orderPayed": 0,
+      "orderDeposit": 0,
+      "paymentDetail": [],
+      "balanceDue": 2875,
       "id": 2
+    },
+    {
+      "client": {
+        "name": "Anastasia",
+        "email": "Anastasia@gmail.com",
+        "mobile": "040123456789",
+        "vip": false,
+        "address": "Brisbane",
+        "postcode": "5000"
+      },
+      "shipping": {
+        "address": "Brisbane",
+        "postcode": "5000",
+        "shippingFee": "600"
+      },
+      "products": [
+        {
+          "sku": "TB038H-17168",
+          "name": "1600mm Checker Plate Aluminium Canopy",
+          "size": "1600L 1780W 850H",
+          "price": 2350,
+          "pcPrice": 365,
+          "installPrice": 160
+        },
+        {
+          "sku": "TB038H-17168",
+          "name": "1600mm Checker Plate Aluminium Canopy",
+          "size": "1600L 1780W 850H",
+          "price": 2350,
+          "pcPrice": 365,
+          "installPrice": 160
+        }
+      ],
+      "price": {
+        "itemPrice": 4700,
+        "pcPrice": 730,
+        "installPrice": 320,
+        "totalAmount": 5750
+      },
+      "orderDescription": "asdf",
+      "orderStatus": "Partially payed",
+      "orderPayed": 2100,
+      "orderDeposit": 0,
+      "paymentDetail": [
+        {
+          "method": "cash",
+          "amount": 100,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 100,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 100,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 100,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 100,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 100,
+          "payedAt": "09/05/2022"
+        },
+        {
+          "method": "cash",
+          "amount": 1500,
+          "payedAt": "09/05/2022"
+        }
+      ],
+      "balanceDue": 3650,
+      "id": 3
+    },
+    {
+      "client": {
+        "clientSearch": "Avarile@gmail.com",
+        "id": 1,
+        "name": "Avarile",
+        "email": "Avarile@gmail.com",
+        "mobile": "0481877127",
+        "vip": "true",
+        "address": "15 seabird dr, Point Cook",
+        "postcode": "3040"
+      },
+      "shipping": {
+        "address": "Melbourne",
+        "postcode": "3030",
+        "shippingFee": "400"
+      },
+      "products": [
+        {
+          "sku": "TB038H-17168",
+          "name": "1600mm Checker Plate Aluminium Canopy",
+          "size": "1600L 1780W 850H",
+          "price": 2350,
+          "pcPrice": 365,
+          "installPrice": 160
+        },
+        {
+          "sku": "TB038H-17168",
+          "name": "1600mm Checker Plate Aluminium Canopy",
+          "size": "1600L 1780W 850H",
+          "price": 2350,
+          "pcPrice": 365,
+          "installPrice": 160
+        }
+      ],
+      "price": {
+        "itemPrice": 4700,
+        "pcPrice": 730,
+        "installPrice": 320,
+        "totalAmount": 5750
+      },
+      "orderDescription": "Urgent order",
+      "orderStatus": "pending",
+      "orderPayed": 0,
+      "orderDeposit": 0,
+      "paymentDetail": [],
+      "balanceDue": null,
+      "id": 4
     }
   ]
 }

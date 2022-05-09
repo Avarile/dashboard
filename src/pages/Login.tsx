@@ -13,17 +13,14 @@ const Login = () => {
     setLoginSuspense(true);
     setTimeout(() => {
       debugger;
-      if (
-        values.username === "Avarile" &&
-        values.password === "Avarile19840123"
-      ) {
+      if (values.username === "Avarile" && values.password === "Avarile19840123") {
         Storage.setCacheData("USER", values);
         Notification({
           type: "success",
           message: "Login Success!",
           messageTarget: "",
         });
-        navigate("/mainentrance/ordermanagment");
+        navigate("/mainentrance/dashboardindex");
         setLoginSuspense(false);
       } else {
         setLoginSuspense(false);
@@ -55,8 +52,7 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#ccccc",
-      }}
-    >
+      }}>
       <Form
         name="login"
         labelCol={{
@@ -74,8 +70,7 @@ const Login = () => {
         style={{
           minWidth: "20rem",
           maxWidth: "60rem",
-        }}
-      >
+        }}>
         <Form.Item
           label="Username"
           name="username"
@@ -84,8 +79,7 @@ const Login = () => {
               required: true,
               message: "Please input your username!",
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
 
@@ -101,8 +95,7 @@ const Login = () => {
             //   min: 8,
             //   message: "password must be at least 8 digit.",
             // },
-          ]}
-        >
+          ]}>
           <Input.Password />
         </Form.Item>
 
@@ -112,8 +105,7 @@ const Login = () => {
           wrapperCol={{
             offset: 8,
             span: 16,
-          }}
-        >
+          }}>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
@@ -121,8 +113,7 @@ const Login = () => {
           wrapperCol={{
             offset: 8,
             span: 16,
-          }}
-        >
+          }}>
           <Button
             type="primary"
             htmlType="submit"
