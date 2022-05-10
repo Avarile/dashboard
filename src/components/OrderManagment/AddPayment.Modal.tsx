@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Form, Input, InputNumber, Button, Select } from "antd";
-import { updateOrder } from "@SRC/data/api.service";
+import { updateOrderForPayment } from "@SRC/data/api.service";
 import { timeStamp } from "@SRC/utils/utilFuncs";
 
 const layout = {
@@ -27,19 +27,19 @@ const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, g
       setShowPaymentModal(false);
       setConfirmLoading(false);
       const currentFormValue = formRef.getFieldValue("payment");
-      console.log(currentFormValue);
+      // console.log("currentForm:", currentFormValue, "orderPayed:", order.orderPayed, "orderDeposit:", order.orderDeposit);
 
       //process data before submit: calc the numbers
       const payload = {
         ...order,
         paymentDetail: [...order.paymentDetail, { ...currentFormValue, payedAt: timeStamp() }],
-        orderPayed: currentFormValue.amount + order.orderPayed + order.orderDeposit,
+        orderPayed: currentFormValue.amount + order.orderPayed + order.price.depositPayed,
         balanceDue: order.price.totalAmount - order.orderPayed - currentFormValue.amount,
-        orderStatus: order.orderPayed > order.price.totalAmount ? "fullyPayed(Not yet deliverd)" : "Partially payed",
+        orderStatus: order.orderPayed > order.price.totalAmount ? "fullyPayed" : "partiallyPayed",
       };
-      // formRef.getFieldValue("payment");
+      console.log(payload);
 
-      updateOrder(orderDetail.id, payload).then(() => {
+      updateOrderForPayment(orderDetail.id, payload).then(() => {
         formRef.resetFields(); // reset form after submit
         getOrderByIdandSetdata();
       });

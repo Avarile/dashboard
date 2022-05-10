@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Space, FormInstance, Select } from "antd";
+import { Form, Input, Button, Space, FormInstance, Select, InputNumber } from "antd";
 import { MinusCircleOutlined, PlusOutlined, CarryOutFilled } from "@ant-design/icons";
 import { getClientsByParams, manipulateUserInfo, searchProductBySku, generateOrder } from "@DATA/api.service";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo, selectOrder } from "@DATA/dataSlices/order.slice";
@@ -35,16 +35,18 @@ const CreateNewQuotation = () => {
     });
 
     setTimeout(() => {
-      console.log("Received values of form:", values);
+      // console.log("Received values of form:", values);
       // add the order Status into the orderInfo
+      debugger;
       const payload = {
         ...values,
-        orderStatus: "pending",
-        orderPayed: 0,
-        orderDeposit: 0,
+        orderStatus: values.price.depositPayed > 0 ? "partiallyPayed" : "pending",
+        fabricationStatus: "pending",
+        logisticStatus: "waitingForCarrier",
+        orderPayed: 0 + values.price.depositPayed,
         paymentDetail: [],
-        balanceDue: Number(values.price.totalAmount) - Number(values.orderDeposit),
-      }; // TODO: why generate null
+        balanceDue: Number(values.price.totalAmount) - Number(values.price.depositPayed),
+      }; // TODO: why generate null : solved, I quoted a undefined value...
 
       console.log(payload);
 
@@ -56,6 +58,11 @@ const CreateNewQuotation = () => {
       });
     }, 2000);
     formInstance.resetFields();
+    setUIController({
+      ...uiController,
+      shippingInfo: false,
+    });
+    window.location.reload();
   };
 
   const priceCalc = () => {
@@ -69,13 +76,13 @@ const CreateNewQuotation = () => {
       totalPcPrice += Number(item.pcPrice);
       totalInstallPrice += Number(item.installPrice);
     }
-    const orderPrice = {
-      itemPrice: totalItemPrice,
-      pcPrice: totalPcPrice,
-      installPrice: totalInstallPrice,
-      totalAmount: totalItemPrice + totalPcPrice + totalInstallPrice,
-    };
-    const currentFormValue = formInstance.getFieldValue("price");
+    // const orderPrice = {
+    //   itemPrice: totalItemPrice,
+    //   pcPrice: totalPcPrice,
+    //   installPrice: totalInstallPrice,
+    //   totalAmount: totalItemPrice + totalPcPrice + totalInstallPrice + Number(formInstance.getFieldValue("shipping").shippingFee),
+    // };
+    // const currentFormValue = formInstance.getFieldValue("price");
 
     // dispatch(setPrice(orderPrice))
     formInstance.setFieldsValue({
@@ -83,10 +90,10 @@ const CreateNewQuotation = () => {
         itemPrice: totalItemPrice,
         pcPrice: totalPcPrice,
         installPrice: totalInstallPrice,
-        totalAmount: totalItemPrice + totalPcPrice + totalInstallPrice,
+        totalAmount: totalItemPrice + totalPcPrice + totalInstallPrice + Number(formInstance.getFieldValue("shipping").shippingFee),
       },
     });
-    console.log(currentFormValue);
+    // console.log(currentFormValue);
   };
 
   const generateClientQueryString = () => {
@@ -302,16 +309,19 @@ const CreateNewQuotation = () => {
         </Form.List>
         {/* Price list */}
         <Form.Item label="Item Price" name={["price", "itemPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
-          <Input />
+          <InputNumber style={{ width: "20rem" }} />
         </Form.Item>
         <Form.Item label="PowderCoating" name={["price", "pcPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
-          <Input />
+          <InputNumber style={{ width: "18rem" }} />
         </Form.Item>
         <Form.Item label="Installation" name={["price", "installPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
-          <Input />
+          <InputNumber style={{ width: "20rem" }} />
         </Form.Item>
         <Form.Item label="Total Amount" name={["price", "totalAmount"]} style={{ width: "25rem", marginRight: "1rem" }}>
-          <Input />
+          <InputNumber style={{ width: "19rem" }} />
+        </Form.Item>
+        <Form.Item label="DepositPayed" name={["price", "depositPayed"]} style={{ width: "25rem", marginRight: "1rem" }} rules={[{ required: true }]}>
+          <InputNumber style={{ width: "19rem" }} />
         </Form.Item>
       </Form.Item>
 

@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import { EfabricationStatus, IFabrication } from "./interfaces";
+import { fabricationStatus } from "./productTypes";
 
 export type QueryStringType = {
   [Key: string | number]: any;
@@ -43,18 +45,68 @@ export const stockIndicator = (stockNumber: number): "success" | "warning" | "er
   }
 };
 
-export const orderStatusIndicator = (orderStatus: "pending" | "partially Payed" | "fullyPayed(Not yet deliverd)" | "delivered") => {
+// interface IOrderStatus {
+//   orderStatus: "pending" | "partiallyPayed" | "fullyPayed" | "machineProcessing" | "machineProcessFinished" | "powderCoating" | "powderCoatingFinished" | "ready";
+// }
+
+export const orderStatusIndicator = (
+  orderStatus: "pending" | "partiallyPayed" | "fullyPayed" | "machineProcessing" | "machineProcessFinished" | "powderCoating" | "powderCoatingFinished" | "installing" | "ready"
+) => {
   switch (orderStatus) {
     case "pending":
       return "error";
       break;
-    case "partially Payed":
+    case "partiallyPayed":
       return "processing";
       break;
-    case "fullyPayed(Not yet deliverd)":
-      return "warning";
+    case "fullyPayed":
+      return "processing";
       break;
-    case "delivered":
+    case "machineProcessing":
+      return "default";
+      break;
+    case "machineProcessFinished":
+      return "default";
+      break;
+    case "powderCoating":
+      return "default";
+      break;
+    case "powderCoatingFinished":
+      return "default";
+      break;
+    case "installing":
+      return "default";
+      break;
+    case "ready":
+      return "success";
+      break;
+  }
+};
+
+export const fabricationStatusIndicator = (fabricationStatus: EfabricationStatus) => {
+  switch (fabricationStatus) {
+    case "pending":
+      return "error";
+      break;
+    case "machineProcessing":
+      return "default";
+      break;
+    case "machineProcessFinished":
+      return "default";
+      break;
+    case "powderCoating":
+      return "default";
+      break;
+    case "powderCoatingFinished":
+      return "default";
+      break;
+    case "waitingForInstallation":
+      return "default";
+      break;
+    case "installing":
+      return "default";
+      break;
+    case "ready":
       return "success";
       break;
   }
@@ -71,11 +123,15 @@ export const CaculateTypeItems = (typeName: string | "" | null | undefined, prod
   return count;
 };
 
-export const debounce = (callback: Function, timer = 1000) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, args), timer);
+export const debounce = (callback: Function, timer = 1000): Function => {
+  let delay: any;
+  return function (this: any, ...args: any) {
+    if (delay) {
+      clearTimeout(delay);
+    }
+    delay = setTimeout(() => {
+      callback.apply(args);
+    }, timer);
   };
 };
 // howto:

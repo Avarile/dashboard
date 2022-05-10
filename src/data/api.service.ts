@@ -22,11 +22,21 @@ export const getOrdersById = async (searchParams: { orderId: string }) => {
 /**
  * beware that this func is specifically designed for Json-server, if the backend is deployed, this should change.
  */
-export const updateOrder = async (
+export const updateOrderForPayment = async (
   orderId: number,
   paymentDetail: { method: "cash" | "debitCard" | "creditCard" | "paypal" | "3rdParty"; amount: number; referenceCodes: string; description: string }
 ) => {
   Request.put(`${env.dbUri}/orders/${orderId}`, paymentDetail, "Payment");
+};
+
+/**
+ * beware that this func is specifically designed for Json-server, if the backend is deployed, this should change.
+ */
+export const updateOrderForFabrication = async (
+  orderId: number,
+  fabricationStatus: "pending" | "machineProcessing" | "machineProcessFinished" | "powderCoating" | "powderCoatingFinished" | "waitingForInstallation" | "installing" | "ready"
+) => {
+  Request.put(`${env.dbUri}/orders/${orderId}`, fabricationStatus, "Fabrication Status");
 };
 
 export const getProductBySku = async (searchParams: { sku: string }) => {

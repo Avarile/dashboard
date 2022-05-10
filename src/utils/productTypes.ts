@@ -43,7 +43,7 @@ export const details = [
     id: 10,
     name: "3 doors canopy",
   },
-]
+];
 
 // SubType definition
 
@@ -116,7 +116,7 @@ export const subType = [
     id: 16,
     name: "jackoff canopy",
   },
-]
+];
 
 export const productTypes = [
   {
@@ -151,4 +151,110 @@ export const productTypes = [
     id: 8,
     name: "tubCanopy",
   },
-]
+];
+
+export const orderStatus = [
+  {
+    id: 0,
+    name: "pending",
+  },
+
+  {
+    id: 1,
+    name: "partiallyPayed",
+  },
+  {
+    id: 2,
+    name: "fullyPayed",
+  },
+  {
+    id: 3,
+    name: "machineProcessing",
+  },
+  {
+    id: 4,
+    name: "machineProcessFinished",
+  },
+  {
+    id: 5,
+    name: "powderCoating",
+  },
+  {
+    id: 6,
+    name: "powderCoatingFinished",
+  },
+  {
+    id: 7,
+    name: "installing",
+  },
+  {
+    id: 8,
+    name: "ready",
+  },
+];
+
+export const fabricationStatus = [
+  {
+    id: 0,
+    name: "waitingForMaterial",
+  },
+  {
+    id: 1,
+    name: "machineProcessing",
+  },
+  {
+    id: 2,
+    name: "machineProcessFinished",
+  },
+  {
+    id: 3,
+    name: "powderCoating",
+  },
+  {
+    id: 4,
+    name: "powderCoatingFinished",
+  },
+  {
+    id: 5,
+    name: "waitingForInstallation",
+  },
+  {
+    id: 6,
+    name: "installing",
+  },
+  {
+    id: 7,
+    name: "ready",
+  },
+];
+
+export const logisticStatus = [
+  {
+    id: 0,
+    name: "waitingForCarrier",
+  },
+  {
+    id: 1,
+    name: "delivering",
+  },
+  {
+    id: 2,
+    name: "delivered",
+  },
+  {
+    id: 3,
+    name: "cannotDeliver",
+  },
+  {
+    id: 4,
+    name: "returningToVender",
+  },
+  {
+    id: 5,
+    name: "returnedItemArrived",
+  },
+  {
+    id: 6,
+    name: "itemDamagedInTransport",
+  },
+];

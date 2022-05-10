@@ -157,6 +157,15 @@
       "address": "Chongqing",
       "postcode": "400053",
       "id": 4
+    },
+    {
+      "name": "Emily",
+      "email": "Emily@gmail.com",
+      "mobile": "0412345678",
+      "vip": true,
+      "address": "PointCook",
+      "postcode": "3030",
+      "id": 5
     }
   ],
   "fabrications": [
@@ -195,93 +204,9 @@
         "postcode": "3040"
       },
       "shipping": {
-        "address": "15 Seabird Dr. Point Cook. Melbourne",
-        "postcode": "3030",
-        "shippingFee": "400"
-      },
-      "products": [
-        {
-          "sku": "Tray-18D",
-          "name": "Heavy duty 1800L x 1780W Aluminium tray",
-          "size": "1800L 1780W 50H",
-          "price": 2800,
-          "pcPrice": 400,
-          "installPrice": 560
-        },
-        {
-          "sku": "Tray-18D",
-          "name": "Heavy duty 1800L x 1780W Aluminium tray",
-          "size": "1800L 1780W 50H",
-          "price": 2800,
-          "pcPrice": 400,
-          "installPrice": 560
-        }
-      ],
-      "price": {
-        "itemPrice": 5600,
-        "pcPrice": 800,
-        "installPrice": 1120,
-        "totalAmount": 7520
-      },
-      "orderDescription": "Urgent needs",
-      "orderStatus": "partially Payed",
-      "orderPayed": 2324,
-      "orderDeposit": 0,
-      "balanceDue": 5196,
-      "paymentDetail": [
-        {
-          "method": "cash",
-          "amount": 400,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 500,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "debitCard",
-          "amount": 600,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 500,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 200,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 123,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 1,
-          "payedAt": "09/05/2022"
-        }
-      ],
-      "id": 1
-    },
-    {
-      "client": {
-        "clientSearch": "Sparutus@gmail.com",
-        "id": 2,
-        "name": "Sparutus",
-        "email": "Sparutus@gmail.com",
-        "mobile": "0412345678",
-        "vip": true,
-        "address": "Adelaide",
-        "postcode": "4001"
-      },
-      "shipping": {
-        "address": "Adelaide",
-        "postcode": "4000",
-        "shippingFee": "500"
+        "address": "Melbourne",
+        "postcode": "3000",
+        "shippingFee": "100"
       },
       "products": [
         {
@@ -291,44 +216,59 @@
           "price": 2350,
           "pcPrice": 365,
           "installPrice": 160
+        },
+        {
+          "sku": "Tray-18D",
+          "name": "Heavy duty 1800L x 1780W Aluminium tray",
+          "size": "1800L 1780W 50H",
+          "price": 2800,
+          "pcPrice": 400,
+          "installPrice": 560
         }
       ],
       "price": {
-        "itemPrice": 2350,
-        "pcPrice": 365,
-        "installPrice": 160,
-        "totalAmount": 2875
+        "itemPrice": 5150,
+        "pcPrice": 765,
+        "installPrice": 720,
+        "totalAmount": 6735,
+        "depositPayed": 0
       },
-      "orderDescription": "asdfasdf",
+      "orderDescription": "Normal order",
       "orderStatus": "pending",
+      "fabricationStatus": "PowderCoating Finished",
+      "logisticStatus": "waitingForCarrier",
       "orderPayed": 0,
-      "orderDeposit": 0,
       "paymentDetail": [],
-      "balanceDue": 2875,
-      "id": 2
+      "balanceDue": 6735,
+      "id": 1,
+      "key": 1,
+      "clientName": "Avarile",
+      "orderAmount": 6735
     },
     {
       "client": {
-        "name": "Anastasia",
-        "email": "Anastasia@gmail.com",
-        "mobile": "040123456789",
-        "vip": false,
-        "address": "Brisbane",
-        "postcode": "5000"
+        "clientSearch": "Emily@gmail.com",
+        "id": 5,
+        "name": "Emily",
+        "email": "Emily@gmail.com",
+        "mobile": "0412345678",
+        "vip": true,
+        "address": "PointCook",
+        "postcode": "3030"
       },
       "shipping": {
         "address": "Brisbane",
         "postcode": "5000",
-        "shippingFee": "600"
+        "shippingFee": "200"
       },
       "products": [
         {
-          "sku": "TB038H-17168",
-          "name": "1600mm Checker Plate Aluminium Canopy",
-          "size": "1600L 1780W 850H",
-          "price": 2350,
-          "pcPrice": 365,
-          "installPrice": 160
+          "sku": "Tray-Deluxe-18S",
+          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
+          "size": "1800L 1780W",
+          "price": 2199,
+          "pcPrice": 495,
+          "installPrice": 890
         },
         {
           "sku": "TB038H-17168",
@@ -340,102 +280,26 @@
         }
       ],
       "price": {
-        "itemPrice": 4700,
-        "pcPrice": 730,
-        "installPrice": 320,
-        "totalAmount": 5750
+        "itemPrice": 4549,
+        "pcPrice": 860,
+        "installPrice": 1050,
+        "totalAmount": 6659,
+        "depositPayed": 1500
       },
-      "orderDescription": "asdf",
-      "orderStatus": "Partially payed",
-      "orderPayed": 2100,
-      "orderDeposit": 0,
+      "orderDescription": "Normal order",
+      "orderStatus": "partiallyPayed",
+      "fabricationStatus": "pending",
+      "logisticStatus": "waitingForCarrier",
+      "orderPayed": 4000,
       "paymentDetail": [
         {
           "method": "cash",
-          "amount": 100,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 100,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 100,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 100,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 100,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 100,
-          "payedAt": "09/05/2022"
-        },
-        {
-          "method": "cash",
-          "amount": 1500,
-          "payedAt": "09/05/2022"
+          "amount": 1000,
+          "payedAt": "10/05/2022"
         }
       ],
-      "balanceDue": 3650,
-      "id": 3
-    },
-    {
-      "client": {
-        "clientSearch": "Avarile@gmail.com",
-        "id": 1,
-        "name": "Avarile",
-        "email": "Avarile@gmail.com",
-        "mobile": "0481877127",
-        "vip": "true",
-        "address": "15 seabird dr, Point Cook",
-        "postcode": "3040"
-      },
-      "shipping": {
-        "address": "Melbourne",
-        "postcode": "3030",
-        "shippingFee": "400"
-      },
-      "products": [
-        {
-          "sku": "TB038H-17168",
-          "name": "1600mm Checker Plate Aluminium Canopy",
-          "size": "1600L 1780W 850H",
-          "price": 2350,
-          "pcPrice": 365,
-          "installPrice": 160
-        },
-        {
-          "sku": "TB038H-17168",
-          "name": "1600mm Checker Plate Aluminium Canopy",
-          "size": "1600L 1780W 850H",
-          "price": 2350,
-          "pcPrice": 365,
-          "installPrice": 160
-        }
-      ],
-      "price": {
-        "itemPrice": 4700,
-        "pcPrice": 730,
-        "installPrice": 320,
-        "totalAmount": 5750
-      },
-      "orderDescription": "Urgent order",
-      "orderStatus": "pending",
-      "orderPayed": 0,
-      "orderDeposit": 0,
-      "paymentDetail": [],
-      "balanceDue": null,
-      "id": 4
+      "balanceDue": 4159,
+      "id": 2
     }
   ]
 }
