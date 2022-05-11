@@ -1,6 +1,6 @@
 import { Table, Input, Badge } from "antd";
 import "@SRC/pages/pages.css";
-import { orderStatusIndicator } from "@SRC/utils/utilFuncs";
+import { orderStatusIndicator, fabricationStatusIndicator } from "@SRC/utils/utilFuncs";
 import SingleOrderInListModule from "./SingleOrderInListModule";
 import { getOrdersById } from "@SRC/data/api.service";
 import React, { useState, useEffect } from "react";
@@ -18,12 +18,23 @@ const columns = [
     key: "balanceDue",
   },
   {
-    title: "Order Status",
+    title: "Payment Status",
     dataIndex: "orderStatus",
     key: "orderStatus",
     render: (currentRowValue: any, currentColumnValue: any, index: number) => (
       <span>
         <Badge status={orderStatusIndicator(currentRowValue)} />
+        {currentRowValue}
+      </span>
+    ),
+  },
+  {
+    title: "Fabrication Status",
+    dataIndex: "fabricationStatus",
+    key: "fabricationStatus",
+    render: (currentRowValue: any, currentColumnValue: any, index: number) => (
+      <span>
+        <Badge status={fabricationStatusIndicator(currentRowValue)} />
         {currentRowValue}
       </span>
     ),

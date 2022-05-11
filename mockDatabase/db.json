@@ -235,7 +235,7 @@
       },
       "orderDescription": "Normal order",
       "orderStatus": "pending",
-      "fabricationStatus": "PowderCoating Finished",
+      "fabricationStatus": "Installing",
       "logisticStatus": "waitingForCarrier",
       "orderPayed": 0,
       "paymentDetail": [],
@@ -243,7 +243,8 @@
       "id": 1,
       "key": 1,
       "clientName": "Avarile",
-      "orderAmount": 6735
+      "orderAmount": 6735,
+      "fabricationInfo": ""
     },
     {
       "client": {

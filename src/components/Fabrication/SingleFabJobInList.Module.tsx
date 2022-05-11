@@ -1,9 +1,10 @@
 import React from "react";
-import { Steps, Button, message } from "antd";
+import { Steps, Button, message, Input } from "antd";
 import styled from "styled-components";
 import { LoadingOutlined, PayCircleOutlined } from "@ant-design/icons";
 import { updateOrderForFabrication } from "@SRC/data/api.service";
 
+const { TextArea } = Input;
 const { Step } = Steps;
 
 const steps = [
@@ -31,7 +32,7 @@ const steps = [
   {
     id: 3,
     title: "PowderCoating",
-    content: "During PowderCoating procedures",
+    content: "During PowderCoating procedures, Normally this took 2~3 weeks",
     subtitle: "Items is in the PowderCoating Factory",
     percent: "45%",
   },
@@ -52,7 +53,7 @@ const steps = [
   {
     id: 6,
     title: "Installing",
-    content: "During Installation procedures",
+    content: "During Installation procedures, Installation normally took 2days",
     subtitle: "Installation",
     percent: "90%",
   },
@@ -78,6 +79,7 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
   };
 
   const [current, setCurrent] = React.useState<number>(getCurrentFabIdOutofOrder());
+  const [fabricationInfo, setFabricationInfo] = React.useState<string>(order.fabricationInfo);
 
   const next = () => {
     setCurrent(current + 1);
@@ -91,6 +93,7 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
     let payload = {
       ...order,
       fabricationStatus: steps[current].title,
+      fabricationInfo: "",
     };
     await updateOrderForFabrication(order.id, payload).then(getOrderByIdandSetdata());
   };
@@ -102,7 +105,21 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
           <Step key={item.title} title={item.title} description={item.subtitle} icon={current === item.id && <LoadingOutlined />} />
         ))}
       </Steps>
-      <StepContent>{steps[current].content}</StepContent>
+      <StepContent>
+        <TextAreaContainer>
+          <TextAreaNew
+            maxLength={1000}
+            rows={10}
+            value={fabricationInfo}
+            onChange={(event) => {
+              setFabricationInfo(event.target.value);
+            }}
+          />
+        </TextAreaContainer>
+        <TextAreaContainer>
+          <TextAreaNew rows={10} maxLength={1000} disabled value={order.fabricationInfo} />
+        </TextAreaContainer>
+      </StepContent>
       <StepAction>
         {current < steps.length - 1 && (
           <Button type="primary" onClick={() => next()}>
@@ -136,13 +153,30 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
 const StepContent = styled.div`
   min-height: 200px;
   margin-top: 16px;
-  padding-top: 80px;
-  text-align: center;
   background-color: #fafafa;
   border: 1px dashed #e9e9e9;
   border-radius: 2px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
 `;
 
 const StepAction = styled.div`
   margin-top: 24px;
+`;
+
+const TextAreaContainer = styled.div``;
+
+const TextAreaNew = styled(TextArea)`
+  flex: 0 1 auto;
+  margin: 2rem;
+  width: 90%;
+  height: 200;
+  align-items: center;
+`;
+
+const DisplayContentContainer = styled.p`
+  margin: 2rem;
 `;
