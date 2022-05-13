@@ -4,8 +4,9 @@ import { refineQueryString, debounce, deduplicateArray, timeStamp } from "@SRC/u
 import qs from "query-string";
 import { store } from "./dataStore/store.redux";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice";
-import { IUser, IProduct } from "src/utils/interfaces";
+import { IUser, IProduct, ILogisticSearchParams, ELogisticStatus } from "src/utils/interfaces";
 import Notification from "@SRC/components/Notification";
+import { FormInstance } from "antd";
 
 const dispatch = store.dispatch;
 
@@ -13,6 +14,27 @@ const env = envSwitch("dev");
 
 export const generateOrder = async (payload: object) => {
   await Request.post(`${env.dbUri}/orders`, payload, {}, "order");
+};
+
+export const getOrderByParams = (searchParams: ILogisticSearchParams, setData: any, setLoadingStatus: any, formInstance?: FormInstance) => {
+  // init the search, loading starts
+  setLoadingStatus(true);
+
+  const tempFunc = async () => {
+    await Request.get(`${env.dbUri}/orders?${qs.stringify(refineQueryString(searchParams))}`)
+      .then((response: any) => {
+        // if we found something
+        if (response.length > 0) {
+          setData(response);
+        }
+        // if 404
+        else return null;
+      })
+      .finally(() => {
+        setLoadingStatus(false);
+      });
+  };
+  tempFunc();
 };
 
 export const getOrdersById = async (searchParams: { orderId: string }) => {
@@ -180,4 +202,8 @@ export const searchProductBySku = async (
         });
       }, 1000);
     });
+};
+
+export const updateOrderForLogistic = async (orderId: number, logisticStatus: ELogisticStatus) => {
+  Request.put(`${env.dbUri}/orders/${orderId}`, logisticStatus, "Logistic Status");
 };

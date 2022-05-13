@@ -105,6 +105,7 @@ export const routes: RouteObject[] = [
         // index: true,
         path: "/mainentrance/ordermanagment",
         element: SuspenseWrapper(OrderManagment, FallbackLoading),
+        
       },
       {
         path: "/mainentrance/warehousing/instock/",

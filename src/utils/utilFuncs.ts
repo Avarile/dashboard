@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { EfabricationStatus, IFabrication } from "./interfaces";
+import { EfabricationStatus, IFabrication, ELogisticStatus } from "./interfaces";
 import { fabricationStatus } from "./productTypes";
 
 export type QueryStringType = {
@@ -89,25 +89,54 @@ export const fabricationStatusIndicator = (fabricationStatus: EfabricationStatus
       return "error";
       break;
     case "machineProcessing":
-      return "default";
+      return "processing";
       break;
     case "machineProcessFinished":
-      return "default";
+      return "processing";
       break;
     case "powderCoating":
-      return "default";
+      return "processing";
       break;
     case "powderCoatingFinished":
-      return "default";
+      return "processing";
       break;
     case "waitingForInstallation":
-      return "default";
+      return "processing";
       break;
     case "installing":
-      return "default";
+      return "processing";
       break;
     case "ready":
       return "success";
+      break;
+  }
+};
+
+export const logisticStatusIndicator = (logisticStatus: ELogisticStatus) => {
+  switch (logisticStatus) {
+    case "waitingForCarrier":
+      return "error";
+      break;
+    case "pickupAlready":
+      return "processing";
+      break;
+    case "delivering":
+      return "processing";
+      break;
+    case "delivered":
+      return "success";
+      break;
+    case "cannotDeliver":
+      return "warning";
+      break;
+    case "returningToVender":
+      return "warning";
+      break;
+    case "returnedItemArrived":
+      return "success";
+      break;
+    case "itemDamagedInTransport":
+      return "error";
       break;
   }
 };

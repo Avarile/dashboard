@@ -30,7 +30,7 @@ export interface IUser {
 
 export interface IOrderDetail {}
 
-export enum  EfabricationStatus {
+export enum EfabricationStatus {
   pending = "pending",
   machineProcessing = "machineProcessing",
   machineProcessFinishe = "machineProcessFinished",
@@ -43,4 +43,28 @@ export enum  EfabricationStatus {
 
 export interface IFabrication {
   fabricationStatus: EfabricationStatus;
+}
+
+export enum ELogisticStatus {
+  waitingForCarrier = "waitingForCarrier",
+  pickupAlready = "pickupAlready",
+  delivering = "delivering",
+  delivered = "delivered",
+  cannotDeliver = "cannotDeliver",
+  returningToVender = "returningToVender",
+  returnedItemArrived = "returnedItemArrived",
+  itemDamagedInTransport = "itemDamagedInTransport",
+}
+
+export enum ELogisticProvider {
+  AustralianPost = "Australian Post",
+  BigPost = "Big Post",
+  FastWay = "FastWay",
+}
+
+export interface ILogisticSearchParams {
+  logisticStatus: ELogisticStatus | undefined;
+  logisticProvider: ELogisticProvider | undefined;
+  pickupAt: "" | undefined;
+  id: number | undefined;
 }

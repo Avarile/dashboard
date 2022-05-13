@@ -168,29 +168,6 @@
       "id": 5
     }
   ],
-  "fabrications": [
-    {
-      "id": 1,
-      "startTime": "4/Apirl/2022",
-      "prepTime": 4,
-      "powderCoatingTime": 0,
-      "estimateFinishOn": "8/April/2022"
-    },
-    {
-      "id": 2,
-      "startTime": "9/Apirl/2022",
-      "prepTime": 2,
-      "powderCoatingTime": 0,
-      "estimateFinishOn": "11/April/2022"
-    },
-    {
-      "id": 3,
-      "startTime": "17/Match/2022",
-      "prepTime": 8,
-      "powderCoatingTime": 0,
-      "estimateFinishOn": "25/Match/2022"
-    }
-  ],
   "orders": [
     {
       "client": {
@@ -206,101 +183,50 @@
       "shipping": {
         "address": "Melbourne",
         "postcode": "3000",
-        "shippingFee": "100"
+        "shippingFee": "50"
       },
       "products": [
         {
-          "sku": "TB038H-17168",
-          "name": "1600mm Checker Plate Aluminium Canopy",
-          "size": "1600L 1780W 850H",
-          "price": 2350,
-          "pcPrice": 365,
+          "sku": "TB046F-17148",
+          "name": "1400mm Flat Plate Aluminium Canopy With Dog Box Section",
+          "size": "1400L x 1780W x 850H",
+          "price": 2750,
+          "pcPrice": 500,
           "installPrice": 160
         },
         {
-          "sku": "Tray-18D",
-          "name": "Heavy duty 1800L x 1780W Aluminium tray",
-          "size": "1800L 1780W 50H",
-          "price": 2800,
-          "pcPrice": 400,
-          "installPrice": 560
+          "sku": "TB046F-17148",
+          "name": "1400mm Flat Plate Aluminium Canopy With Dog Box Section",
+          "size": "1400L x 1780W x 850H",
+          "price": 2750,
+          "pcPrice": 500,
+          "installPrice": 160
         }
       ],
       "price": {
-        "itemPrice": 5150,
-        "pcPrice": 765,
-        "installPrice": 720,
-        "totalAmount": 6735,
-        "depositPayed": 0
+        "itemPrice": 5500,
+        "pcPrice": 1000,
+        "installPrice": 320,
+        "totalAmount": 6870,
+        "depositPayed": 1200
       },
       "orderDescription": "Normal order",
-      "orderStatus": "pending",
-      "fabricationStatus": "Installing",
-      "logisticStatus": "waitingForCarrier",
-      "orderPayed": 0,
+      "createdAt": "13/05/2022",
+      "createdBy": "name",
+      "updatedAt": "13/05/2022",
+      "updatedBy": "name",
+      "orderStatus": "partiallyPayed",
+      "fabricationStatus": "machineProcessFinished",
+      "logisticStatus": "returnedItemArrived",
+      "logisticProvider": null,
+      "pickupAt": null,
+      "orderPayed": 1200,
       "paymentDetail": [],
-      "balanceDue": 6735,
+      "balanceDue": 5670,
       "id": 1,
       "key": 1,
       "clientName": "Avarile",
-      "orderAmount": 6735,
-      "fabricationInfo": ""
-    },
-    {
-      "client": {
-        "clientSearch": "Emily@gmail.com",
-        "id": 5,
-        "name": "Emily",
-        "email": "Emily@gmail.com",
-        "mobile": "0412345678",
-        "vip": true,
-        "address": "PointCook",
-        "postcode": "3030"
-      },
-      "shipping": {
-        "address": "Brisbane",
-        "postcode": "5000",
-        "shippingFee": "200"
-      },
-      "products": [
-        {
-          "sku": "Tray-Deluxe-18S",
-          "name": "1780W x 1800L mm (Deck Only) Premium Aluminium Tray Dual Cab Ute",
-          "size": "1800L 1780W",
-          "price": 2199,
-          "pcPrice": 495,
-          "installPrice": 890
-        },
-        {
-          "sku": "TB038H-17168",
-          "name": "1600mm Checker Plate Aluminium Canopy",
-          "size": "1600L 1780W 850H",
-          "price": 2350,
-          "pcPrice": 365,
-          "installPrice": 160
-        }
-      ],
-      "price": {
-        "itemPrice": 4549,
-        "pcPrice": 860,
-        "installPrice": 1050,
-        "totalAmount": 6659,
-        "depositPayed": 1500
-      },
-      "orderDescription": "Normal order",
-      "orderStatus": "partiallyPayed",
-      "fabricationStatus": "pending",
-      "logisticStatus": "waitingForCarrier",
-      "orderPayed": 4000,
-      "paymentDetail": [
-        {
-          "method": "cash",
-          "amount": 1000,
-          "payedAt": "10/05/2022"
-        }
-      ],
-      "balanceDue": 4159,
-      "id": 2
+      "orderAmount": 6870
     }
   ]
 }

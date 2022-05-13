@@ -1,8 +1,8 @@
 import React from "react";
 import { Steps, Button, message, Input } from "antd";
 import styled from "styled-components";
-import { LoadingOutlined, PayCircleOutlined } from "@ant-design/icons";
-import { updateOrderForFabrication } from "@SRC/data/api.service";
+import { LoadingOutlined } from "@ant-design/icons";
+import { updateOrderForLogistic } from "@SRC/data/api.service";
 
 const { TextArea } = Input;
 const { Step } = Steps;
@@ -10,75 +10,75 @@ const { Step } = Steps;
 const steps = [
   {
     id: 0,
-    title: "Waiting For Material",
-    content: "Shortage of Material, waiting for resupply",
-    subtitle: "Contact factory to resupply",
+    title: "Waiting For Carrier",
+    content: "Item packaged, Waiting for Carrier company to collect it.",
+    subtitle: "Contact Carrier company",
     percent: "0%",
-    value: "pending",
+    value: "waitingForCarrier",
   },
   {
     id: 1,
-    title: "Machining items",
-    content: "During machining procedures",
-    subtitle: "Items is in the workshop",
+    title: "Already pickedUp",
+    content: "Carrier company already collected item.",
+    subtitle: "Items is in the depot",
     percent: "15%",
-    value: "machineProcessing",
+    value: "pickupAlready",
   },
   {
     id: 2,
-    title: "Machine Finished",
-    content: "Ready for next procedure",
-    subtitle: "Items is in the workshop",
+    title: "Delivering in Progress",
+    content: "Delivering",
+    subtitle: "Items is being delivering!",
     percent: "30%",
-    value: "machineProcessFinished",
+    value: "delivering",
   },
   {
     id: 3,
-    title: "PowderCoating",
-    content: "During PowderCoating procedures, Normally this took 2~3 weeks",
-    subtitle: "Items is in the PowderCoating Factory",
+    title: "Delivered",
+    content: "Item already delivered to the depot or client's designated address.",
+    subtitle: "Already delivered",
     percent: "45%",
-    value: "powderCoating",
+    value: "delivered",
   },
   {
     id: 4,
-    title: "PowderCoating Finished",
-    content: "Ready for next procedure",
-    subtitle: "Items return from the factory to the workshop",
+    title: "Cannot deliver!",
+    content: "Wrong Address or no one in the house.",
+    subtitle: "Something wrong!",
     percent: "70%",
-    value: "powderCoatingFinished",
+    value: "cannotDeliver",
   },
   {
     id: 5,
-    title: "Waiting for Installation",
-    content: "Contact clients to book in!",
-    subtitle: "Items is in the workshop, wainting to be installed",
+    title: "Returing to Vender",
+    content: "Cannot deliver, item returning to vender!",
+    subtitle: "Returning!",
     percent: "85%",
-    value: "waitingForInstallation",
+    value: "returningToVender",
   },
   {
     id: 6,
-    title: "Installing",
-    content: "During Installation procedures, Installation normally took 2days",
-    subtitle: "Installation",
+    title: "Item Returned",
+    content: "Returned Item Received!",
+    subtitle: "Returned",
     percent: "90%",
-    value: "installing",
+    value: "returnedItemArrived",
   },
   {
     id: 7,
-    title: "Ready",
-    content: "Ready for pickup",
-    subtitle: "Everything is ready",
+    title: "Item Damaged",
+    content: "Item Damaged during transpotation, consideration compensation to the client as an option, or return the item! and send a new one",
+    subtitle: "Damaged",
     percent: "100%",
-    value: "ready",
+    value: "itemDamagedInTransport",
   },
 ];
 
-export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata }: any) {
+export default function SingleLogisticModule({ order, getOrder }: any) {
   const getCurrentFabIdOutofOrder = (): number => {
     let id = 0;
     for (let item of steps) {
-      if (item.title === order.fabricationStatus) {
+      if (item.title === order.logisticStatus) {
         id = item.id;
         return id;
       }
@@ -87,7 +87,7 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
   };
 
   const [current, setCurrent] = React.useState<number>(getCurrentFabIdOutofOrder());
-  const [fabricationInfo, setFabricationInfo] = React.useState<string>(order.fabricationInfo);
+  const [logisticInfo, setLogisticInfo] = React.useState<string>(order.logisticStatus);
 
   const next = () => {
     setCurrent(current + 1);
@@ -100,17 +100,25 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
   const updateFabStatus = async () => {
     let payload = {
       ...order,
-      fabricationStatus: steps[current].value,
-      fabricationInfo: fabricationInfo,
+      logisticStatus: steps[current].value,
+      // fabricationInfo: fabricationInfo,
     };
-    await updateOrderForFabrication(order.id, payload).then(getOrderByIdandSetdata());
+    await updateOrderForLogistic(order.id, payload).then(getOrder());
   };
 
   return (
     <>
       <Steps current={current} size="small">
         {steps.map((item) => (
-          <Step key={item.title} title={item.title} description={item.subtitle} icon={current === item.id && <LoadingOutlined />} />
+          <Step
+            key={item.title}
+            title={item.title}
+            description={item.subtitle}
+            // nested Ternary expression
+            icon={item.id >= 4 ? null : item.id === current && <LoadingOutlined />}
+            // status={current === item.id && item.id > 4 ? "error" : "process"}
+            status={current === item.id && item.id >= 4 ? "error" : "process"}
+          />
         ))}
       </Steps>
       <StepContent>
@@ -120,9 +128,9 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
             showCount
             maxLength={2000}
             rows={20}
-            value={fabricationInfo}
+            value={logisticInfo}
             onChange={(event) => {
-              setFabricationInfo(event.target.value);
+              setLogisticInfo(event.target.value);
             }}
           />
         </TextAreaContainer>
@@ -132,13 +140,13 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
       </StepContent>
       <StepAction>
         {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
+          <Button type="primary" style={{ width: "6rem" }} onClick={() => next()}>
             Next
           </Button>
         )}
         {current === steps.length - 1 && (
-          <Button type="primary" onClick={() => message.success("Processing complete!")}>
-            Production Finished
+          <Button type="primary" style={{ width: "6rem" }} onClick={() => message.success("Processing complete!")}>
+            Finished
           </Button>
         )}
         {current > 0 && (

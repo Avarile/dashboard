@@ -200,3 +200,15 @@ I have go through the project throughly again, and re-configured the router, pag
 
 1. Created and set up them in the PageIndex and router.
 2. finished the
+
+#### From 13/May - 15/May 2022
+
+1. Working on logistic Components and pages, re-design the multi-params searchComponent
+
+   1. finished.
+
+2. Fix some problem in Create Order Page and add necessary keys in the order object.
+
+   1. finished
+
+3. Finishe the implementation of SingleLogistic details component based on the fabricationComponent.

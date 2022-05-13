@@ -5,6 +5,8 @@ import { MinusCircleOutlined, PlusOutlined, CarryOutFilled } from "@ant-design/i
 import { getClientsByParams, manipulateUserInfo, searchProductBySku, generateOrder } from "@DATA/api.service";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo, selectOrder } from "@DATA/dataSlices/order.slice";
 import { useDispatch, useSelector } from "react-redux";
+import dayjs from "dayjs";
+import { timeStamp } from "@SRC/utils/utilFuncs";
 
 const { Search, TextArea } = Input;
 
@@ -40,15 +42,21 @@ const CreateNewQuotation = () => {
       debugger;
       const payload = {
         ...values,
+        createdAt: timeStamp(),
+        createdBy: "name",
+        updatedAt: timeStamp(),
+        updatedBy: "name",
         orderStatus: values.price.depositPayed > 0 ? "partiallyPayed" : "pending",
         fabricationStatus: "pending",
         logisticStatus: "waitingForCarrier",
+        logisticProvider: null,
+        pickupAt: null,
         orderPayed: 0 + values.price.depositPayed,
         paymentDetail: [],
         balanceDue: Number(values.price.totalAmount) - Number(values.price.depositPayed),
       }; // TODO: why generate null : solved, I quoted a undefined value...
 
-      console.log(payload);
+      // console.log(payload);
 
       generateOrder(payload).then(() => {
         setLoadingStatus({
@@ -62,7 +70,7 @@ const CreateNewQuotation = () => {
       ...uiController,
       shippingInfo: false,
     });
-    window.location.reload();
+    // window.location.reload();
   };
 
   const priceCalc = () => {

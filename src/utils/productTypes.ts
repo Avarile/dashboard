@@ -158,7 +158,6 @@ export const orderStatus = [
     id: 0,
     name: "pending",
   },
-
   {
     id: 1,
     name: "partiallyPayed",
@@ -166,30 +165,6 @@ export const orderStatus = [
   {
     id: 2,
     name: "fullyPayed",
-  },
-  {
-    id: 3,
-    name: "machineProcessing",
-  },
-  {
-    id: 4,
-    name: "machineProcessFinished",
-  },
-  {
-    id: 5,
-    name: "powderCoating",
-  },
-  {
-    id: 6,
-    name: "powderCoatingFinished",
-  },
-  {
-    id: 7,
-    name: "installing",
-  },
-  {
-    id: 8,
-    name: "ready",
   },
 ];
 
@@ -256,5 +231,20 @@ export const logisticStatus = [
   {
     id: 6,
     name: "itemDamagedInTransport",
+  },
+];
+
+export const logisticProvider = [
+  {
+    id: 0,
+    name: "Australian Post",
+  },
+  {
+    id: 1,
+    name: "Big Post",
+  },
+  {
+    id: 2,
+    name: "FastWay",
   },
 ];

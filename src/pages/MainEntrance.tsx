@@ -4,6 +4,7 @@ import { Layout, Menu, Space } from "antd";
 import { TabletOutlined, CrownOutlined } from "@ant-design/icons";
 import { useNavigate, Link, Outlet } from "react-router-dom";
 import Header from "@SRC/components/Header";
+import styled from "styled-components";
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -40,12 +41,15 @@ const MainEntrance = () => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh", backgroundColor: "dark" }}>
+    <CustomLayout style={{ minHeight: "100vh", backgroundColor: "dark" }}>
       <Sider width={250} trigger={null} collapsible collapsed={uiController.collapsed} theme="light">
         <Space className="logo" style={{ padding: "0,1rem,0,1rem" }}>
           {uiController.collapsed ? <h3>EZT</h3> : <h3>Easy Tool Box</h3>}
         </Space>
-        <Menu theme="light" defaultSelectedKeys={["14"]} mode="inline">
+        <Menu
+          theme="light"
+          // defaultSelectedKeys={["14"]}
+          mode="inline">
           <Menu.Item key="14" icon={StyledCrownWrapper(CrownOutlined, { color: "light" })}>
             <Link to="/mainentrance/dashboardindex" style={{ textDecoration: "none" }}>
               DashBoard
@@ -138,7 +142,7 @@ const MainEntrance = () => {
           <Outlet />
         </Content>
       </Layout>
-    </Layout>
+    </CustomLayout>
   );
 };
 
@@ -149,3 +153,13 @@ const StyledCrownWrapper = (Child: React.ForwardRefExoticComponent<any>, Style: 
 };
 
 const Crown = StyledCrownWrapper(CrownOutlined, { color: "dark" });
+
+/**
+ * pass the css values to the entire project, will not effect the modal (modal is paralled to the rootApp)
+ */
+const CustomLayout = styled(Layout)`
+  /* * {
+    margin: 0;
+    padding: 0;
+  } */
+`;

@@ -1,72 +1,116 @@
-import dayjs from "dayjs";
+import { Form, Input, Button, Space, Select } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import React from "react";
-import { Table, Badge } from "antd";
+import styled from "styled-components";
 
-const data = [
-  {
-    key: "0001",
-    status: "ongoing",
-    implementation: "shenji4-it",
-    finishAt: dayjs("2022-05-10").format("DD/MM/YYYY"),
-  },
-  {
-    key: "0002",
-    status: "ongoing",
-    implementation: "shenji4-it",
-    finishAt: dayjs("2022-05-10").format("DD/MM/YYYY"),
-  },
-];
+enum value1Params {
+  AAA = "AAA",
+  BBB = "BBB",
+  CCC = "CCC",
+}
+interface IState {
+  value: number;
+  value1Params: value1Params;
+}
+const Test = () => {
+  const globalValueRef = React.useRef({
+    AAA: 0,
+    BBB: 0,
+    CCC: 0,
+  });
+  const [formInstance] = Form.useForm();
+  const onFinish = (values: any) => {
+    console.log("Received values of form:", values);
+  };
 
-export default () => {
-  const columns = [
-    // inner row columns
+  const getoneofCurrentFormValue = (itemNumber: number) => {
+    const currentFormValue = formInstance.getFieldValue("testForm");
+    let payload = currentFormValue[itemNumber];
+    console.log(payload);
+  };
 
-    { title: "Key", dataIndex: "key", key: "key" },
-    { title: "Deadline", dataIndex: "finishAt", key: "finishAt" },
-    {
-      title: "Status",
-      key: "status",
-      dataIndex: "status",
-      render: (a: any, b: any, c: any) => {
-        // a: current row value, b: current column value(a obj), c: row index
+  const value1ParamsSelection = ["AAA", "BBB", "CCC"];
+  const [state, setState] = React.useState<IState>({
+    value: 0,
+    value1Params: value1Params.AAA,
+  });
+  const [uiState, setUiState] = React.useState<boolean>(false);
 
-        return (
-          <span>
-            <Badge status="processing" />
-            {a}
-          </span>
-        );
-      },
-    },
-    { title: "Implementation", dataIndex: "implementation", key: "implementation" },
-  ];
   return (
-    <>
-      <Table
-        // size="small"
-        style={{ width: "100%" }}
-        onRow={(record) => {
-          return {
-            onClick: (event) => {}, // 点击行
-            onDoubleClick: (event) => {},
-            onContextMenu: (event) => {},
-            onMouseEnter: (event) => {
-              // setHoverEvent(true);
-            }, // mouseIn
-            onMouseLeave: (event) => {
-              // setHoverEvent(false);
-            },
-          };
-        }}
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-        rowClassName={(record, index) => {
-          if (index % 2 === 0) {
-            return "warehousing-oddRow";
-          } else return "warehousing-evenRow";
-        }}
-      />
-    </>
+    <Form name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off" form={formInstance}>
+      <Form.List name="testForm">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <Space key={key} style={{ display: "flex", marginBottom: 8 }} align="baseline">
+                <FormItem {...restField} name={[name, "valueSelection"]}>
+                  <Select>
+                    {value1ParamsSelection.map((selection, index) => {
+                      return <Select.Option key={selection}>{selection}</Select.Option>;
+                    })}
+                  </Select>
+                </FormItem>
+                <FormItem {...restField} name={[name, "valueInput"]}>
+                  <Input
+                    value={state.value}
+                    onChange={(e) => {
+                      setState({
+                        ...state,
+                        value: Number(e.target.value),
+                      });
+                    }}
+                  />
+                </FormItem>
+                <Form.Item {...restField}>
+                  {
+                    <PlusOutLinedIcon
+                      onClick={() => {
+                        setUiState(!uiState);
+                      }}
+                    />
+                  }
+                </Form.Item>
+                {uiState ? (
+                  <>
+                    <FormItem style={{ width: "10rem" }}>
+                      <Input />
+                    </FormItem>
+
+                    <FormItem style={{ width: "10rem" }}>
+                      <Select>
+                        <Select.Option value="option1">Option1</Select.Option>
+                        <Select.Option value="option2">Option2</Select.Option>
+                        <Select.Option value="option3">Option3</Select.Option>
+                      </Select>
+                    </FormItem>
+                  </>
+                ) : null}
+                <MinusCircleOutlined onClick={() => remove(name)} />
+              </Space>
+            ))}
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add field
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
+
+const FormItem = styled(Form.Item)`
+  width: 5rem;
+`;
+
+const PlusOutLinedIcon = styled(PlusOutlined)`
+  margin: 0 3rem 0 3rem;
+`;
+
+export default Test;
