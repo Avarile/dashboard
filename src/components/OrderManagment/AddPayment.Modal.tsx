@@ -11,10 +11,12 @@ const layout = {
 const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, getOrderByIdandSetdata }: any) => {
   const order = { ...orderDetail };
   // remove the flatened key/value in OrderListModule
-  delete order.key;
-  delete order.clientName;
-  delete order.orderAmount;
+  // delete order.key;
+  // delete order.clientName;
+  // delete order.orderAmount;
   // console.log(order);
+
+  // on a second thought, I decide not to move them for we still need them for rendering
 
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState("");

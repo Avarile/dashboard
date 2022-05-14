@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export interface IProduct extends IOrderProduct, IProductSide {}
 
 export interface IOrderProduct {
@@ -67,4 +69,11 @@ export interface ILogisticSearchParams {
   logisticProvider: ELogisticProvider | undefined;
   pickupAt: "" | undefined;
   id: number | undefined;
+}
+
+export interface IlogisticInfo {
+  logisticProvider: string;
+  trackingNumber: string;
+  pickupAt: Date;
+  logisticSideNote: string;
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Descriptions, Badge, Divider, Button } from "antd";
 import Request from "@DATA/api.controller";
 import AddPaymentModal from "./AddPayment.Modal";
+import { logisticStatusIndicator } from "@SRC/utils/utilFuncs";
 
 const SingleOrderInListModule = ({ order, getOrderByIdandSetdata }: any) => {
   const [showPaymentModal, setShowpaymentModal] = useState(false);
@@ -53,21 +54,19 @@ const SingleOrderInListModule = ({ order, getOrderByIdandSetdata }: any) => {
         <Descriptions.Item label="Client Email">{order.client.email}</Descriptions.Item>
         <Descriptions.Item label="Client Mobile">{order.client.mobile}</Descriptions.Item>
         <Descriptions.Item label="Client Status">{order.client.vip ? "VIP" : "Normal"}</Descriptions.Item>
-        <Descriptions.Item label="Created Time" span={2}>
+        {/* <Descriptions.Item label="Created Time" span={2}>
           2019-04-24 18:00:00
-        </Descriptions.Item>
-        <Descriptions.Item label="Status" span={2}>
-          <Badge status="processing" text="Running" />
-        </Descriptions.Item>
+        </Descriptions.Item> */}
       </Descriptions>
       <Divider />
       <Descriptions title="Shipping Info" column={2}>
-        <Descriptions.Item label="Client Name">{order.client.name}</Descriptions.Item>
-        <Descriptions.Item label="Client Email">{order.client.email}</Descriptions.Item>
-        <Descriptions.Item label="Client Mobile">{order.client.mobile}</Descriptions.Item>
-        <Descriptions.Item label="Client Status">{order.client.vip ? "VIP" : "Normal"}</Descriptions.Item>
-        <Descriptions.Item label="Address">{order.client.address}</Descriptions.Item>
-        <Descriptions.Item label="Postcode">{order.client.postcode}</Descriptions.Item>
+        <Descriptions.Item label="Address">{order.shipping.address}</Descriptions.Item>
+        <Descriptions.Item label="Postcode">{order.shipping.postcode}</Descriptions.Item>
+        <Descriptions.Item label="Shipping Fee">{order.shipping.shippingFee}</Descriptions.Item>
+        <Descriptions.Item label="Status" span={2}>
+          <Badge status={logisticStatusIndicator(order.logisticStatus)} text={order.logisticStatus} />
+        </Descriptions.Item>
+        {/* <Descriptions.Item label="Pickup At">{order.}</Descriptions.Item> */}
       </Descriptions>
       <Divider />
       {order.products.map((item: { sku: string; name: string; size: string; price: number; pcPrice: number; installPrice: number }, index: any) => {

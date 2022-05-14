@@ -4,8 +4,8 @@ import { refineQueryString, debounce, deduplicateArray, timeStamp } from "@SRC/u
 import qs from "query-string";
 import { store } from "./dataStore/store.redux";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice";
-import { IUser, IProduct, ILogisticSearchParams, ELogisticStatus } from "src/utils/interfaces";
-import Notification from "@SRC/components/Notification";
+import { IUser, IProduct, ILogisticSearchParams, ELogisticStatus, IlogisticInfo } from "src/utils/interfaces";
+import Notification from "@SRC/utils/commomComponents/Notification";
 import { FormInstance } from "antd";
 
 const dispatch = store.dispatch;
@@ -59,6 +59,14 @@ export const updateOrderForFabrication = async (
   fabricationStatus: "pending" | "machineProcessing" | "machineProcessFinished" | "powderCoating" | "powderCoatingFinished" | "waitingForInstallation" | "installing" | "ready"
 ) => {
   Request.put(`${env.dbUri}/orders/${orderId}`, fabricationStatus, "Fabrication Status");
+};
+
+export const updateOrderForLogistic = async (orderId: number, logisticStatus: ELogisticStatus) => {
+  Request.put(`${env.dbUri}/orders/${orderId}`, logisticStatus, "Logistic Status");
+};
+
+export const updateOrderForLogisticInfo = async (orderId: number, logisticInfo: IlogisticInfo) => {
+  Request.put(`${env.dbUri}/orders/${orderId}`, logisticInfo, "LogisticInfo");
 };
 
 export const getProductBySku = async (searchParams: { sku: string }) => {
@@ -164,18 +172,21 @@ export const searchProductBySku = async (
   // console.log(sku)
 
   await Request.get(`${env.dbUri}/products?sku=${sku}`)
+
     .then((response: any) => {
+      debugger;
       let currentFormValue = formInstance.getFieldValue("products"); // accquire entire list of items
       if (response.length > 0) {
         // console.log(response[0])
 
-        const { name, size, price, powdercoatingprice, installationprice } = response[0]; // accquire the response item
+        const { name, size, price, powdercoatingprice, installationprice, currentInStock } = response[0]; // accquire the response item
         const currentColumn = {
           name: name,
           size: size,
           price: price,
           pcPrice: powdercoatingprice,
           installPrice: installationprice,
+          currentInStock: currentInStock,
         };
         const changedFormValue = currentFormValue.map((item: any, index: number) => {
           if (index === columnIndex) {
@@ -184,7 +195,7 @@ export const searchProductBySku = async (
             item.price = currentColumn.price;
             item.pcPrice = currentColumn.pcPrice;
             item.installPrice = currentColumn.installPrice;
-
+            item.currentInStock = currentColumn.currentInStock;
             return item;
           } else return item;
         });
@@ -202,8 +213,4 @@ export const searchProductBySku = async (
         });
       }, 1000);
     });
-};
-
-export const updateOrderForLogistic = async (orderId: number, logisticStatus: ELogisticStatus) => {
-  Request.put(`${env.dbUri}/orders/${orderId}`, logisticStatus, "Logistic Status");
 };

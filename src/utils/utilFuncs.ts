@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { EfabricationStatus, IFabrication, ELogisticStatus } from "./interfaces";
+import { EfabricationStatus, IFabrication, ELogisticStatus, IOrderProduct } from "./interfaces";
 import { fabricationStatus } from "./productTypes";
 
 export type QueryStringType = {
@@ -181,5 +181,11 @@ export const deduplicateArray = (array: [any]) => {
 };
 
 export const timeStamp = () => {
-  return dayjs().format("DD/MM/YYYY");
+  return dayjs().format("YYYY-MM-DD");
+};
+
+export const determineItemShouldbeDeduct = (orderFullyPayed: boolean, order: any) => {
+  if (orderFullyPayed) {
+    order.product.map((item: Omit<IOrderProduct, "id">) => {});
+  }
 };

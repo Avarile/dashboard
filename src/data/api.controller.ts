@@ -3,7 +3,7 @@
 import axios from "axios";
 import Storage from "@SRC/data/session.controller";
 import { setIsloading, setError } from "@DATA/dataSlices/isloading.slice";
-import Notification from "@SRC/components/Notification";
+import Notification from "@SRC/utils/commomComponents/Notification";
 import { store } from "./dataStore/store.redux";
 
 // about the @SRC

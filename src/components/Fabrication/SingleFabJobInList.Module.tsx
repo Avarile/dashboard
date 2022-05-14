@@ -78,7 +78,7 @@ export default function SingleFabJobInListModule({ order, getOrderByIdandSetdata
   const getCurrentFabIdOutofOrder = (): number => {
     let id = 0;
     for (let item of steps) {
-      if (item.title === order.fabricationStatus) {
+      if (item.value === order.fabricationStatus) {
         id = item.id;
         return id;
       }

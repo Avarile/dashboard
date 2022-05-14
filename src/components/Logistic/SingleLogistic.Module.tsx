@@ -75,10 +75,10 @@ const steps = [
 ];
 
 export default function SingleLogisticModule({ order, getOrder }: any) {
-  const getCurrentFabIdOutofOrder = (): number => {
+  const getCurrentLogiIdOutofOrder = (): number => {
     let id = 0;
     for (let item of steps) {
-      if (item.title === order.logisticStatus) {
+      if (item.value === order.logisticStatus) {
         id = item.id;
         return id;
       }
@@ -86,7 +86,7 @@ export default function SingleLogisticModule({ order, getOrder }: any) {
     return id;
   };
 
-  const [current, setCurrent] = React.useState<number>(getCurrentFabIdOutofOrder());
+  const [current, setCurrent] = React.useState<number>(getCurrentLogiIdOutofOrder());
   const [logisticInfo, setLogisticInfo] = React.useState<string>(order.logisticStatus);
 
   const next = () => {

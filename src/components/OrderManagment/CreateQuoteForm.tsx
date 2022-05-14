@@ -7,6 +7,7 @@ import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo, sel
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { timeStamp } from "@SRC/utils/utilFuncs";
+import Notification from "@SRC/utils/commomComponents/Notification";
 
 const { Search, TextArea } = Input;
 
@@ -35,46 +36,53 @@ const CreateNewQuotation = () => {
       ...loadingStatus,
       orderCreation: true,
     });
+    if (values.currentInStock >= 1) {
+      setTimeout(() => {
+        // console.log("Received values of form:", values);
+        // add the order Status into the orderInfo
+        debugger;
+        const payload = {
+          ...values,
+          createdAt: timeStamp(),
+          createdBy: "name",
+          updatedAt: timeStamp(),
+          updatedBy: "name",
+          orderStatus: values.price.depositPayed > 0 ? "partiallyPayed" : "pending",
+          fabricationStatus: "pending",
+          logisticStatus: "waitingForCarrier",
+          logisticProvider: null,
+          pickupAt: null,
+          orderPayed: 0 + values.price.depositPayed,
+          paymentDetail: [],
+          balanceDue: Number(values.price.totalAmount) - Number(values.price.depositPayed),
+        }; // TODO: why generate null : solved, I quoted a undefined value...
 
-    setTimeout(() => {
-      // console.log("Received values of form:", values);
-      // add the order Status into the orderInfo
-      debugger;
-      const payload = {
-        ...values,
-        createdAt: timeStamp(),
-        createdBy: "name",
-        updatedAt: timeStamp(),
-        updatedBy: "name",
-        orderStatus: values.price.depositPayed > 0 ? "partiallyPayed" : "pending",
-        fabricationStatus: "pending",
-        logisticStatus: "waitingForCarrier",
-        logisticProvider: null,
-        pickupAt: null,
-        orderPayed: 0 + values.price.depositPayed,
-        paymentDetail: [],
-        balanceDue: Number(values.price.totalAmount) - Number(values.price.depositPayed),
-      }; // TODO: why generate null : solved, I quoted a undefined value...
+        // console.log(payload);
 
-      // console.log(payload);
-
-      generateOrder(payload).then(() => {
-        setLoadingStatus({
-          ...loadingStatus,
-          orderCreation: false,
+        generateOrder(payload).then(() => {
+          setLoadingStatus({
+            ...loadingStatus,
+            orderCreation: false,
+          });
         });
+      }, 2000);
+      formInstance.resetFields();
+      setUIController({
+        ...uiController,
+        shippingInfo: false,
+        // window.location.reload();
       });
-    }, 2000);
-    formInstance.resetFields();
-    setUIController({
-      ...uiController,
-      shippingInfo: false,
-    });
-    // window.location.reload();
+    } else {
+      return Notification({ type: "warning", message: "The order cannot be made due to shoratege!" });
+      setLoadingStatus({
+        ...loadingStatus,
+        orderCreation: false,
+      });
+    }
   };
 
   const priceCalc = () => {
-    debugger;
+    // debugger;
     let totalItemPrice = 0,
       totalPcPrice = 0,
       totalInstallPrice = 0;
@@ -266,7 +274,7 @@ const CreateNewQuotation = () => {
             <>
               {fields.map(({ key, name, ...restField }) => (
                 <Space key={key} style={{ display: "flex" }} align="start" size={1}>
-                  <Form.Item {...restField} name={[name, "sku"]} rules={[{ required: true, message: "required" }]} style={{ width: "12rem" }}>
+                  <Form.Item {...restField} name={[name, "sku"]} rules={[{ required: true, message: "required" }]} style={{ width: "8rem" }}>
                     <Input
                       placeholder="SKU"
                       onChange={() => {
@@ -275,8 +283,11 @@ const CreateNewQuotation = () => {
                       }}
                     />
                   </Form.Item>
-                  <Form.Item {...restField} name={[name, "name"]} rules={[{ required: true, message: "required" }]} style={{ width: "15rem" }}>
+                  <Form.Item {...restField} name={[name, "name"]} rules={[{ required: true, message: "required" }]} style={{ width: "25rem" }}>
                     <Input placeholder="Product Name" />
+                  </Form.Item>
+                  <Form.Item {...restField} name={[name, "currentInStock"]} rules={[{ required: true, message: "required" }]} style={{ width: "7rem" }}>
+                    <Input placeholder="Stock" />
                   </Form.Item>
                   <Form.Item {...restField} name={[name, "size"]} rules={[{ required: true, message: "required" }]}>
                     <Input placeholder="Size" />
@@ -291,7 +302,7 @@ const CreateNewQuotation = () => {
                     <Input placeholder="Install Fee" />
                   </Form.Item>
                   <Form.Item {...restField} name={[name, "detail"]}>
-                    <Input placeholder="Detail" style={{ width: "24rem" }} />
+                    <Input placeholder="Detail" style={{ minWidth: "20rem", maxWidth: "40rem" }} />
                   </Form.Item>
                   <MinusCircleOutlined onClick={() => remove(name)} />
                 </Space>

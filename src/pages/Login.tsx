@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "antd/dist/antd.css";
 import { Form, Input, Button, Checkbox } from "antd";
 import Storage from "@SRC/data/session.controller";
-import Notification from "@SRC/components/Notification";
+import Notification from "@SRC/utils/commomComponents/Notification";
 import { useNavigate } from "react-router";
 
 const Login = () => {

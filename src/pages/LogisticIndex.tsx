@@ -52,17 +52,19 @@ const Logistic = () => {
       title: "Action",
       dataIndex: "providerSelect",
       key: "providerSelect",
-      render: (currentRowValue: any, currentColumnValue: any, index: number) => (
-        <Space size="middle">
-          <a
-            onClick={() => {
-              setVisible(true);
-            }}>
-            Logistic init
-          </a>
-          <LogisticInfoModal visible={visible} setVisible={setVisible} />
-        </Space>
-      ),
+      render: (currentRowValue: any, currentColumnValue: any, index: number) => {
+        return (
+          <Space size="middle">
+            <a
+              onClick={() => {
+                setVisible(true);
+              }}>
+              Update Info
+            </a>
+            <LogisticInfoModal visible={visible} setVisible={setVisible} order={currentColumnValue} setLoadingStatus={setLoadingStatus} />
+          </Space>
+        );
+      },
     },
   ];
   return (
