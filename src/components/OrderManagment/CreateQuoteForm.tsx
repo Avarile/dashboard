@@ -6,7 +6,7 @@ import { getClientsByParams, manipulateUserInfo, searchProductBySku, generateOrd
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo, selectOrder } from "@DATA/dataSlices/order.slice";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
-import { timeStamp } from "@SRC/utils/utilFuncs";
+import { isShortage, timeStamp } from "@SRC/utils/utilFuncs";
 import Notification from "@SRC/utils/commomComponents/Notification";
 
 const { Search, TextArea } = Input;
@@ -32,11 +32,15 @@ const CreateNewQuotation = () => {
   });
 
   const onFinish = (values: any) => {
+    debugger;
     setLoadingStatus({
       ...loadingStatus,
       orderCreation: true,
     });
-    if (values.currentInStock >= 1) {
+
+    const result = isShortage(values.products);
+
+    if (result.length === 0) {
       setTimeout(() => {
         // console.log("Received values of form:", values);
         // add the order Status into the orderInfo
@@ -73,11 +77,13 @@ const CreateNewQuotation = () => {
         // window.location.reload();
       });
     } else {
-      return Notification({ type: "warning", message: "The order cannot be made due to shoratege!" });
       setLoadingStatus({
         ...loadingStatus,
         orderCreation: false,
       });
+      for (let item in result) {
+        return Notification({ type: "warning", message: `The order for ${item} cannot be made due to shoratege!` });
+      }
     }
   };
 
@@ -326,21 +332,22 @@ const CreateNewQuotation = () => {
             </>
           )}
         </Form.List>
+
         {/* Price list */}
-        <Form.Item label="Item Price" name={["price", "itemPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
+        <Form.Item labelCol={{ span: 8 }} label="Item Price" name={["price", "itemPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
           <InputNumber style={{ width: "20rem" }} />
         </Form.Item>
-        <Form.Item label="PowderCoating" name={["price", "pcPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
-          <InputNumber style={{ width: "18rem" }} />
-        </Form.Item>
-        <Form.Item label="Installation" name={["price", "installPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
+        <Form.Item labelCol={{ span: 8 }} label="PowderCoating" name={["price", "pcPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
           <InputNumber style={{ width: "20rem" }} />
         </Form.Item>
-        <Form.Item label="Total Amount" name={["price", "totalAmount"]} style={{ width: "25rem", marginRight: "1rem" }}>
-          <InputNumber style={{ width: "19rem" }} />
+        <Form.Item labelCol={{ span: 8 }} label="Installation" name={["price", "installPrice"]} style={{ width: "25rem", marginRight: "1rem" }}>
+          <InputNumber style={{ width: "20rem" }} />
         </Form.Item>
-        <Form.Item label="DepositPayed" name={["price", "depositPayed"]} style={{ width: "25rem", marginRight: "1rem" }} rules={[{ required: true }]}>
-          <InputNumber style={{ width: "19rem" }} />
+        <Form.Item labelCol={{ span: 8 }} label="Total Amount" name={["price", "totalAmount"]} style={{ width: "25rem", marginRight: "1rem" }}>
+          <InputNumber style={{ width: "20rem" }} />
+        </Form.Item>
+        <Form.Item labelCol={{ span: 8 }} label="DepositPayed" name={["price", "depositPayed"]} style={{ width: "25rem", marginRight: "1rem" }} rules={[{ required: true }]}>
+          <InputNumber style={{ width: "20rem" }} />
         </Form.Item>
       </Form.Item>
 

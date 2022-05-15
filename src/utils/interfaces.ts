@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 export interface IProduct extends IOrderProduct, IProductSide {}
 
 export interface IOrderProduct {
@@ -35,7 +33,7 @@ export interface IOrderDetail {}
 export enum EfabricationStatus {
   pending = "pending",
   machineProcessing = "machineProcessing",
-  machineProcessFinishe = "machineProcessFinished",
+  machineProcessFinished = "machineProcessFinished",
   powderCoating = "powderCoating",
   powderCoatingFinished = "powderCoatingFinished",
   waitingForInstallation = "waitingForInstallation",
@@ -76,4 +74,28 @@ export interface IlogisticInfo {
   trackingNumber: string;
   pickupAt: Date;
   logisticSideNote: string;
+}
+
+export enum EPaymentStatus {
+  pending = "pending",
+  partiallyPayed = "partiallyPayed",
+  fullyPayed = "fullyPayed",
+}
+
+export interface IOrderSearchParams {
+  logisticStatus: ELogisticStatus;
+  fabricationStatus: EfabricationStatus;
+  orderStatus: EPaymentStatus;
+  id: number;
+  dateRange: string;
+}
+
+export interface IOrderProduct {
+  sku: string;
+  name: string;
+  size: string;
+  price: number;
+  pcPrice: number;
+  installPrice: number;
+  currentInStock: number;
 }

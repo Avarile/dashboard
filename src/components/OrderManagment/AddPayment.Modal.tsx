@@ -35,11 +35,12 @@ const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, g
       const payload = {
         ...order,
         paymentDetail: [...order.paymentDetail, { ...currentFormValue, payedAt: timeStamp() }],
-        orderPayed: currentFormValue.amount + order.orderPayed + order.price.depositPayed,
+        orderPayed: currentFormValue.amount + order.orderPayed,
         balanceDue: order.price.totalAmount - order.orderPayed - currentFormValue.amount,
-        orderStatus: order.orderPayed > order.price.totalAmount ? "fullyPayed" : "partiallyPayed",
+        orderStatus: order.orderPayed >= order.price.totalAmount ? "fullyPayed" : "partiallyPayed",
       };
       console.log(payload);
+      // if the amount is fully payed, then need to deduct the product from the stock
 
       updateOrderForPayment(orderDetail.id, payload).then(() => {
         formRef.resetFields(); // reset form after submit

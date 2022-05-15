@@ -47,8 +47,8 @@
       "installationprice": 160,
       "desc": "null",
       "spec": "Toolbox size: 1780mm x 1800mm x 850mm\nLight Weight 2.5mm Aluminium Checker Plate \nAluminium Tubes Frame, can take up to 300kg top load when stationary\n4 x Stainless Steel T Handle Locks Secured; Two For Each Lid; keyed alike\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\nReinforced Tubes Roof Bracing Structure\nFloor Included\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
-      "currentInStock": 0,
-      "updateLog": "",
+      "currentInStock": 10,
+      "updateLog": "15/May/2022:\nNew batch arrived 10.",
       "id": 2
     },
     {
@@ -64,8 +64,8 @@
       "installationprice": 160,
       "desc": "null",
       "spec": "Toolbox size: 1780mm x 1600mm x 850mm\nLight Weight 2.5mm Aluminium Checker Plate\nAluminium Tube Frame, can take up to 300kg top load\nExtra Spare Wheel Carrier Support\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\nReinforced Tube Roof Bracing Structure\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
-      "currentInStock": 0,
-      "updateLog": "",
+      "currentInStock": 2,
+      "updateLog": "15/May/2022:\nArrived 2",
       "id": 3
     },
     {
@@ -81,8 +81,8 @@
       "installationprice": 890,
       "desc": "Strong and Light Weight Aluminium Design\nStraight Tail Plate Design\nSize: 1780mm W x 1600mm L\nBase 3mm Aluminium Checker Plate Surface \n5mm Structure Tube Frame\nPressed alloy mudguards or Flare Mudguards\nTwo mudguards design options to choose** \n \n\nThis includes:\n\n1 X Aluminium Tray Deck\n1 X Mudguard Kit \n2 X Mudflaps\n1 Pair X LED Tail Lights (Sourced from APLED)\nFitting Kit (Includes steel chassis mounts) is NOT included.",
       "spec": "Tray Length 1600 Long\nTray Width 1780 Wide\nStandard Weight: Approx 80kg\nAvailable For Models Listed Below\n\nToyota Hilux Dual Cab All Models\nNissan Navara D40 Dual Cab All Models\nNissan Navara D22 Dual Cab All Models\nMitsubishi Triton Dual Cab All Models \nIsuzu Dmax Dual Cab All Models\nHolden Colorado Dual Cab All Models\nHolden Rodeo Dual Cab All Models\nMazda BT50 Dual Cab All Models\nFord Ranger Dual Cab All Models\nNote: Steel fitting kits are universal ones, cut is required to fit in your under tray toolboxes or mud guards if necessary.  All necessary bolts and nuts will be provided when you choose the options. ETB recommend using a local fabricator for installations in your region.\n\nSpecifications:\n\nTray Length 1600 Long\nTray Width 1780 Wide\nStandard Weight: Approx 85kg\n*Display photos will show you how it looks like on the utes. All boxes in the photos are NOT included in this listing.",
-      "currentInStock": 0,
-      "updateLog": "",
+      "currentInStock": 4,
+      "updateLog": "15/May/2022:\narrived 4",
       "id": 4
     },
     {
@@ -98,8 +98,8 @@
       "installationprice": 890,
       "desc": "Strong and Light Weight Aluminium Design\nStraight Tail Plate Design\nSize: 1780mm W x 1800mm L\nBase 3mm Aluminium Checker Plate Surface \nPressed alloy mudguards or Flare Mudguards\nTwo mudguards design options to choose** \nThis includes:\n\n1 X Aluminium Tray Deck\n1 X Mudguard Kit \n2 X Mudflaps\n1 Pair X LED Tail Lights (Sourced from APLED)\nFitting Kit (Includes steel chassis mounts) is NOT included.",
       "spec": "Tray Length 1800 Long\nTray Width 1780 Wide\nStandard Weight: Approx 85kg\nAvailable For Models Listed Below\n\nToyota Hilux Dual Cab All Models\nNissan Navara D40 Dual Cab All Models\nNissan Navara D22 Dual Cab All Models\nMitsubishi Triton Dual Cab All Models \nIsuzu Dmax Dual Cab All Models\nHolden Colorado Dual Cab All Models\nHolden Rodeo Dual Cab All Models\nMazda BT50 Dual Cab All Models\nFord Ranger Dual Cab All Models",
-      "currentInStock": 0,
-      "updateLog": "",
+      "currentInStock": 2,
+      "updateLog": "15/May/2022:\narrived 2",
       "id": 5
     },
     {
@@ -115,8 +115,8 @@
       "installationprice": 560,
       "desc": "asdfasdfasdf",
       "spec": "asdfasdfasdf",
-      "currentInStock": 0,
-      "updateLog": "",
+      "currentInStock": 3,
+      "updateLog": "15/May/2022:\nArrived 3",
       "lastUpdate": "06/05/2022",
       "id": 6
     }
@@ -169,6 +169,72 @@
     }
   ],
   "orders": [
-  
+    {
+      "client": {
+        "clientSearch": "Avarile@gmail.com",
+        "id": 1,
+        "name": "Avarile",
+        "email": "Avarile@gmail.com",
+        "mobile": "0481877127",
+        "vip": "true",
+        "address": "15 seabird dr, Point Cook",
+        "postcode": "3040"
+      },
+      "shipping": {
+        "address": "Melbourne",
+        "postcode": "3000",
+        "shippingFee": "50"
+      },
+      "products": [
+        {
+          "sku": "TB046F-17148",
+          "name": "1400mm Flat Plate Aluminium Canopy With Dog Box Section",
+          "size": "1400L x 1780W x 850H",
+          "price": 2750,
+          "pcPrice": 500,
+          "installPrice": 160,
+          "currentInStock": 50
+        }
+      ],
+      "price": {
+        "itemPrice": 2750,
+        "pcPrice": 500,
+        "installPrice": 160,
+        "totalAmount": 3460,
+        "depositPayed": 1000
+      },
+      "createdAt": "2022-05-15",
+      "createdBy": "name",
+      "updatedAt": "2022-05-15",
+      "updatedBy": "name",
+      "orderStatus": "fullyPayed",
+      "fabricationStatus": "pending",
+      "logisticStatus": "waitingForCarrier",
+      "logisticProvider": null,
+      "pickupAt": null,
+      "orderPayed": 3460,
+      "paymentDetail": [
+        {
+          "method": "cash",
+          "amount": 1000,
+          "payedAt": "2022-05-15"
+        },
+        {
+          "method": "cash",
+          "amount": 1460,
+          "payedAt": "2022-05-15"
+        },
+        {
+          "method": "cash",
+          "amount": 0,
+          "payedAt": "2022-05-15"
+        }
+      ],
+      "balanceDue": 0,
+      "id": 1,
+      "key": 1,
+      "clientName": "Avarile",
+      "orderAmount": 3460
+    }
   ]
 }

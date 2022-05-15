@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { EfabricationStatus, IFabrication, ELogisticStatus, IOrderProduct } from "./interfaces";
 import { fabricationStatus } from "./productTypes";
+import { deductProduct } from "@SRC/data/api.service";
 
 export type QueryStringType = {
   [Key: string | number]: any;
@@ -38,7 +39,7 @@ export const stockIndicator = (stockNumber: number): "success" | "warning" | "er
     // if 5 > stockNumber > 1
     return "warning";
   }
-  if (stockNumber < 1) {
+  if (stockNumber < 3) {
     return "error";
   } else {
     return "default";
@@ -57,26 +58,14 @@ export const orderStatusIndicator = (
       return "error";
       break;
     case "partiallyPayed":
-      return "processing";
-      break;
-    case "fullyPayed":
-      return "processing";
-      break;
     case "machineProcessing":
-      return "default";
-      break;
     case "machineProcessFinished":
-      return "default";
-      break;
     case "powderCoating":
-      return "default";
-      break;
     case "powderCoatingFinished":
-      return "default";
-      break;
     case "installing":
       return "default";
       break;
+    case "fullyPayed":
     case "ready":
       return "success";
       break;
@@ -89,20 +78,10 @@ export const fabricationStatusIndicator = (fabricationStatus: EfabricationStatus
       return "error";
       break;
     case "machineProcessing":
-      return "processing";
-      break;
     case "machineProcessFinished":
-      return "processing";
-      break;
     case "powderCoating":
-      return "processing";
-      break;
     case "powderCoatingFinished":
-      return "processing";
-      break;
     case "waitingForInstallation":
-      return "processing";
-      break;
     case "installing":
       return "processing";
       break;
@@ -110,6 +89,10 @@ export const fabricationStatusIndicator = (fabricationStatus: EfabricationStatus
       return "success";
       break;
   }
+};
+
+const teseDemo = (fabricationStatus: EfabricationStatus) => {
+  let status = EfabricationStatus.pending;
 };
 
 export const logisticStatusIndicator = (logisticStatus: ELogisticStatus) => {
@@ -187,5 +170,30 @@ export const timeStamp = () => {
 export const determineItemShouldbeDeduct = (orderFullyPayed: boolean, order: any) => {
   if (orderFullyPayed) {
     order.product.map((item: Omit<IOrderProduct, "id">) => {});
+  }
+};
+
+/**
+ * determine if there is a shortage for each item in the products list and make apicall
+ * @param products
+ */
+export const isShortage = (products: IOrderProduct[]): { sku: string }[] => {
+  let result: { sku: string }[] = [];
+  for (let item of products) {
+    if (item.currentInStock >= 1) {
+      //todo: means this order can be put through
+      result = [];
+    } else {
+      result.push({
+        sku: item.sku,
+      });
+    }
+  }
+  return result;
+};
+
+export const deductFromCurrentStock = (products: IOrderProduct[]) => {
+  for (let product of products) {
+    deductProduct(product);
   }
 };

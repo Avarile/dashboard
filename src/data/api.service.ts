@@ -4,7 +4,7 @@ import { refineQueryString, debounce, deduplicateArray, timeStamp } from "@SRC/u
 import qs from "query-string";
 import { store } from "./dataStore/store.redux";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo } from "@DATA/dataSlices/order.slice";
-import { IUser, IProduct, ILogisticSearchParams, ELogisticStatus, IlogisticInfo } from "src/utils/interfaces";
+import { IUser, IProduct, ILogisticSearchParams, ELogisticStatus, IlogisticInfo, IOrderProduct } from "src/utils/interfaces";
 import Notification from "@SRC/utils/commomComponents/Notification";
 import { FormInstance } from "antd";
 
@@ -16,7 +16,7 @@ export const generateOrder = async (payload: object) => {
   await Request.post(`${env.dbUri}/orders`, payload, {}, "order");
 };
 
-export const getOrderByParams = (searchParams: ILogisticSearchParams, setData: any, setLoadingStatus: any, formInstance?: FormInstance) => {
+export const getOrderByParams = (searchParams: ILogisticSearchParams, setData: Function, setLoadingStatus: Function, formInstance?: FormInstance) => {
   // init the search, loading starts
   setLoadingStatus(true);
 
@@ -213,4 +213,12 @@ export const searchProductBySku = async (
         });
       }, 1000);
     });
+};
+
+/**
+ * to be called in 
+ * @param product 
+ */
+export const deductProduct = (product: IOrderProduct) => {
+  Request.put(`${env.dbUri}/products/${product.id}`, {}, `${product.name}`);
 };
