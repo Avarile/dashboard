@@ -212,3 +212,10 @@ I have go through the project throughly again, and re-configured the router, pag
    1. finished
 
 3. Finishe the implementation of SingleLogistic details component based on the fabricationComponent.
+
+#### Design of the Dashboard
+
+1. Implementation of deduction func is now complete.
+2. design of dashboard
+   - OrderList: only return the unFinished order.
+   - Cost cake graph: divide the itemPrice / PCPrice / installationPrice / freight

@@ -47,6 +47,7 @@ const CreateNewQuotation = () => {
         debugger;
         const payload = {
           ...values,
+          checked: false,
           createdAt: timeStamp(),
           createdBy: "name",
           updatedAt: timeStamp(),

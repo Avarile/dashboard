@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@ant-design/maps": "0.0.7",
+    "@ant-design/plots": "^1.0.9",
     "@ant-design/pro-card": "^1.20.1",
     "@ant-design/pro-form": "^1.66.0",
     "@ant-design/pro-table": "^2.73.0",

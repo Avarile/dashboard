@@ -218,7 +218,7 @@ export const searchProductBySku = async (
 };
 
 /**
- * to be called in
+ * to be called in the Addpayment component 
  * @param product
  */
 export const deductProduct = async (product: IOrderProduct) => {
