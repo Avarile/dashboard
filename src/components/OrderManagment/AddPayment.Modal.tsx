@@ -1,7 +1,8 @@
 import React from "react";
 import { Modal, Form, Input, InputNumber, Button, Select } from "antd";
 import { updateOrderForPayment } from "@SRC/data/api.service";
-import { timeStamp } from "@SRC/utils/utilFuncs";
+import { deductFromCurrentStock, timeStamp } from "@SRC/utils/utilFuncs";
+import { IOrderProduct } from "@SRC/utils/interfaces";
 
 const layout = {
   labelCol: { span: 8 },
@@ -37,10 +38,13 @@ const AddPaymentModal = ({ showPaymentModal, setShowPaymentModal, orderDetail, g
         paymentDetail: [...order.paymentDetail, { ...currentFormValue, payedAt: timeStamp() }],
         orderPayed: currentFormValue.amount + order.orderPayed,
         balanceDue: order.price.totalAmount - order.orderPayed - currentFormValue.amount,
-        orderStatus: order.orderPayed >= order.price.totalAmount ? "fullyPayed" : "partiallyPayed",
+        orderStatus: order.orderPayed + currentFormValue.amount >= order.price.totalAmount ? "fullyPayed" : "partiallyPayed",
       };
       console.log(payload);
       // if the amount is fully payed, then need to deduct the product from the stock
+      for (let product of payload.products) {
+        deductFromCurrentStock(product);
+      }
 
       updateOrderForPayment(orderDetail.id, payload).then(() => {
         formRef.resetFields(); // reset form after submit

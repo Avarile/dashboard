@@ -1,21 +1,30 @@
-export interface IProduct extends IOrderProduct, IProductSide {}
-
-export interface IOrderProduct {
+export interface IProduct {
   id: number;
-  type: "canopy" | "tray" | "toolbox" | "accessories" | "4x4" | "servicebody" | "tubcanopy";
   name: string;
-  price: number;
-  inStock: number;
-  pcPrice: number;
-  installPrice: number;
-}
-
-export interface IProductSide {
+  type: "canopy" | "tray" | "toolbox" | "accessories" | "4x4" | "servicebody" | "tubcanopy";
   subtype: "no subtype" | "dogbox" | "drawbar" | "gullwing";
-  detailType: "detailType1" | "detailType2" | "detailType3";
+  detail: "detailType1" | "detailType2" | "detailType3";
+  sku: string;
+  length: number;
+  size: string;
+  currentInStock: number;
+  price: number;
+  powdercoatingPrice: number;
+  installationPrice: number;
   desc: string;
   spec: string;
   updateLog: string;
+}
+
+export interface IOrderProduct {
+  id: number;
+  sku: string;
+  name: string;
+  size: string;
+  price: number;
+  pcPrice: number;
+  installPrice: number;
+  currentInStock: number;
 }
 
 export interface IUser {
@@ -88,14 +97,4 @@ export interface IOrderSearchParams {
   orderStatus: EPaymentStatus;
   id: number;
   dateRange: string;
-}
-
-export interface IOrderProduct {
-  sku: string;
-  name: string;
-  size: string;
-  price: number;
-  pcPrice: number;
-  installPrice: number;
-  currentInStock: number;
 }

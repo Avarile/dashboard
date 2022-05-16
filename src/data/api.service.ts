@@ -179,18 +179,20 @@ export const searchProductBySku = async (
       if (response.length > 0) {
         // console.log(response[0])
 
-        const { name, size, price, powdercoatingprice, installationprice, currentInStock } = response[0]; // accquire the response item
+        const { name, id, size, price, powdercoatingPrice, installationPrice, currentInStock } = response[0]; // accquire the response item
         const currentColumn = {
+          id: id,
           name: name,
           size: size,
           price: price,
-          pcPrice: powdercoatingprice,
-          installPrice: installationprice,
+          pcPrice: powdercoatingPrice,
+          installPrice: installationPrice,
           currentInStock: currentInStock,
         };
         const changedFormValue = currentFormValue.map((item: any, index: number) => {
           if (index === columnIndex) {
             item.name = currentColumn.name;
+            item.id = currentColumn.id;
             item.size = currentColumn.size;
             item.price = currentColumn.price;
             item.pcPrice = currentColumn.pcPrice;
@@ -216,9 +218,14 @@ export const searchProductBySku = async (
 };
 
 /**
- * to be called in 
- * @param product 
+ * to be called in
+ * @param product
  */
-export const deductProduct = (product: IOrderProduct) => {
-  Request.put(`${env.dbUri}/products/${product.id}`, {}, `${product.name}`);
+export const deductProduct = async (product: IOrderProduct) => {
+  const payload = {
+    ...product,
+    currentInStock: product.currentInStock - 1,
+  };
+
+  await Request.put(`${env.dbUri}/products/${product.id}`, payload, `${product.name}`);
 };

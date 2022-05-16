@@ -26,13 +26,15 @@
       "sku": "TB046F-17148",
       "size": "1400L x 1780W x 850H",
       "price": 2750,
-      "powdercoatingprice": 500,
-      "installationprice": 160,
+      "powdercoatingPrice": 500,
+      "installationPrice": 160,
       "desc": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*",
       "spec": "Toolbox size: 1780mm x 1400mm x 850mm \nDog Box Section: 700mm W x 890mm D\nHeavy Duty 2.5mm Aluminium Flat Plate \nAluminium Tubes Frame, can take up to 300kg top load when stationary\n4 x Stainless Steel Whale Tail Locks Secured; keyed alike\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\n2.5mm Reinforced Tubes Roof Bracing Structure\n3mm refinforced spare wheel carrier support\nFloor Included\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
-      "currentInStock": 50,
+      "currentInStock": 49,
       "updateLog": "TIG welding for all boxes\n2 Year 40,000 Structure Warranty*\n\n5/May/2022:\nArrival 50 units",
-      "id": 1
+      "id": 1,
+      "pcPrice": 500,
+      "installPrice": 160
     },
     {
       "subtype": "dualcab canopy",
@@ -43,8 +45,8 @@
       "sku": "TB038H-17188",
       "size": "1800L 1780W 850H",
       "price": 2750,
-      "powdercoatingprice": 600,
-      "installationprice": 160,
+      "powdercoatingPrice": 600,
+      "installationPrice": 160,
       "desc": "null",
       "spec": "Toolbox size: 1780mm x 1800mm x 850mm\nLight Weight 2.5mm Aluminium Checker Plate \nAluminium Tubes Frame, can take up to 300kg top load when stationary\n4 x Stainless Steel T Handle Locks Secured; Two For Each Lid; keyed alike\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\nReinforced Tubes Roof Bracing Structure\nFloor Included\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
       "currentInStock": 10,
@@ -60,8 +62,8 @@
       "sku": "TB038H-17168",
       "size": "1600L 1780W 850H",
       "price": 2350,
-      "powdercoatingprice": 365,
-      "installationprice": 160,
+      "powdercoatingPrice": 365,
+      "installationPrice": 160,
       "desc": "null",
       "spec": "Toolbox size: 1780mm x 1600mm x 850mm\nLight Weight 2.5mm Aluminium Checker Plate\nAluminium Tube Frame, can take up to 300kg top load\nExtra Spare Wheel Carrier Support\nFull Length Concealed Stainless Steel Piano Type Hinge\n2 x Gas Struts for each Door\nReinforced Tube Roof Bracing Structure\nWeather Proof Rubber Seal\nFully Tig Welded Seams\nShape Perfectly matches tray headboard / Cab Profile",
       "currentInStock": 2,
@@ -77,13 +79,15 @@
       "sku": "Tray-Deluxe-16S",
       "size": "1600L 1780W",
       "price": 1900,
-      "powdercoatingprice": 495,
-      "installationprice": 890,
+      "powdercoatingPrice": 495,
+      "installationPrice": 890,
       "desc": "Strong and Light Weight Aluminium Design\nStraight Tail Plate Design\nSize: 1780mm W x 1600mm L\nBase 3mm Aluminium Checker Plate Surface \n5mm Structure Tube Frame\nPressed alloy mudguards or Flare Mudguards\nTwo mudguards design options to choose** \n \n\nThis includes:\n\n1 X Aluminium Tray Deck\n1 X Mudguard Kit \n2 X Mudflaps\n1 Pair X LED Tail Lights (Sourced from APLED)\nFitting Kit (Includes steel chassis mounts) is NOT included.",
       "spec": "Tray Length 1600 Long\nTray Width 1780 Wide\nStandard Weight: Approx 80kg\nAvailable For Models Listed Below\n\nToyota Hilux Dual Cab All Models\nNissan Navara D40 Dual Cab All Models\nNissan Navara D22 Dual Cab All Models\nMitsubishi Triton Dual Cab All Models \nIsuzu Dmax Dual Cab All Models\nHolden Colorado Dual Cab All Models\nHolden Rodeo Dual Cab All Models\nMazda BT50 Dual Cab All Models\nFord Ranger Dual Cab All Models\nNote: Steel fitting kits are universal ones, cut is required to fit in your under tray toolboxes or mud guards if necessary.  All necessary bolts and nuts will be provided when you choose the options. ETB recommend using a local fabricator for installations in your region.\n\nSpecifications:\n\nTray Length 1600 Long\nTray Width 1780 Wide\nStandard Weight: Approx 85kg\n*Display photos will show you how it looks like on the utes. All boxes in the photos are NOT included in this listing.",
-      "currentInStock": 4,
+      "currentInStock": 3,
       "updateLog": "15/May/2022:\narrived 4",
-      "id": 4
+      "id": 4,
+      "pcPrice": 495,
+      "installPrice": 890
     },
     {
       "subtype": "no subtype",
@@ -94,8 +98,8 @@
       "sku": "Tray-Deluxe-18S",
       "size": "1800L 1780W",
       "price": 2199,
-      "powdercoatingprice": 495,
-      "installationprice": 890,
+      "powdercoatingPrice": 495,
+      "installationPrice": 890,
       "desc": "Strong and Light Weight Aluminium Design\nStraight Tail Plate Design\nSize: 1780mm W x 1800mm L\nBase 3mm Aluminium Checker Plate Surface \nPressed alloy mudguards or Flare Mudguards\nTwo mudguards design options to choose** \nThis includes:\n\n1 X Aluminium Tray Deck\n1 X Mudguard Kit \n2 X Mudflaps\n1 Pair X LED Tail Lights (Sourced from APLED)\nFitting Kit (Includes steel chassis mounts) is NOT included.",
       "spec": "Tray Length 1800 Long\nTray Width 1780 Wide\nStandard Weight: Approx 85kg\nAvailable For Models Listed Below\n\nToyota Hilux Dual Cab All Models\nNissan Navara D40 Dual Cab All Models\nNissan Navara D22 Dual Cab All Models\nMitsubishi Triton Dual Cab All Models \nIsuzu Dmax Dual Cab All Models\nHolden Colorado Dual Cab All Models\nHolden Rodeo Dual Cab All Models\nMazda BT50 Dual Cab All Models\nFord Ranger Dual Cab All Models",
       "currentInStock": 2,
@@ -111,8 +115,8 @@
       "sku": "Tray-18D",
       "size": "1800L 1780W 50H",
       "price": 2800,
-      "powdercoatingprice": 400,
-      "installationprice": 560,
+      "powdercoatingPrice": 400,
+      "installationPrice": 560,
       "desc": "asdfasdfasdf",
       "spec": "asdfasdfasdf",
       "currentInStock": 3,
@@ -183,58 +187,130 @@
       "shipping": {
         "address": "Melbourne",
         "postcode": "3000",
-        "shippingFee": "50"
+        "shippingFee": "10"
       },
       "products": [
         {
           "sku": "TB046F-17148",
           "name": "1400mm Flat Plate Aluminium Canopy With Dog Box Section",
+          "id": 1,
           "size": "1400L x 1780W x 850H",
           "price": 2750,
           "pcPrice": 500,
           "installPrice": 160,
           "currentInStock": 50
+        },
+        {
+          "sku": "Tray-Deluxe-16S",
+          "name": "1780W x 1600L mm (Deck Only) Premium Tray Aluminium Dual Cab Ute",
+          "id": 4,
+          "size": "1600L 1780W",
+          "price": 1900,
+          "pcPrice": 495,
+          "installPrice": 890,
+          "currentInStock": 4
         }
       ],
       "price": {
-        "itemPrice": 2750,
-        "pcPrice": 500,
-        "installPrice": 160,
-        "totalAmount": 3460,
-        "depositPayed": 1000
+        "itemPrice": 4650,
+        "pcPrice": 995,
+        "installPrice": 1050,
+        "totalAmount": 6705,
+        "depositPayed": 1200
       },
-      "createdAt": "2022-05-15",
+      "orderDescription": "Normal order",
+      "createdAt": "2022-05-16",
       "createdBy": "name",
-      "updatedAt": "2022-05-15",
+      "updatedAt": "2022-05-16",
       "updatedBy": "name",
       "orderStatus": "fullyPayed",
       "fabricationStatus": "pending",
       "logisticStatus": "waitingForCarrier",
       "logisticProvider": null,
       "pickupAt": null,
-      "orderPayed": 3460,
+      "orderPayed": 6705,
       "paymentDetail": [
         {
           "method": "cash",
-          "amount": 1000,
-          "payedAt": "2022-05-15"
+          "amount": 0,
+          "payedAt": "2022-05-16"
         },
         {
           "method": "cash",
-          "amount": 1460,
-          "payedAt": "2022-05-15"
+          "amount": 5505,
+          "payedAt": "2022-05-16"
         },
         {
           "method": "cash",
           "amount": 0,
-          "payedAt": "2022-05-15"
+          "payedAt": "2022-05-16"
         }
       ],
       "balanceDue": 0,
       "id": 1,
       "key": 1,
       "clientName": "Avarile",
-      "orderAmount": 3460
+      "orderAmount": 6705
+    },
+    {
+      "client": {
+        "clientSearch": "Emily@gmail.com",
+        "id": 5,
+        "name": "Emily",
+        "email": "Emily@gmail.com",
+        "mobile": "0412345678",
+        "vip": true,
+        "address": "PointCook",
+        "postcode": "3030"
+      },
+      "shipping": {
+        "address": "Brisbane",
+        "postcode": "5000",
+        "shippingFee": "120"
+      },
+      "products": [
+        {
+          "sku": "TB038H-17168",
+          "name": "1600mm Checker Plate Aluminium Canopy",
+          "id": 3,
+          "size": "1600L 1780W 850H",
+          "price": 2350,
+          "pcPrice": 365,
+          "installPrice": 160,
+          "currentInStock": 2
+        },
+        {
+          "sku": "Tray-Deluxe-16S",
+          "name": "1780W x 1600L mm (Deck Only) Premium Tray Aluminium Dual Cab Ute",
+          "id": 4,
+          "size": "1600L 1780W",
+          "price": 1900,
+          "pcPrice": 495,
+          "installPrice": 890,
+          "currentInStock": 4
+        }
+      ],
+      "price": {
+        "itemPrice": 4250,
+        "pcPrice": 860,
+        "installPrice": 1050,
+        "totalAmount": 6280,
+        "depositPayed": 1500
+      },
+      "orderDescription": "Normal",
+      "createdAt": "2022-05-16",
+      "createdBy": "name",
+      "updatedAt": "2022-05-16",
+      "updatedBy": "name",
+      "orderStatus": "partiallyPayed",
+      "fabricationStatus": "pending",
+      "logisticStatus": "waitingForCarrier",
+      "logisticProvider": null,
+      "pickupAt": null,
+      "orderPayed": 1500,
+      "paymentDetail": [],
+      "balanceDue": 4780,
+      "id": 2
     }
   ]
 }

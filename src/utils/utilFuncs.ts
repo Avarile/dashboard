@@ -192,8 +192,6 @@ export const isShortage = (products: IOrderProduct[]): { sku: string }[] => {
   return result;
 };
 
-export const deductFromCurrentStock = (products: IOrderProduct[]) => {
-  for (let product of products) {
-    deductProduct(product);
-  }
+export const deductFromCurrentStock = (product: IOrderProduct) => {
+  deductProduct(product);
 };

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Space, FormInstance, Select, InputNumber } from "antd";
+import { Form, Input, Button, Space, FormInstance, Select, InputNumber, Badge } from "antd";
 import { MinusCircleOutlined, PlusOutlined, CarryOutFilled } from "@ant-design/icons";
 import { getClientsByParams, manipulateUserInfo, searchProductBySku, generateOrder } from "@DATA/api.service";
 import { setSelectedItems, setPrice, setOrderCustomer, setOrderShippingInfo, selectOrder } from "@DATA/dataSlices/order.slice";
@@ -292,7 +292,10 @@ const CreateNewQuotation = () => {
                   <Form.Item {...restField} name={[name, "name"]} rules={[{ required: true, message: "required" }]} style={{ width: "25rem" }}>
                     <Input placeholder="Product Name" />
                   </Form.Item>
-                  <Form.Item {...restField} name={[name, "currentInStock"]} rules={[{ required: true, message: "required" }]} style={{ width: "7rem" }}>
+                  <Form.Item {...restField} name={[name, "id"]} rules={[{ required: true, message: "required" }]} style={{ width: "5rem" }}>
+                    <Input placeholder="ID" />
+                  </Form.Item>
+                  <Form.Item {...restField} name={[name, "currentInStock"]} rules={[{ required: true, message: "required" }]} style={{ width: "5rem" }}>
                     <Input placeholder="Stock" />
                   </Form.Item>
                   <Form.Item {...restField} name={[name, "size"]} rules={[{ required: true, message: "required" }]}>
