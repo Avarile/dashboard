@@ -79,7 +79,7 @@
     "yup": "^0.32.11",
     "json-server": "^0.17.0"
   },
-  "homepage": "https://Avarile.github.io/ERP",
+  "homepage": "https://Avarile.github.io",
   "scripts": {
     "start": "concurrently \" node scripts/start.js\" \"json-server --watch ./mockDatabase/db.json --port 3001 \"",
     "build": "node scripts/build.js",
