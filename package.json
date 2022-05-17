@@ -165,6 +165,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.25",
-    "concurrently": "^7.1.0"
+    "concurrently": "^7.1.0",
+    "gh-pages": "^4.0.0"
   }
 }
