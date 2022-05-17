@@ -76,7 +76,8 @@
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "json-server": "^0.17.0"
   },
   "homepage": "https://Avarile.github.io",
   "scripts": {
@@ -165,7 +166,6 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.25",
     "concurrently": "^7.1.0",
-    "gh-pages": "^4.0.0",
-    "json-server": "^0.17.0"
+    "gh-pages": "^4.0.0"
   }
 }
