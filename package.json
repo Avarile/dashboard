@@ -78,7 +78,7 @@
     "workbox-webpack-plugin": "^6.4.1",
     "yup": "^0.32.11"
   },
-  "homepage": "./",
+  "homepage": "https://Avarile.github.io",
   "scripts": {
     "start": "concurrently \" node scripts/start.js\" \"json-server --watch ./mockDatabase/db.json --port 3001 \"",
     "build": "node scripts/build.js",
