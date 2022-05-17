@@ -6,3 +6,5 @@
 - _password_: 000000
 
 #### An Simple ERP specially designed for small businesses, who seek lightweight application to regular their day to day client managing, manufactoring, logistic, quoting and delivering process. Also perfect for those who seek migrate from Excel or on papaer management to digitization.
+
+##### As a self-taught programmer, I also want use this project as my profolio site --- this is fully original, designed from real-life commercial needs, solving real-life problems. Not something COPIED from github and changed name.
