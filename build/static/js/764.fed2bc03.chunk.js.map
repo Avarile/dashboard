@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/764.fed2bc03.chunk.js","mappings":"6KAEe,SAASA,IACtB,OAAO","sources":["pages/Customize.tsx"],"sourcesContent":["import React from \"react\";\r\n\r\nexport default function Customize() {\r\n  return <div>Customize</div>;\r\n}\r\n"],"names":["Customize"],"sourceRoot":""}

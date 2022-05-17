@@ -76,11 +76,15 @@
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "json-server": "^0.17.0"
   },
+  "homepage": "https://Avarile.github.io/dashboard/",
   "scripts": {
     "start": "concurrently \" node scripts/start.js\" \"json-server --watch ./mockDatabase/db.json --port 3001 \"",
     "build": "node scripts/build.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
@@ -161,7 +165,6 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.25",
-    "concurrently": "^7.1.0",
-    "json-server": "^0.17.0"
+    "concurrently": "^7.1.0"
   }
 }

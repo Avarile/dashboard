@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/471.d18b7d28.chunk.js","mappings":"6KAEe,SAASA,IACtB,OAAO","sources":["pages/Workshop.tsx"],"sourcesContent":["import React from \"react\";\r\n\r\nexport default function Workshop() {\r\n  return <div>Workshop</div>;\r\n}\r\n"],"names":["Workshop"],"sourceRoot":""}
