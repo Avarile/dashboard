@@ -2,6 +2,9 @@
 
 ##### demo page: https://avarile.github.io/dashboard ver. 0.1
 
+source code:
+https://github.com/Avarile/Avarile.github.io
+
 - _username_: Avarile
 - _password_: 000000
 
